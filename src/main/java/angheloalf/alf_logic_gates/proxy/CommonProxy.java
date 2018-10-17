@@ -20,6 +20,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 
 import java.io.File;
 
@@ -68,4 +71,11 @@ public class CommonProxy {
         event.getRegistry().register(new ExampleItem());
     }
 
+	@SubscribeEvent
+	public static void registerRenders(ModelRegistryEvent event) {
+		registerRender(Item.getItemFromBlock(ModBlocks.exampleBlock));
+    }
+	public static void registerRender(Item item) {
+		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation( item.getRegistryName(), "inventory"));
+	}
 }

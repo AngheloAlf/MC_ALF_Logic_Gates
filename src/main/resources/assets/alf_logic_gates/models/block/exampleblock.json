@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "alf_logic_gates:blocks/exampleblock"
+    }
+}
