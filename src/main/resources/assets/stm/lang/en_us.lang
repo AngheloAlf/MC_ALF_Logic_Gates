@@ -1,0 +1,4 @@
+itemGroup.logicGatesTab=ALF_Logic_Gates
+
+tile.alf_logic_gates.exampleblock.name=Example block
+item.alf_logic_gates.exampleitem.name=Example item
