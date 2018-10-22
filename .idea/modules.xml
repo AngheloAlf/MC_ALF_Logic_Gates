@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MC_ALF_Logic_Gates.iml" filepath="$PROJECT_DIR$/MC_ALF_Logic_Gates.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MC_ALF_Logic_Gates_api.iml" filepath="$PROJECT_DIR$/.idea/modules/MC_ALF_Logic_Gates_api.iml" group="MC_ALF_Logic_Gates" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MC_ALF_Logic_Gates_main.iml" filepath="$PROJECT_DIR$/.idea/modules/MC_ALF_Logic_Gates_main.iml" group="MC_ALF_Logic_Gates" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MC_ALF_Logic_Gates_test.iml" filepath="$PROJECT_DIR$/.idea/modules/MC_ALF_Logic_Gates_test.iml" group="MC_ALF_Logic_Gates" />
+    </modules>
+  </component>
+</project>
