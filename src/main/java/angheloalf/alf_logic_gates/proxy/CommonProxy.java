@@ -2,6 +2,7 @@ package angheloalf.alf_logic_gates.proxy;
 
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.ModBlocks;
+import angheloalf.alf_logic_gates.ModItems;
 import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.blocks.*;
 import angheloalf.alf_logic_gates.items.*;
@@ -73,9 +74,10 @@ public class CommonProxy {
 
 	@SubscribeEvent
 	public static void registerRenders(ModelRegistryEvent event) {
-		registerRender(Item.getItemFromBlock(ModBlocks.exampleBlock));
+        registerRender(Item.getItemFromBlock(ModBlocks.exampleBlock));
+        registerRender(ModItems.exampleItem);
     }
 	public static void registerRender(Item item) {
 		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation( item.getRegistryName(), "inventory"));
-	}
+    }
 }
