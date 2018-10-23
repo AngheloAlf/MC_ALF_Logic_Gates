@@ -1,6 +1,12 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube",
     "textures": {
-        "all": "alf_logic_gates:blocks/exampleblock"
+        "particle": "alf_logic_gates:blocks/exampleblock",
+        "down": "alf_logic_gates:blocks/example_down",
+        "up": "alf_logic_gates:blocks/exampleblock",
+        "east": "alf_logic_gates:blocks/example_side",
+        "west": "alf_logic_gates:blocks/example_side",
+        "north": "alf_logic_gates:blocks/example_out",
+        "south": "alf_logic_gates:blocks/example_side"
     }
 }
