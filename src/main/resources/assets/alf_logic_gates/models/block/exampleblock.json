@@ -7,6 +7,6 @@
         "east": "alf_logic_gates:blocks/example_side",
         "west": "alf_logic_gates:blocks/example_side",
         "north": "alf_logic_gates:blocks/example_out",
-        "south": "alf_logic_gates:blocks/example_side"
+        "south": "#back"
     }
 }

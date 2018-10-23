@@ -1,7 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alf_logic_gates:exampleblock"
+    "model": "alf_logic_gates:exampleblock",
+    "textures": {
+      "back": "alf_logic_gates:blocks/example_back"
+    }
   },
   "variants": {
     "normal": [{}],
@@ -13,6 +16,14 @@
       "east": {"y": 90},
       "up": {"x": -90},
       "down": {"x": 90}
+    },
+    "enabled": {
+      "false": {},
+      "true": {
+        "textures": {
+          "back": "alf_logic_gates:blocks/example_side"
+        }
+      }
     }
   }
 }
