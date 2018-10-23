@@ -5,7 +5,8 @@ import angheloalf.alf_logic_gates.ModCreativeTabs;
 
 import net.minecraft.item.Item;
 
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ExampleItem extends Item {
 
@@ -15,4 +16,8 @@ public class ExampleItem extends Item {
         setCreativeTab(ModCreativeTabs.logicGatesTab);
     }
 
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+
+    }
 }

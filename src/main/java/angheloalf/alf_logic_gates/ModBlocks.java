@@ -12,4 +12,9 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":exampleblock")
     public static ExampleBlock exampleBlock;
 
+    @SideOnly(Side.CLIENT)
+    public static void initModels() {
+        exampleBlock.initModel();
+    }
+
 }

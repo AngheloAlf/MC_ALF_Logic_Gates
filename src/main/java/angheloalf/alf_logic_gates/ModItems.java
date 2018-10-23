@@ -12,4 +12,8 @@ public class ModItems {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":exampleitem")
     public static ExampleItem exampleItem;
 
+    public static void initModels() {
+        exampleItem.initModel();
+    }
+
 }
