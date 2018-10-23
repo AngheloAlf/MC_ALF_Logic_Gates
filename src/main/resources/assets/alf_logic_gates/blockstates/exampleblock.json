@@ -3,7 +3,9 @@
   "defaults": {
     "model": "alf_logic_gates:exampleblock",
     "textures": {
-      "back": "alf_logic_gates:blocks/example_back"
+      "left": "alf_logic_gates:blocks/example_in",
+      "back": "alf_logic_gates:blocks/example_in",
+      "right": "alf_logic_gates:blocks/example_off"
     }
   },
   "variants": {
@@ -17,11 +19,33 @@
       "up": {"x": -90},
       "down": {"x": 90}
     },
-    "enabled": {
-      "false": {},
-      "true": {
+    "block_state": {
+      "0": {
         "textures": {
-          "back": "alf_logic_gates:blocks/example_side"
+          "left": "alf_logic_gates:blocks/example_in",
+          "back": "alf_logic_gates:blocks/example_in",
+          "right": "alf_logic_gates:blocks/example_off"
+        }
+      },
+      "1": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/example_in",
+          "back": "alf_logic_gates:blocks/example_off",
+          "right": "alf_logic_gates:blocks/example_in"
+        }
+      },
+      "2": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/example_off",
+          "back": "alf_logic_gates:blocks/example_in",
+          "right": "alf_logic_gates:blocks/example_in"
+        }
+      },
+      "3": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/example_in",
+          "back": "alf_logic_gates:blocks/example_in",
+          "right": "alf_logic_gates:blocks/example_in"
         }
       }
     }

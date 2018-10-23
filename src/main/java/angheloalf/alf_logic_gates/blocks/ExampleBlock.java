@@ -5,7 +5,7 @@ import angheloalf.alf_logic_gates.ModCreativeTabs;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -19,12 +19,12 @@ import net.minecraft.world.World;
 
 
 public class ExampleBlock extends Block {
-    
+
+    // TODO: title entity
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
-    public static final PropertyBool ENABLED = PropertyBool.create("enabled");
+    public static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 3);
 
     private int clicked;
-
 
     public ExampleBlock() {
         super(Material.ROCK);
@@ -32,7 +32,7 @@ public class ExampleBlock extends Block {
         setRegistryName("exampleblock");
         setCreativeTab(ModCreativeTabs.logicGatesTab);
 
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BLOCK_STATE, 0));
 
         clicked = 0;
     }
@@ -44,8 +44,8 @@ public class ExampleBlock extends Block {
             return true;
         }
         else {
-            clicked = 1-clicked;
-            world.setBlockState(pos, state.withProperty(ENABLED, clicked != 0), 3);
+            clicked = (clicked+1)%4;
+            world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
             return true;
         }
     }
@@ -65,17 +65,16 @@ public class ExampleBlock extends Block {
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState()
-                .withProperty(FACING, EnumFacing.getFront(meta & 7))
-                .withProperty(ENABLED, (meta & 8) != 0);
+                .withProperty(FACING, EnumFacing.getFront(meta & 7));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex() + (state.getValue(ENABLED) ? 8 : 0);
+        return state.getValue(FACING).getIndex();
     }
 
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, ENABLED);
+    protected BlockStateContainer createBlockState(){
+        return new BlockStateContainer(this, FACING, BLOCK_STATE);
     }
 }
