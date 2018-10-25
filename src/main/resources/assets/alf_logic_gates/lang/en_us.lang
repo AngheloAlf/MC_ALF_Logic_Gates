@@ -3,4 +3,6 @@ itemGroup.logicGatesTab=ALF_Logic_Gates
 tile.alf_logic_gates.exampleblock.name=Example block
 item.alf_logic_gates.exampleitem.name=Example item
 
+tile.alf_logic_gates.or_block.name=OR Gate
+
 message.alf_logic_gates.clicked=Click: %d

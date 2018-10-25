@@ -11,18 +11,22 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProvider{
-    public static final PropertyDirection FACING = PropertyDirection.create("facing");
+    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 3);
 
     public LogicBlock(String blockName){
@@ -38,12 +42,12 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState()
-                .withProperty(FACING, EnumFacing.getFront(meta & 7));
+                .withProperty(FACING, EnumFacing.getFront((meta & 3) + 2));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
+        return state.getValue(FACING).getIndex()-2;
     }
 
     @Override
@@ -142,8 +146,37 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
             block_state = logicTileEntity.getClickCount();
         }
 
-        IBlockState newState = state.withProperty(FACING, getFacingFromEntity(pos, placer).getOpposite()).withProperty(BLOCK_STATE, block_state);
+        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(BLOCK_STATE, block_state);
         world.setBlockState(pos, newState, 2);
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        //This makes it work on server side.
+        if(!world.isRemote){
+            LogicTileEntity tileEntity = getTE(world, pos);
+            if(tileEntity != null){
+                int clicked = tileEntity.click();
+
+                int aPower = getAPower(world, pos, state);
+                int bPower = getBPower(world, pos, state);
+                int cPower = getCPower(world, pos, state);
+
+                TextComponentTranslation component;
+                component = new TextComponentTranslation("message.alf_logic_gates.clicked", aPower);
+                component.getStyle().setColor(TextFormatting.RED);
+                player.sendStatusMessage(component, false);
+                component = new TextComponentTranslation("message.alf_logic_gates.clicked", bPower);
+                component.getStyle().setColor(TextFormatting.GREEN);
+                player.sendStatusMessage(component, false);
+                component = new TextComponentTranslation("message.alf_logic_gates.clicked", cPower);
+                component.getStyle().setColor(TextFormatting.BLUE);
+                player.sendStatusMessage(component, false);
+
+                world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
+            }
+        }
+        return true;
     }
 
 
@@ -193,7 +226,7 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
     @Override
     public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, EnumFacing side){
         if (side == null) return false;
-        // if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
+        if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
 
 
         // we can connect to three of the four side faces - if the block is facing north, then we can
