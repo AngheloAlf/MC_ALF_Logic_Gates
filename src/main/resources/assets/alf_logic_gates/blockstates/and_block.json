@@ -1,0 +1,53 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alf_logic_gates:and_block",
+    "textures": {
+      "left": "alf_logic_gates:blocks/and/in",
+      "back": "alf_logic_gates:blocks/and/in",
+      "right": "alf_logic_gates:blocks/and/off"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+    "block_state": {
+      "0": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/and/in",
+          "back": "alf_logic_gates:blocks/and/in",
+          "right": "alf_logic_gates:blocks/and/off"
+        }
+      },
+      "1": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/and/in",
+          "back": "alf_logic_gates:blocks/and/off",
+          "right": "alf_logic_gates:blocks/and/in"
+        }
+      },
+      "2": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/and/off",
+          "back": "alf_logic_gates:blocks/and/in",
+          "right": "alf_logic_gates:blocks/and/in"
+        }
+      },
+      "3": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/and/in",
+          "back": "alf_logic_gates:blocks/and/in",
+          "right": "alf_logic_gates:blocks/and/in"
+        }
+      }
+    }
+  }
+}

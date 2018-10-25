@@ -54,9 +54,13 @@ public class CommonProxy {
         event.getRegistry().register(new ExampleBlock());
         GameRegistry.registerTileEntity(LogicTileEntity.class, Mod_ALF_Logic_Gates.MODID + "_logictileentity");
 
-        AlfBaseBlock block = new OR_Block();
+        AlfBaseBlock block;
+
+        block = new OR_Block();
         event.getRegistry().register(block);
 
+        block = new AND_Block();
+        event.getRegistry().register(block);
     }
 
     @SubscribeEvent
@@ -65,6 +69,7 @@ public class CommonProxy {
         event.getRegistry().register(new ExampleItem());
 
         event.getRegistry().register(new ItemBlock(ModBlocks.or_block).setRegistryName(ModBlocks.or_block.getBlockName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.and_block).setRegistryName(ModBlocks.and_block.getBlockName()));
     }
 
 	@SubscribeEvent
@@ -73,6 +78,7 @@ public class CommonProxy {
         registerRender(ModItems.exampleItem);
 
         registerRender(Item.getItemFromBlock(ModBlocks.or_block));
+        registerRender(Item.getItemFromBlock(ModBlocks.and_block));
     }
 
     public static void registerRender(Item item) {
