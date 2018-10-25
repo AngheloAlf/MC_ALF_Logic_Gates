@@ -1,11 +1,11 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alf_logic_gates:or_block",
+    "model": "alf_logic_gates:block",
     "textures": {
-      "left": "alf_logic_gates:blocks/or/or_in",
-      "back": "alf_logic_gates:blocks/or/or_in",
-      "right": "alf_logic_gates:blocks/or/or_off"
+      "left": "alf_logic_gates:blocks/or/in",
+      "back": "alf_logic_gates:blocks/or/in",
+      "right": "alf_logic_gates:blocks/or/off"
     }
   },
   "variants": {
@@ -22,30 +22,30 @@
     "block_state": {
       "0": {
         "textures": {
-          "left": "alf_logic_gates:blocks/or/or_in",
-          "back": "alf_logic_gates:blocks/or/or_in",
-          "right": "alf_logic_gates:blocks/or/or_off"
+          "left": "alf_logic_gates:blocks/or/in",
+          "back": "alf_logic_gates:blocks/or/in",
+          "right": "alf_logic_gates:blocks/or/off"
         }
       },
       "1": {
         "textures": {
-          "left": "alf_logic_gates:blocks/or/or_in",
-          "back": "alf_logic_gates:blocks/or/or_off",
-          "right": "alf_logic_gates:blocks/or/or_in"
+          "left": "alf_logic_gates:blocks/or/in",
+          "back": "alf_logic_gates:blocks/or/off",
+          "right": "alf_logic_gates:blocks/or/in"
         }
       },
       "2": {
         "textures": {
-          "left": "alf_logic_gates:blocks/or/or_off",
-          "back": "alf_logic_gates:blocks/or/or_in",
-          "right": "alf_logic_gates:blocks/or/or_in"
+          "left": "alf_logic_gates:blocks/or/off",
+          "back": "alf_logic_gates:blocks/or/in",
+          "right": "alf_logic_gates:blocks/or/in"
         }
       },
       "3": {
         "textures": {
-          "left": "alf_logic_gates:blocks/or/or_in",
-          "back": "alf_logic_gates:blocks/or/or_in",
-          "right": "alf_logic_gates:blocks/or/or_in"
+          "left": "alf_logic_gates:blocks/or/in",
+          "back": "alf_logic_gates:blocks/or/in",
+          "right": "alf_logic_gates:blocks/or/in"
         }
       }
     }
