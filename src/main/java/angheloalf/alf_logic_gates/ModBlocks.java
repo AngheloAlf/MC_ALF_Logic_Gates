@@ -1,8 +1,9 @@
 package angheloalf.alf_logic_gates;
 
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.*;
 
+import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+import angheloalf.alf_logic_gates.blocks.base_blocks.LogicBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -12,9 +13,22 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":exampleblock")
     public static ExampleBlock exampleBlock;
 
+
+    // public static final String or_block_name = "or_block";
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":or_block")
+    public static OR_Block or_block = new OR_Block();
+
+    public static LogicBlock logicBlocks[] = {or_block};
+
     @SideOnly(Side.CLIENT)
     public static void initModels() {
         exampleBlock.initModel();
+
+
+        for(AlfBaseBlock item: logicBlocks){
+            item.initModel();
+        }
+
     }
 
 }

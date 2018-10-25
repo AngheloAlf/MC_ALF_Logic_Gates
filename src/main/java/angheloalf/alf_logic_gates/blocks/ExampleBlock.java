@@ -68,7 +68,6 @@ public class ExampleBlock extends Block implements ITileEntityProvider{
     @Override
     public boolean hasTileEntity(IBlockState state){
         return true;
-
     }
 
     protected LogicTileEntity getTE(World world, BlockPos pos) {
