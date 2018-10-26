@@ -2,7 +2,7 @@ package angheloalf.alf_logic_gates.blocks.base_blocks;
 
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
-import net.minecraft.block.Block;
+
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -180,12 +180,9 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
     }
 
 
-
-
     /* Redstone */
 
     protected int calculateInputStrengthFromFace(World worldIn, BlockPos pos, EnumFacing enumFacing){
-        // EnumFacing enumfacing = state.getValue(FACING).getOpposite().rotateYCCW();
         BlockPos blockpos = pos.offset(enumFacing);
         int i = worldIn.getRedstonePower(blockpos, enumFacing);
 
@@ -246,7 +243,6 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
 
 
 
-    //  The methods below are used to provide power to neighbours.
     /**
      * Can this block provide power. Only wire currently seems to have this change based on its state.
      */
@@ -255,21 +251,7 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
         return true;
     }
 
-    protected abstract int getOutputPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side);/*{
-        if(blockState.getValue(FACING).getOpposite() == side){
-            if(blockAccess instanceof World){
-                World worldIn = (World) blockAccess;
-                int aPower = getAPower(worldIn, pos, blockState);
-                int bPower = getBPower(worldIn, pos, blockState);
-                int cPower = getCPower(worldIn, pos, blockState);
-
-                if(aPower > 0 || bPower > 0 || cPower > 0){
-                    return Math.max(Math.max(aPower, bPower), cPower);
-                }
-            }
-        }
-        return 0;
-    }*/
+    protected abstract int getOutputPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
 
 
     /** How much weak power does this block provide to the adjacent block?
@@ -290,14 +272,6 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
     @Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         return getOutputPower(blockState, blockAccess, pos, side);
-    }
-
-
-    // Called when a neighbouring block changes.
-    // Only called on the server side
-    @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos){
-        super.neighborChanged(state, worldIn, pos, neighborBlock, neighborPos);
     }
 
     /**

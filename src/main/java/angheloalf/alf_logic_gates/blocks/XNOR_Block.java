@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class XNOR_Block extends LogicBlock{
     public XNOR_Block(){
-        super("xor_block");
+        super("xnor_block");
     }
 
     @Override

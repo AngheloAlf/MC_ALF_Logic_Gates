@@ -22,7 +22,21 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":xor_block")
     public static XOR_Block xor_block = new XOR_Block();
 
-    public static LogicBlock logicBlocks[] = {or_block, and_block, xor_block};
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":nor_block")
+    public static NOR_Block nor_block = new NOR_Block();
+
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":nand_block")
+    public static NAND_Block nand_block = new NAND_Block();
+
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":xnor_block")
+    public static XNOR_Block xnor_block = new XNOR_Block();
+
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":not_block")
+    public static NOT_Block not_block = new NOT_Block();
+
+    public static LogicBlock logicBlocks[] = {or_block, and_block, xor_block,
+                                              nor_block, nand_block, xnor_block,
+                                              not_block};
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {

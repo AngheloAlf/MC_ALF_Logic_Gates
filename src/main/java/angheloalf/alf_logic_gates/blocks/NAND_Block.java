@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class NAND_Block extends LogicBlock{
     public NAND_Block(){
-        super("and_block");
+        super("nand_block");
     }
 
     @Override

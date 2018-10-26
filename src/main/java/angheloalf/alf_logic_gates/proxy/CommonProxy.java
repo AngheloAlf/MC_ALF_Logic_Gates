@@ -64,6 +64,18 @@ public class CommonProxy {
 
         block = new XOR_Block();
         event.getRegistry().register(block);
+
+        block = new NOR_Block();
+        event.getRegistry().register(block);
+
+        block = new NAND_Block();
+        event.getRegistry().register(block);
+
+        block = new XNOR_Block();
+        event.getRegistry().register(block);
+
+        block = new NOT_Block();
+        event.getRegistry().register(block);
     }
 
     @SubscribeEvent
@@ -71,9 +83,18 @@ public class CommonProxy {
         event.getRegistry().register(new ItemBlock(ModBlocks.exampleBlock).setRegistryName(ModBlocks.exampleBlock.getRegistryName()));
         event.getRegistry().register(new ExampleItem());
 
+        // for(AlfBaseBlock block: ModBlocks.logicBlocks){
+        //     event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getBlockName()));
+        // }
         event.getRegistry().register(new ItemBlock(ModBlocks.or_block).setRegistryName(ModBlocks.or_block.getBlockName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.and_block).setRegistryName(ModBlocks.and_block.getBlockName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.xor_block).setRegistryName(ModBlocks.xor_block.getBlockName()));
+
+        event.getRegistry().register(new ItemBlock(ModBlocks.nor_block).setRegistryName(ModBlocks.nor_block.getBlockName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.nand_block).setRegistryName(ModBlocks.nand_block.getBlockName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.xnor_block).setRegistryName(ModBlocks.xnor_block.getBlockName()));
+
+        event.getRegistry().register(new ItemBlock(ModBlocks.not_block).setRegistryName(ModBlocks.not_block.getBlockName()));
     }
 
 	@SubscribeEvent
@@ -81,9 +102,19 @@ public class CommonProxy {
         registerRender(Item.getItemFromBlock(ModBlocks.exampleBlock));
         registerRender(ModItems.exampleItem);
 
+        // for(AlfBaseBlock block: ModBlocks.logicBlocks){
+        //     registerRender(Item.getItemFromBlock(block));
+        // }
+
         registerRender(Item.getItemFromBlock(ModBlocks.or_block));
         registerRender(Item.getItemFromBlock(ModBlocks.and_block));
         registerRender(Item.getItemFromBlock(ModBlocks.xor_block));
+
+        registerRender(Item.getItemFromBlock(ModBlocks.nor_block));
+        registerRender(Item.getItemFromBlock(ModBlocks.nand_block));
+        registerRender(Item.getItemFromBlock(ModBlocks.xnor_block));
+
+        registerRender(Item.getItemFromBlock(ModBlocks.not_block));
     }
 
     public static void registerRender(Item item) {
