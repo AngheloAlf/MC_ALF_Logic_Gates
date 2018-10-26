@@ -228,15 +228,19 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
         if (side == null) return false;
         if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
 
-
-        // we can connect to three of the four side faces - if the block is facing north, then we can
-        //  connect to WEST, SOUTH, or EAST.
-
-        /*
-        EnumFacing whichFaceOfLamp = side.getOpposite();
-        EnumFacing blockFacingDirection = (EnumFacing)state.getValue(FACING);
-
-        if (whichFaceOfLamp == blockFacingDirection) return false;*/
+        int block_state = state.getValue(BLOCK_STATE);
+        EnumFacing a_side = state.getValue(FACING).getOpposite().rotateYCCW();
+        if(block_state == 2 && side == a_side){
+            return false;
+        }
+        a_side = a_side.rotateYCCW();
+        if(block_state == 1 && side == a_side){
+            return false;
+        }
+        a_side = a_side.rotateYCCW();
+        if(block_state == 0 && side == a_side){
+            return false;
+        }
         return true;
     }
 
