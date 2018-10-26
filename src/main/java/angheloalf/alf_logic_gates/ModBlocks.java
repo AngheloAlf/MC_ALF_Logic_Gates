@@ -19,7 +19,10 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":and_block")
     public static AND_Block and_block = new AND_Block();
 
-    public static LogicBlock logicBlocks[] = {or_block, and_block};
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":xor_block")
+    public static XOR_Block xor_block = new XOR_Block();
+
+    public static LogicBlock logicBlocks[] = {or_block, and_block, xor_block};
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {

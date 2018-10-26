@@ -1,7 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alf_logic_gates:block",
+    "model": "alf_logic_gates:or_block",
     "textures": {
       "left": "alf_logic_gates:blocks/or/in",
       "back": "alf_logic_gates:blocks/or/in",
