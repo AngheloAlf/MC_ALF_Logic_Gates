@@ -6,5 +6,9 @@ item.alf_logic_gates.exampleitem.name=Example item
 tile.alf_logic_gates.or_block.name=OR Gate
 tile.alf_logic_gates.and_block.name=AND Gate
 tile.alf_logic_gates.xor_block.name=XOR Gate
+tile.alf_logic_gates.nor_block.name=NOR Gate
+tile.alf_logic_gates.nand_block.name=NAND Gate
+tile.alf_logic_gates.nxor_block.name=NXOR Gate
+tile.alf_logic_gates.not_block.name=NOT Gate
 
 message.alf_logic_gates.clicked=Click: %d

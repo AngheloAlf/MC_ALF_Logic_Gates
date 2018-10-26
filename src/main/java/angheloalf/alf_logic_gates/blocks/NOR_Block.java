@@ -7,13 +7,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class OR_Block extends LogicBlock{
-    public OR_Block(String blockName){
-        super(blockName);
-    }
+public class NOR_Block extends LogicBlock{
 
-    public OR_Block(){
-        super("or_block");
+    public NOR_Block(){
+        super("nor_block");
     }
 
     @Override
@@ -25,7 +22,9 @@ public class OR_Block extends LogicBlock{
                 int bPower = isBEnabled(worldIn, pos) ? getBPower(worldIn, pos, blockState) : 0;
                 int cPower = isCEnabled(worldIn, pos) ? getCPower(worldIn, pos, blockState) : 0;
 
-                return Math.max(Math.max(aPower, bPower), cPower);
+                int result = Math.max(Math.max(aPower, bPower), cPower);
+
+                return result == 0 ? 15 : 0;
             }
         }
         return 0;
