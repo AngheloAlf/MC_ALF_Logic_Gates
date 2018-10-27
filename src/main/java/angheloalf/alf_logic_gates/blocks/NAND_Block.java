@@ -42,6 +42,7 @@ public class NAND_Block extends LogicBlock{
                         return Math.min(Math.min(aPower, bPower), cPower) == 0 ? 15 : 0;
                 }
             }
+            return 15;
         }
         return 0;
     }

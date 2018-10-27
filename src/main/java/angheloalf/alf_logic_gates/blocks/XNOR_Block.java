@@ -42,6 +42,7 @@ public class XNOR_Block extends LogicBlock{
                         return xor(xor(aPower, bPower), cPower) == 0 ? 15 : 0;
                 }
             }
+            return 15;
         }
         return 0;
     }

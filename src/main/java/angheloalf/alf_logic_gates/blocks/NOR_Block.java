@@ -26,6 +26,7 @@ public class NOR_Block extends LogicBlock{
 
                 return result == 0 ? 15 : 0;
             }
+            return 15;
         }
         return 0;
     }
