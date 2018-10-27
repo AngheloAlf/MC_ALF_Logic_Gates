@@ -76,6 +76,9 @@ public class CommonProxy {
 
         block = new NOT_Block();
         event.getRegistry().register(block);
+
+        block = new Buffer_Block();
+        event.getRegistry().register(block);
     }
 
     @SubscribeEvent
@@ -95,6 +98,7 @@ public class CommonProxy {
         event.getRegistry().register(new ItemBlock(ModBlocks.xnor_block).setRegistryName(ModBlocks.xnor_block.getBlockName()));
 
         event.getRegistry().register(new ItemBlock(ModBlocks.not_block).setRegistryName(ModBlocks.not_block.getBlockName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.buffer_block).setRegistryName(ModBlocks.buffer_block.getBlockName()));
     }
 
 	@SubscribeEvent
@@ -115,6 +119,7 @@ public class CommonProxy {
         registerRender(Item.getItemFromBlock(ModBlocks.xnor_block));
 
         registerRender(Item.getItemFromBlock(ModBlocks.not_block));
+        registerRender(Item.getItemFromBlock(ModBlocks.buffer_block));
     }
 
     public static void registerRender(Item item) {

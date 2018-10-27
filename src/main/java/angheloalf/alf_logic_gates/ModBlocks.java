@@ -34,9 +34,12 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":not_block")
     public static NOT_Block not_block = new NOT_Block();
 
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":buffer_block")
+    public static Buffer_Block buffer_block = new Buffer_Block();
+
     public static LogicBlock logicBlocks[] = {or_block, and_block, xor_block,
                                               nor_block, nand_block, xnor_block,
-                                              not_block};
+                                              not_block, buffer_block};
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {

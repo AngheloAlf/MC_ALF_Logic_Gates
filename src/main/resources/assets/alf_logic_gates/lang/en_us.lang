@@ -10,5 +10,6 @@ tile.alf_logic_gates.nor_block.name=NOR Gate
 tile.alf_logic_gates.nand_block.name=NAND Gate
 tile.alf_logic_gates.xnor_block.name=XNOR Gate
 tile.alf_logic_gates.not_block.name=NOT Gate
+tile.alf_logic_gates.buffer_block.name=Buffer
 
 message.alf_logic_gates.clicked=Click: %d
