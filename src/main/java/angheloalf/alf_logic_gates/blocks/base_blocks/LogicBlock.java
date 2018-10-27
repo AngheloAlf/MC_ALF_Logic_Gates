@@ -4,7 +4,7 @@ import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
 
 import net.minecraft.block.BlockRedstoneWire;
-import net.minecraft.block.ITileEntityProvider;
+// import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
@@ -18,19 +18,17 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProvider{
+public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntityProvider{
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 3);
 
     public LogicBlock(String blockName){
-        super(Material.ROCK, blockName);
+        super(Material.CIRCUITS, blockName);
 
         setCreativeTab(ModCreativeTabs.logicGatesTab);
 
@@ -64,14 +62,18 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
         return true;
     }
 
-    @Override
-    public TileEntity createNewTileEntity(@Nullable World world, int meta){
-        return new LogicTileEntity();
-    }
+    // @Override
+    // public TileEntity createNewTileEntity(@Nullable World world, int meta){
+    //    return new LogicTileEntity();
+    // }
 
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
-        return new LogicTileEntity();
+        LogicTileEntity tileEntity = new LogicTileEntity();
+        if(state != null){
+            tileEntity.setClick(state.getValue(BLOCK_STATE));
+        }
+        return tileEntity;
     }
 
     @Nullable
@@ -157,22 +159,6 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
             LogicTileEntity tileEntity = getTE(world, pos);
             if(tileEntity != null){
                 int clicked = tileEntity.click();
-
-                int aPower = getAPower(world, pos, state);
-                int bPower = getBPower(world, pos, state);
-                int cPower = getCPower(world, pos, state);
-
-                TextComponentTranslation component;
-                component = new TextComponentTranslation("message.alf_logic_gates.clicked", aPower);
-                component.getStyle().setColor(TextFormatting.RED);
-                player.sendStatusMessage(component, false);
-                component = new TextComponentTranslation("message.alf_logic_gates.clicked", bPower);
-                component.getStyle().setColor(TextFormatting.GREEN);
-                player.sendStatusMessage(component, false);
-                component = new TextComponentTranslation("message.alf_logic_gates.clicked", cPower);
-                component.getStyle().setColor(TextFormatting.BLUE);
-                player.sendStatusMessage(component, false);
-
                 world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
             }
         }
@@ -269,7 +255,13 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
      */
     @Override
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        return getOutputPower(blockState, blockAccess, pos, side);
+        if(blockAccess instanceof World){
+            ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
+        }
+        if(side == blockState.getValue(FACING).getOpposite()){
+            return getOutputPower(blockState, blockAccess, pos, side);
+        }
+        return super.getWeakPower(blockState, blockAccess, pos, side);
     }
 
     /**
@@ -277,33 +269,17 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
      */
     @Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        return getOutputPower(blockState, blockAccess, pos, side);
+        if(blockAccess instanceof World){
+            ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
+        }
+        if(side == blockState.getValue(FACING).getOpposite()){
+            return getOutputPower(blockState, blockAccess, pos, side);
+        }
+        return super.getWeakPower(blockState, blockAccess, pos, side);
     }
 
-    /**
-     * Called to determine whether to allow the a block to handle its own indirect power rather than using the default rules.
-     * @param world The world
-     * @param pos Block position in world
-     * @param side The INPUT side of the block to be powered - ie the opposite of this block's output side
-     * @return Whether Block#isProvidingWeakPower should be called when determining indirect power
-     */
-    @Override
-    public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side){
-        return state.isNormalCube();
-    }
-
-    /**
-     * If this block should be notified of weak changes.
-     * Weak changes are changes 1 block away through a solid block.
-     * Similar to comparators.
-     *
-     * @param world The current world
-     * @param pos Block position in world
-     * @return true To be notified of changes
-     */
-    @Override
-    public boolean getWeakChanges(IBlockAccess world, BlockPos pos){
-        return false;
+    protected int negate(int power){
+        return power == 0 ? 15 : 0;
     }
 
     /* END Redstone */

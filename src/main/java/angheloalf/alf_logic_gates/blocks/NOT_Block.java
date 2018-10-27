@@ -20,13 +20,13 @@ public class NOT_Block extends LogicBlock{
                 World world = (World) blockAccess;
                 switch(block_state){
                     case 0:
-                        return getAPower(world, pos, blockState) == 0 ? 15: 0;
+                        return negate(getAPower(world, pos, blockState));
                     case 1:
-                        return getBPower(world, pos, blockState) == 0 ? 15: 0;
+                        return negate(getBPower(world, pos, blockState));
                     case 2:
-                        return getCPower(world, pos, blockState) == 0 ? 15: 0;
+                        return negate(getCPower(world, pos, blockState));
                     case 3:
-                        return 15;
+                        return negate(0);
                 }
             }
             return 15;

@@ -12,6 +12,11 @@ public class LogicTileEntity extends TileEntity {
     protected int clicked = 0;
     protected int clicksMax = 4;
 
+    public LogicTileEntity(){
+        super();
+        clicksMax = 4;
+    }
+
     public void setMax(int max){
         clicksMax = max;
     }
@@ -29,6 +34,11 @@ public class LogicTileEntity extends TileEntity {
         return clicked;
     }
 
+    public int setClick(int clicks){
+        clicked = clicks % clicksMax;
+        return clicked;
+    }
+
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
         return (oldState.getBlock() != newState.getBlock());
@@ -42,7 +52,7 @@ public class LogicTileEntity extends TileEntity {
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
+        compound = super.writeToNBT(compound);
         compound.setInteger("clickedCount", clicked);
         return compound;
     }

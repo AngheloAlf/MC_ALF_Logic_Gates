@@ -36,16 +36,20 @@ public class AND_Block extends LogicBlock{
 
                 switch(tileEntity.getClickCount()){
                     case 0:
-                        return Math.min(aPower, bPower);
+                        return and(aPower, bPower);
                     case 1:
-                        return Math.min(aPower, cPower);
+                        return and(aPower, cPower);
                     case 2:
-                        return Math.min(bPower, cPower);
+                        return and(bPower, cPower);
                     case 3:
-                        return Math.min(Math.min(aPower, bPower), cPower);
+                        return and(and(aPower, bPower), cPower);
                 }
             }
         }
         return 0;
+    }
+
+    private int and(int a, int b){
+        return a < b ? a : b;
     }
 }

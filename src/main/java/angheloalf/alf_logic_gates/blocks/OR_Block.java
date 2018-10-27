@@ -25,9 +25,13 @@ public class OR_Block extends LogicBlock{
                 int bPower = isBEnabled(worldIn, pos) ? getBPower(worldIn, pos, blockState) : 0;
                 int cPower = isCEnabled(worldIn, pos) ? getCPower(worldIn, pos, blockState) : 0;
 
-                return Math.max(Math.max(aPower, bPower), cPower);
+                return or(or(aPower, bPower), cPower);
             }
         }
         return 0;
+    }
+
+    private int or(int a, int b){
+        return a > b ? a : b;
     }
 }

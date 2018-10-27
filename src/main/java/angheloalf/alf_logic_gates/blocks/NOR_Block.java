@@ -22,12 +22,14 @@ public class NOR_Block extends LogicBlock{
                 int bPower = isBEnabled(worldIn, pos) ? getBPower(worldIn, pos, blockState) : 0;
                 int cPower = isCEnabled(worldIn, pos) ? getCPower(worldIn, pos, blockState) : 0;
 
-                int result = Math.max(Math.max(aPower, bPower), cPower);
-
-                return result == 0 ? 15 : 0;
+                return negate(or(or(aPower, bPower), cPower));
             }
             return 15;
         }
         return 0;
+    }
+
+    private int or(int a, int b){
+        return a > b ? a : b;
     }
 }
