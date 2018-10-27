@@ -179,6 +179,24 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
         return true;
     }
 
+    protected boolean isSideEnabled(IBlockState state, EnumFacing side){
+        int block_state = state.getValue(BLOCK_STATE);
+        EnumFacing left = state.getValue(FACING).getOpposite().rotateYCCW();
+        EnumFacing back = left.rotateYCCW();
+        EnumFacing right = back.rotateYCCW();
+        switch(block_state){
+            case 0:
+                return side == left || side == back;
+            case 1:
+                return side == left || side == right;
+            case 2:
+                return side == back || side == right;
+            case 3:
+                return side == left || side == back || side == right;
+        }
+        return false;
+    }
+
 
     /* Redstone */
 
@@ -224,21 +242,9 @@ public abstract class LogicBlock extends AlfBaseBlock implements ITileEntityProv
     public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, EnumFacing side){
         if (side == null) return false;
         if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
+        if (side == state.getValue(FACING).getOpposite()) return true;
 
-        int block_state = state.getValue(BLOCK_STATE);
-        EnumFacing a_side = state.getValue(FACING).getOpposite().rotateYCCW();
-        if(block_state == 2 && side == a_side){
-            return false;
-        }
-        a_side = a_side.rotateYCCW();
-        if(block_state == 1 && side == a_side){
-            return false;
-        }
-        a_side = a_side.rotateYCCW();
-        if(block_state == 0 && side == a_side){
-            return false;
-        }
-        return true;
+        return isSideEnabled(state, side);
     }
 
 
