@@ -4,7 +4,6 @@ import angheloalf.alf_logic_gates.blocks.base_blocks.LogicBlock;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class Buffer_Block extends LogicBlock{
@@ -13,22 +12,17 @@ public class Buffer_Block extends LogicBlock{
     }
 
     @Override
-    protected int getOutputPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        if(blockState.getValue(FACING).getOpposite() == side){
-            int block_state = blockState.getValue(BLOCK_STATE);
-            if(blockAccess instanceof World){
-                World world = (World) blockAccess;
-                switch(block_state){
-                    case 0:
-                        return getAPower(world, pos, blockState);
-                    case 1:
-                        return getBPower(world, pos, blockState);
-                    case 2:
-                        return getCPower(world, pos, blockState);
-                    case 3:
-                        return 0;
-                }
-            }
+    protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
+        int block_state = blockState.getValue(BLOCK_STATE);
+        switch(block_state){
+            case 0:
+                return getAPower(world, pos, blockState);
+            case 1:
+                return getBPower(world, pos, blockState);
+            case 2:
+                return getCPower(world, pos, blockState);
+            case 3:
+                return 0;
         }
         return 0;
     }

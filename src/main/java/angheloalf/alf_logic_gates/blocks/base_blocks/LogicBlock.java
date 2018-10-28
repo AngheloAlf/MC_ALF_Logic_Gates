@@ -243,7 +243,7 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
         return true;
     }
 
-    protected abstract int getOutputPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side);
+    protected abstract int getOutputPower(IBlockState blockState, World world, BlockPos pos);
 
 
     /** How much weak power does this block provide to the adjacent block?
@@ -258,8 +258,8 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
         if(blockAccess instanceof World){
             ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
         }
-        if(side == blockState.getValue(FACING).getOpposite()){
-            return getOutputPower(blockState, blockAccess, pos, side);
+        if(side == blockState.getValue(FACING).getOpposite() && blockAccess instanceof World){
+            return getOutputPower(blockState, (World) blockAccess, pos);
         }
         return super.getWeakPower(blockState, blockAccess, pos, side);
     }
@@ -272,8 +272,8 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
         if(blockAccess instanceof World){
             ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
         }
-        if(side == blockState.getValue(FACING).getOpposite()){
-            return getOutputPower(blockState, blockAccess, pos, side);
+        if(side == blockState.getValue(FACING).getOpposite() && blockAccess instanceof World){
+            return getOutputPower(blockState, (World) blockAccess, pos);
         }
         return super.getWeakPower(blockState, blockAccess, pos, side);
     }
