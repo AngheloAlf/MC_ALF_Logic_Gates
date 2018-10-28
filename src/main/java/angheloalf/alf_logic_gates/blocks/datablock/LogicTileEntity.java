@@ -86,6 +86,7 @@ public class LogicTileEntity extends TileEntity {
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
         // Here we get the packet from the server and read it into our client side tile entity
+        super.onDataPacket(net, packet);
         this.readFromNBT(packet.getNbtCompound());
     }
 }

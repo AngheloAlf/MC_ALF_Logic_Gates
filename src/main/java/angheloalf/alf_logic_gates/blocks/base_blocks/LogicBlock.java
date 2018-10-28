@@ -77,12 +77,22 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
     }
 
     @Nullable
-    protected LogicTileEntity getTE(World world, BlockPos pos){
-        TileEntity tileEntity = world.getTileEntity(pos);
+    protected LogicTileEntity getTE(IBlockAccess worldIn, BlockPos pos){
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
         if(tileEntity instanceof LogicTileEntity){
             return (LogicTileEntity) tileEntity;
         }
         return null;
+    }
+
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        state = super.getActualState(state, worldIn, pos);
+        LogicTileEntity logicTileEntity = getTE(worldIn, pos);
+        if(logicTileEntity != null){
+            state = state.withProperty(BLOCK_STATE, logicTileEntity.getClickCount());
+        }
+        return state;
     }
 
     protected boolean isAEnabled(World world, BlockPos pos){
@@ -228,11 +238,12 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
     public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, EnumFacing side){
         if (side == null) return false;
         if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
+
+        state = getActualState(state, world, posConnectingFrom);
         if (side == state.getValue(FACING).getOpposite()) return true;
 
         return isSideEnabled(state, side);
     }
-
 
 
     /**
@@ -258,6 +269,7 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
         if(blockAccess instanceof World){
             ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
         }
+        blockState = getActualState(blockState, blockAccess, pos);
         if(side == blockState.getValue(FACING).getOpposite() && blockAccess instanceof World){
             return getOutputPower(blockState, (World) blockAccess, pos);
         }
