@@ -1,13 +1,16 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -21,6 +24,12 @@ public abstract class AlfBaseBlock extends Block{
         this.blockName = blockName;
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
         setRegistryName(blockName);
+    }
+
+    public AlfBaseBlock(Material material, String blockName, CreativeTabs tab){
+        this(material, blockName);
+
+        setCreativeTab(tab);
     }
 
     public String getBlockName(){

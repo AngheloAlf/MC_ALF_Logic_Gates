@@ -83,8 +83,8 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
+        // Items from blocks
         event.getRegistry().register(new ItemBlock(ModBlocks.exampleBlock).setRegistryName(ModBlocks.exampleBlock.getRegistryName()));
-        event.getRegistry().register(new ExampleItem());
 
         // for(AlfBaseBlock block: ModBlocks.logicBlocks){
         //     event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getBlockName()));
@@ -99,12 +99,17 @@ public class CommonProxy {
 
         event.getRegistry().register(new ItemBlock(ModBlocks.not_block).setRegistryName(ModBlocks.not_block.getBlockName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.buffer_block).setRegistryName(ModBlocks.buffer_block.getBlockName()));
+
+        // Items
+        event.getRegistry().register(new ExampleItem());
+
+        event.getRegistry().register(new LogicCircuitItem());
     }
 
 	@SubscribeEvent
 	public static void registerRenders(ModelRegistryEvent event) {
+        // Items from blocks
         registerRender(Item.getItemFromBlock(ModBlocks.exampleBlock));
-        registerRender(ModItems.exampleItem);
 
         // for(AlfBaseBlock block: ModBlocks.logicBlocks){
         //     registerRender(Item.getItemFromBlock(block));
@@ -120,6 +125,10 @@ public class CommonProxy {
 
         registerRender(Item.getItemFromBlock(ModBlocks.not_block));
         registerRender(Item.getItemFromBlock(ModBlocks.buffer_block));
+
+        // Items
+        registerRender(ModItems.exampleItem);
+        registerRender(ModItems.logic_circuit_item);
     }
 
     public static void registerRender(Item item) {

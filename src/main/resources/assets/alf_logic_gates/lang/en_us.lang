@@ -1,7 +1,6 @@
 itemGroup.logicGatesTab=ALF_Logic_Gates
 
 tile.alf_logic_gates.exampleblock.name=Example block
-item.alf_logic_gates.exampleitem.name=Example item
 
 tile.alf_logic_gates.or_block.name=OR Gate
 tile.alf_logic_gates.and_block.name=AND Gate
@@ -11,5 +10,9 @@ tile.alf_logic_gates.nand_block.name=NAND Gate
 tile.alf_logic_gates.xnor_block.name=XNOR Gate
 tile.alf_logic_gates.not_block.name=NOT Gate
 tile.alf_logic_gates.buffer_block.name=Buffer
+
+item.alf_logic_gates.exampleitem.name=Example item
+
+item.alf_logic_gates.logic_circuit.name=Logic circuit
 
 message.alf_logic_gates.clicked=Click: %d

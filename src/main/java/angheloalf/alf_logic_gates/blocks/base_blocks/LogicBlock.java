@@ -28,9 +28,7 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
     protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 3);
 
     public LogicBlock(String blockName){
-        super(Material.CIRCUITS, blockName);
-
-        setCreativeTab(ModCreativeTabs.logicGatesTab);
+        super(Material.CIRCUITS, blockName, ModCreativeTabs.logicGatesTab);
 
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BLOCK_STATE, 0));
     }

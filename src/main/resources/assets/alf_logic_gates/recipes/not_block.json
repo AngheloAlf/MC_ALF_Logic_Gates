@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "STS",
+    "#+#",
+    "S#S"
+  ],
+  "key": {
+    "+": {
+      "item": "alf_logic_gates:logic_circuit",
+      "data": 0
+    },
+    "#": {
+      "item": "minecraft:redstone",
+      "data": 0
+    },
+    "T": {
+      "item": "minecraft:redstone_torch",
+      "data": 0
+    },
+    "S": {
+      "item": "minecraft:stone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "alf_logic_gates:not_block",
+    "data": 0,
+    "count": 4
+  }
+}
