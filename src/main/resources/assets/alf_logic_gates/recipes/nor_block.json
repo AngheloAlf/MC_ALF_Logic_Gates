@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "STS",
-    " + ",
+    "#+#",
     "S#S"
   ],
   "key": {
@@ -24,7 +24,7 @@
     }
   },
   "result": {
-    "item": "alf_logic_gates:not_block",
+    "item": "alf_logic_gates:nor_block",
     "data": 0,
     "count": 4
   }

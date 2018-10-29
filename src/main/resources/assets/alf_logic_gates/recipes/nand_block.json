@@ -2,20 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "STS",
-    " + ",
-    "S#S"
+    "R+R",
+    "SRS"
   ],
   "key": {
     "+": {
       "item": "alf_logic_gates:logic_circuit",
       "data": 0
     },
-    "#": {
-      "item": "minecraft:redstone",
-      "data": 0
-    },
     "T": {
       "item": "minecraft:redstone_torch",
+      "data": 0
+    },
+    "R": {
+      "item": "minecraft:repeater",
       "data": 0
     },
     "S": {
@@ -24,7 +24,7 @@
     }
   },
   "result": {
-    "item": "alf_logic_gates:not_block",
+    "item": "alf_logic_gates:nand_block",
     "data": 0,
     "count": 4
   }

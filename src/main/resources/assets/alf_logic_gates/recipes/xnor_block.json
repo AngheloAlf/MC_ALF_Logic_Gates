@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "STS",
-    " + ",
+    "R+R",
     "S#S"
   ],
   "key": {
@@ -12,6 +12,10 @@
     },
     "#": {
       "item": "minecraft:redstone",
+      "data": 0
+    },
+    "R": {
+      "item": "minecraft:repeater",
       "data": 0
     },
     "T": {
@@ -24,7 +28,7 @@
     }
   },
   "result": {
-    "item": "alf_logic_gates:not_block",
+    "item": "alf_logic_gates:xnor_block",
     "data": 0,
     "count": 4
   }

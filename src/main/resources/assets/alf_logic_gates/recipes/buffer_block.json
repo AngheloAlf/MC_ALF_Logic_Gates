@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "STS",
+    "S#S",
     " + ",
     "S#S"
   ],
@@ -14,17 +14,13 @@
       "item": "minecraft:redstone",
       "data": 0
     },
-    "T": {
-      "item": "minecraft:redstone_torch",
-      "data": 0
-    },
     "S": {
       "item": "minecraft:stone",
       "data": 0
     }
   },
   "result": {
-    "item": "alf_logic_gates:not_block",
+    "item": "alf_logic_gates:buffer_block",
     "data": 0,
     "count": 4
   }
