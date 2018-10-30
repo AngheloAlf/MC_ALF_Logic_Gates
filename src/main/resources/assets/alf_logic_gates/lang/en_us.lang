@@ -15,4 +15,9 @@ item.alf_logic_gates.exampleitem.name=Example item
 
 item.alf_logic_gates.logic_circuit.name=Logic circuit
 
+gui.config.mainTitle=Main title
+gui.config.ctgy.general=General configuration
+gui.config.ctgy.general.tooltip=The general configuration
+gui.config.repeatSignal=Repeat signal
+
 message.alf_logic_gates.clicked=Click: %d

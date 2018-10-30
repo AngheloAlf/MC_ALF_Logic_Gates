@@ -1,10 +1,10 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
+import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
 
 import net.minecraft.block.BlockRedstoneWire;
-// import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntityProvider{
+public abstract class LogicBlock extends AlfBaseBlock{
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 3);
 
@@ -59,11 +59,6 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
     public boolean hasTileEntity(IBlockState state){
         return true;
     }
-
-    // @Override
-    // public TileEntity createNewTileEntity(@Nullable World world, int meta){
-    //    return new LogicTileEntity();
-    // }
 
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
@@ -168,6 +163,7 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
             if(tileEntity != null){
                 int clicked = tileEntity.click();
                 world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
+                world.notifyNeighborsOfStateChange(pos, this, true);
             }
         }
         return true;
@@ -199,7 +195,7 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
         int i = worldIn.getRedstonePower(blockpos, enumFacing);
 
         if (i >= 15){
-            return i;
+            return 15;
         }
         else{
             IBlockState iblockstate = worldIn.getBlockState(blockpos);
@@ -288,8 +284,15 @@ public abstract class LogicBlock extends AlfBaseBlock{ // implements ITileEntity
         return super.getWeakPower(blockState, blockAccess, pos, side);
     }
 
-    protected int negate(int power){
+    protected static int negate(int power){
         return power == 0 ? 15 : 0;
+    }
+
+    protected static int repeatSignalOrPower(int power){
+        if(power <= 0){
+            return 0;
+        }
+        return Config.repeatSignal ? 15: power;
     }
 
     /* END Redstone */

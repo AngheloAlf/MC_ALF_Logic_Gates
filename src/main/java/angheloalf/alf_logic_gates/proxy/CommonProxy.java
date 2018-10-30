@@ -26,33 +26,25 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 
-import java.io.File;
-
 @Mod.EventBusSubscriber
 public class CommonProxy {
-
-    // Config instance
-    public static Configuration config;
-
     public void preInit(FMLPreInitializationEvent e) {
-        File directory = e.getModConfigurationDirectory();
-        config = new Configuration(new File(directory.getPath(), "alf_logic_gates.cfg"));
-        Config.readConfig();
+        Config.preInit();
+        System.out.println();
+        System.out.println("repeatSignal=" + Config.repeatSignal);
+        System.out.println();
     }
 
     public void init(FMLInitializationEvent e) {
     }
 
     public void postInit(FMLPostInitializationEvent e) {
-        if (config.hasChanged()) {
-            config.save();
-        }
     }
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(new ExampleBlock());
-        GameRegistry.registerTileEntity(LogicTileEntity.class, Mod_ALF_Logic_Gates.MODID + "_logictileentity");
+        GameRegistry.registerTileEntity(LogicTileEntity.class, Mod_ALF_Logic_Gates.MODID + ":logictileentity");
 
         AlfBaseBlock block;
 

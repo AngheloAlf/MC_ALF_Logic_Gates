@@ -16,10 +16,6 @@ public class NOR_Block extends LogicBlock{
         int bPower = isBEnabled(world, pos) ? getBPower(world, pos, blockState) : 0;
         int cPower = isCEnabled(world, pos) ? getCPower(world, pos, blockState) : 0;
 
-        return negate(or(or(aPower, bPower), cPower));
-    }
-
-    private int or(int a, int b){
-        return a > b ? a : b;
+        return negate(OR_Block.or(OR_Block.or(aPower, bPower), cPower));
     }
 }

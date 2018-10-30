@@ -2,7 +2,6 @@ package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.LogicBlock;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -20,7 +19,8 @@ public class OR_Block extends LogicBlock{
         return or(or(aPower, bPower), cPower);
     }
 
-    private int or(int a, int b){
-        return a > b ? a : b;
+    public static int or(int a, int b){
+        int value = a > b ? a : b;
+        return repeatSignalOrPower(value);
     }
 }

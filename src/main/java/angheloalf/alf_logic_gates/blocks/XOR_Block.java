@@ -39,13 +39,14 @@ public class XOR_Block extends LogicBlock{
         return 0;
     }
 
-    private int xor(int a, int b){
+    public static int xor(int a, int b){
+        int value = 0;
         if(b == 0){
-            return a;
+            value = a;
         }
-        if(a == 0){
-            return b;
+        else if(a == 0){
+            value = b;
         }
-        return 0;
+        return repeatSignalOrPower(value);
     }
 }

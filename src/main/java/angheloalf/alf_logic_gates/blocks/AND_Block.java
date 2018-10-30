@@ -40,7 +40,8 @@ public class AND_Block extends LogicBlock{
         return 0;
     }
 
-    private int and(int a, int b){
-        return a < b ? a : b;
+    public static int and(int a, int b){
+        int value = a < b ? a : b;
+        return repeatSignalOrPower(value);
     }
 }

@@ -28,18 +28,14 @@ public class NAND_Block extends LogicBlock{
 
         switch(tileEntity.getClickCount()){
             case 0:
-                return negate(and(aPower, bPower));
+                return negate(AND_Block.and(aPower, bPower));
             case 1:
-                return negate(and(aPower, cPower));
+                return negate(AND_Block.and(aPower, cPower));
             case 2:
-                return negate(and(bPower, cPower));
+                return negate(AND_Block.and(bPower, cPower));
             case 3:
-                return negate(and(and(bPower, cPower), cPower));
+                return negate(AND_Block.and(AND_Block.and(bPower, cPower), cPower));
         }
         return 0;
-    }
-
-    private int and(int a, int b){
-        return a < b ? a : b;
     }
 }

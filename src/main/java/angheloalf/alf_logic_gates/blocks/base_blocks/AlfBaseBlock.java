@@ -23,7 +23,7 @@ public abstract class AlfBaseBlock extends Block{
 
         this.blockName = blockName;
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
-        setRegistryName(blockName);
+        setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + blockName);
     }
 
     public AlfBaseBlock(Material material, String blockName, CreativeTabs tab){

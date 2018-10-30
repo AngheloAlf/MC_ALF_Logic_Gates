@@ -16,13 +16,13 @@ public class NOT_Block extends LogicBlock{
         int block_state = blockState.getValue(BLOCK_STATE);
         switch(block_state){
             case 0:
-                return negate(getAPower(world, pos, blockState));
+                return negate(Buffer_Block.buffer(getAPower(world, pos, blockState)));
             case 1:
-                return negate(getBPower(world, pos, blockState));
+                return negate(Buffer_Block.buffer(getBPower(world, pos, blockState)));
             case 2:
-                return negate(getCPower(world, pos, blockState));
+                return negate(Buffer_Block.buffer(getCPower(world, pos, blockState)));
             case 3:
-                return negate(0);
+                return negate(Buffer_Block.buffer(0));
         }
         return 0;
     }

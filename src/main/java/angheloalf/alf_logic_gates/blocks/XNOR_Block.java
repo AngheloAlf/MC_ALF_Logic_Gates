@@ -28,24 +28,13 @@ public class XNOR_Block extends LogicBlock{
 
         switch(tileEntity.getClickCount()){
             case 0:
-                return negate(xor(aPower, bPower));
+                return negate(XOR_Block.xor(aPower, bPower));
             case 1:
-                return negate(xor(aPower, cPower));
+                return negate(XOR_Block.xor(aPower, cPower));
             case 2:
-                return negate(xor(bPower, cPower));
+                return negate(XOR_Block.xor(bPower, cPower));
             case 3:
-                return negate(xor(xor(aPower, bPower), cPower));
-        }
-
-        return 0;
-    }
-
-    private int xor(int a, int b){
-        if(b == 0){
-            return a;
-        }
-        if(a == 0){
-            return b;
+                return negate(XOR_Block.xor(XOR_Block.xor(aPower, bPower), cPower));
         }
         return 0;
     }
