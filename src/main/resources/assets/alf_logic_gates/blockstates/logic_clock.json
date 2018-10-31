@@ -1,7 +1,33 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alf_logic_gates:logic_clock",
+    "textures": {
+      "side": "alf_logic_gates:blocks/clock/out"
+    }
+  },
   "variants": {
-    "normal": {
-      "model": "alf_logic_gates:logic_clock"
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+    "powered": {
+      "false": {
+        "textures": {
+          "side": "alf_logic_gates:blocks/clock/off"
+        }
+      },
+      "true": {
+        "textures": {
+          "side": "alf_logic_gates:blocks/clock/out"
+        }
+      }
     }
   }
 }
