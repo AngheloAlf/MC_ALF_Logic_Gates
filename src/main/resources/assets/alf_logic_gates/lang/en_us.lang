@@ -11,6 +11,9 @@ tile.alf_logic_gates.xnor_block.name=XNOR Gate
 tile.alf_logic_gates.not_block.name=NOT Gate
 tile.alf_logic_gates.buffer_block.name=Buffer
 
+tile.alf_logic_gates.logic_clock.name=Logic clock
+
+
 item.alf_logic_gates.exampleitem.name=Example item
 
 item.alf_logic_gates.logic_circuit.name=Logic circuit

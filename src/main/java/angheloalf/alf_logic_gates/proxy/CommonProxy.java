@@ -6,6 +6,7 @@ import angheloalf.alf_logic_gates.ModItems;
 import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.blocks.*;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
 import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
 import angheloalf.alf_logic_gates.items.*;
 
@@ -30,9 +31,6 @@ import net.minecraftforge.client.model.ModelLoader;
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         Config.preInit();
-        System.out.println();
-        System.out.println("repeatSignal=" + Config.repeatSignal);
-        System.out.println();
     }
 
     public void init(FMLInitializationEvent e) {
@@ -45,6 +43,7 @@ public class CommonProxy {
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         event.getRegistry().register(new ExampleBlock());
         GameRegistry.registerTileEntity(LogicTileEntity.class, Mod_ALF_Logic_Gates.MODID + ":logictileentity");
+        GameRegistry.registerTileEntity(ClockEntity.class, Mod_ALF_Logic_Gates.MODID + ":clockentity");
 
         AlfBaseBlock block;
 
@@ -71,6 +70,10 @@ public class CommonProxy {
 
         block = new Buffer_Block();
         event.getRegistry().register(block);
+
+
+        block = new LogicClock_Block();
+        event.getRegistry().register(block);
     }
 
     @SubscribeEvent
@@ -92,10 +95,18 @@ public class CommonProxy {
         event.getRegistry().register(new ItemBlock(ModBlocks.not_block).setRegistryName(ModBlocks.not_block.getBlockName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.buffer_block).setRegistryName(ModBlocks.buffer_block.getBlockName()));
 
+
+        //event.getRegistry().register(getItemForRegistry(ModBlocks.logicClock_block));
+        event.getRegistry().register(new ItemBlock(ModBlocks.logicClock_block).setRegistryName(ModBlocks.logicClock_block.getBlockName()));
+
         // Items
         event.getRegistry().register(new ExampleItem());
 
         event.getRegistry().register(new LogicCircuitItem());
+    }
+
+    private static Item getItemForRegistry(AlfBaseBlock block){
+        return new ItemBlock(block).setRegistryName(block.getBlockName());
     }
 
 	@SubscribeEvent
@@ -117,6 +128,9 @@ public class CommonProxy {
 
         registerRender(Item.getItemFromBlock(ModBlocks.not_block));
         registerRender(Item.getItemFromBlock(ModBlocks.buffer_block));
+
+
+        registerRender(Item.getItemFromBlock(ModBlocks.logicClock_block));
 
         // Items
         registerRender(ModItems.exampleItem);

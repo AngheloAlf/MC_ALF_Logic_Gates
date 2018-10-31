@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "alf_logic_gates:logic_clock"
+    }
+  }
+}

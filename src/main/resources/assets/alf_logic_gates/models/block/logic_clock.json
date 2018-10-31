@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "alf_logic_gates:blocks/clock/top",
+    "down": "alf_logic_gates:blocks/clock/down",
+    "up": "alf_logic_gates:blocks/clock/top",
+    "north": "alf_logic_gates:blocks/clock/out",
+    "west": "alf_logic_gates:blocks/clock/out",
+    "east": "alf_logic_gates:blocks/clock/out",
+    "south": "alf_logic_gates:blocks/clock/out"
+  }
+}
