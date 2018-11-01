@@ -31,9 +31,10 @@ public class ClockEntity extends TileEntity implements ITickable{
         //updateCounter();
         counter -= lastCount * 4;
         if (counter <= 0) {
-            markDirty();
             lit = !lit;
             counter = 400;
+            markDirty();
+            world.notifyNeighborsOfStateChange(getPos(), blockType, false);
         }
     }
 
