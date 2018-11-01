@@ -137,6 +137,11 @@ public class Config{
         Property propRepeatSignal = config.get(CATEGORY_NAME_GENERAL, "repeatSignal", repeatSignalDefault);
         propRepeatSignal.setComment("Set true to repeat the signal (15 if block is powered), or false to repeat the same power input.");
         propRepeatSignal.setLanguageKey("gui.config.repeatSignal"); //.setRequiresMcRestart(true);
+        // propRepeatSignal.setRequiresWorldRestart(true);
+        /// For some reason, the blocks and the game does not update when changing this in game.
+        /// Remove this when this works correctly.
+        /// TODO: affect blocks in this option change.
+        propRepeatSignal.setRequiresMcRestart(true);
 
 
         /*

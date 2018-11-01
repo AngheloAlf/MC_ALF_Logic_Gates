@@ -28,7 +28,6 @@ public class ClockEntity extends TileEntity implements ITickable{
 
     @Override
     public void update(){
-        //updateCounter();
         counter -= lastCount * 4;
         if (counter <= 0) {
             lit = !lit;

@@ -163,7 +163,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
             if(tileEntity != null){
                 int clicked = tileEntity.click();
                 world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
-                world.notifyNeighborsOfStateChange(pos, this, true);
+                world.notifyNeighborsOfStateChange(pos, this, false);
             }
         }
         return true;
@@ -250,7 +250,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
     protected abstract int getOutputPower(IBlockState blockState, World world, BlockPos pos);
 
-
     /** How much weak power does this block provide to the adjacent block?
      * @param blockAccess
      * @param pos the position of this block
@@ -260,12 +259,14 @@ public abstract class LogicBlock extends AlfBaseBlock{
      */
     @Override
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        if(blockAccess instanceof World){
-            ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
-        }
         blockState = getActualState(blockState, blockAccess, pos);
-        if(side == blockState.getValue(FACING).getOpposite() && blockAccess instanceof World){
-            return getOutputPower(blockState, (World) blockAccess, pos);
+        if(blockAccess instanceof World){
+            World world = (World) blockAccess;
+            //world.notifyBlockUpdate(pos, blockState, blockState, 3);
+            // world.notifyNeighborsOfStateChange(pos, this, true);
+            if(side == blockState.getValue(FACING).getOpposite()){
+                return getOutputPower(blockState, world, pos);
+            }
         }
         return super.getWeakPower(blockState, blockAccess, pos, side);
     }
@@ -275,11 +276,14 @@ public abstract class LogicBlock extends AlfBaseBlock{
      */
     @Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
+        blockState = getActualState(blockState, blockAccess, pos);
         if(blockAccess instanceof World){
-            ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
-        }
-        if(side == blockState.getValue(FACING).getOpposite() && blockAccess instanceof World){
-            return getOutputPower(blockState, (World) blockAccess, pos);
+            World world = (World) blockAccess;
+            //world.notifyBlockUpdate(pos, blockState, blockState, 3);
+            // world.notifyNeighborsOfStateChange(pos, this, true);
+            if(side == blockState.getValue(FACING).getOpposite()){
+                return getOutputPower(blockState, world, pos);
+            }
         }
         return super.getWeakPower(blockState, blockAccess, pos, side);
     }
