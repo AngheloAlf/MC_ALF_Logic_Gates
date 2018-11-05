@@ -15,10 +15,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class LogicTileEntity extends TileEntity implements ITickable{
-    protected boolean powered = false;
     protected int clicked = 0;
     protected int clicksMax = 4;
-    protected int auxCount = 4;
+    protected int howMuchPower = 0;
 
     public LogicTileEntity(){
         super();
@@ -27,11 +26,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
 
     @Override
     public void update(){
-        auxCount--;
-        if(auxCount <= 0){
-            auxCount = 4;
-            world.notifyNeighborsOfStateChange(getPos(), blockType, false);
-        }
+        world.notifyNeighborsOfStateChange(getPos(), blockType, false);
     }
 
     public void setMax(int max){
@@ -56,12 +51,12 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         return clicked;
     }
 
-    public boolean isPowered(){
-        return powered;
+    public int getHowMuchPower(){
+        return howMuchPower;
     }
 
-    public void setPowered(boolean powered){
-        this.powered = powered;
+    public void setHowMuchPower(int power){
+        this.howMuchPower = power;
     }
 
     @Override
@@ -74,7 +69,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         super.readFromNBT(compound);
         clicked = compound.getInteger("clickedCount");
         clicksMax = compound.getInteger("clicksMax");
-        powered = compound.getBoolean("powered");
+        howMuchPower = compound.getInteger("howMuchPower");
     }
 
     @Override
@@ -82,7 +77,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         compound = super.writeToNBT(compound);
         compound.setInteger("clickedCount", clicked);
         compound.setInteger("clicksMax", clicksMax);
-        compound.setBoolean("powered", powered);
+        compound.setInteger("howMuchPower", howMuchPower);
         return compound;
     }
 

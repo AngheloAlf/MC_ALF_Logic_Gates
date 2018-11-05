@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 public abstract class LogicBlock extends AlfBaseBlock{
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-    protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 3);
+    protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 5);
 
     public LogicBlock(String blockName){
         super(Material.CIRCUITS, blockName, ModCreativeTabs.logicGatesTab);
@@ -184,10 +184,10 @@ public abstract class LogicBlock extends AlfBaseBlock{
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos){
         LogicTileEntity tileEntity = getTE(worldIn, pos);
         if(tileEntity != null){
-            boolean old = tileEntity.isPowered();
-            tileEntity.setPowered(isLogicallyPowered(state, worldIn, pos));
+            boolean old = tileEntity.getHowMuchPower() > 0;
+            tileEntity.setHowMuchPower(getOutputPower(state, worldIn, pos));
 
-            if(old != tileEntity.isPowered()){
+            if(old != (tileEntity.getHowMuchPower() > 0)){
                 worldIn.notifyBlockUpdate(pos, state, state, 3);
             }
         }
@@ -252,10 +252,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
     protected int getCPower(World worldIn, BlockPos pos, IBlockState state){
         return isCEnabled(worldIn, pos) ? getRawCPower(worldIn, pos, state) : 0;
-    }
-
-    protected boolean isLogicallyPowered(IBlockState blockState, World world, BlockPos pos){
-        return getOutputPower(blockState,  world,  pos) > 0;
     }
 
     /**
@@ -324,7 +320,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
         if(power <= 0){
             return 0;
         }
-        return Config.repeatSignal ? 15: power;
+        return Config.repeatSignal ? 15 : power;
     }
 
     /* END Redstone */

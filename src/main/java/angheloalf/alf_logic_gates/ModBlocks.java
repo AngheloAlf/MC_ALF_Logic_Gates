@@ -45,7 +45,10 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":logic_clock")
     public static LogicClock_Block logicClock_block = new LogicClock_Block();
 
-    public static AlfBaseBlock otherBlocks[] = {logicClock_block};
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":dlatch_block")
+    public static DLatch_Block dLatch_block = new DLatch_Block();
+
+    public static AlfBaseBlock otherBlocks[] = {logicClock_block, dLatch_block};
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
