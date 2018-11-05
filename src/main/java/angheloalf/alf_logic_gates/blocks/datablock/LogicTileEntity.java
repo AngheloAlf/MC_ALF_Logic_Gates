@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -13,13 +14,24 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class LogicTileEntity extends TileEntity {
+public class LogicTileEntity extends TileEntity implements ITickable{
+    protected boolean powered = false;
     protected int clicked = 0;
     protected int clicksMax = 4;
+    protected int auxCount = 4;
 
     public LogicTileEntity(){
         super();
         clicksMax = 4;
+    }
+
+    @Override
+    public void update(){
+        auxCount--;
+        if(auxCount <= 0){
+            auxCount = 4;
+            world.notifyNeighborsOfStateChange(getPos(), blockType, false);
+        }
     }
 
     public void setMax(int max){
@@ -44,6 +56,14 @@ public class LogicTileEntity extends TileEntity {
         return clicked;
     }
 
+    public boolean isPowered(){
+        return powered;
+    }
+
+    public void setPowered(boolean powered){
+        this.powered = powered;
+    }
+
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
         return (oldState.getBlock() != newState.getBlock());
@@ -53,12 +73,16 @@ public class LogicTileEntity extends TileEntity {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         clicked = compound.getInteger("clickedCount");
+        clicksMax = compound.getInteger("clicksMax");
+        powered = compound.getBoolean("powered");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound = super.writeToNBT(compound);
         compound.setInteger("clickedCount", clicked);
+        compound.setInteger("clicksMax", clicksMax);
+        compound.setBoolean("powered", powered);
         return compound;
     }
 

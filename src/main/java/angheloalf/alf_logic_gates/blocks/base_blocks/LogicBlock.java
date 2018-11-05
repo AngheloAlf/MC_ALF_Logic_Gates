@@ -4,6 +4,7 @@ import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -138,6 +139,13 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
     /* END Tile Entity */
 
+    // Create the appropriate state for the block being placed - in this case, figure out which way the target is facing
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos thisBlockPos, EnumFacing faceOfNeighbour,
+                                            float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+        EnumFacing directionTargetIsPointing = (placer == null) ? EnumFacing.NORTH : EnumFacing.fromAngle(placer.rotationYaw);
+        return this.getDefaultState().withProperty(FACING, directionTargetIsPointing);
+    }
 
     // Called just after the player places a block.
     @Override
@@ -145,7 +153,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
         super.onBlockPlacedBy(world, pos, state, placer, stack);
 
         int block_state = 0;
-
         LogicTileEntity logicTileEntity = getTE(world, pos);
         if(logicTileEntity != null){
             block_state = logicTileEntity.getClickCount();
@@ -167,6 +174,23 @@ public abstract class LogicBlock extends AlfBaseBlock{
             }
         }
         return true;
+    }
+
+    // Called when a neighbouring block changes.
+    // Only called on the server side- so it doesn't help us alter rendering on the client side.
+    // For that, we need to store the information in the tileentity and trigger a block update to send the
+    //   information to the client side
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos){
+        LogicTileEntity tileEntity = getTE(worldIn, pos);
+        if(tileEntity != null){
+            boolean old = tileEntity.isPowered();
+            tileEntity.setPowered(isLogicallyPowered(state, worldIn, pos));
+
+            if(old != tileEntity.isPowered()){
+                worldIn.notifyBlockUpdate(pos, state, state, 3);
+            }
+        }
     }
 
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
@@ -203,21 +227,36 @@ public abstract class LogicBlock extends AlfBaseBlock{
         }
     }
 
-    protected int getAPower(World worldIn, BlockPos pos, IBlockState state){
+    protected int getRawAPower(World worldIn, BlockPos pos, IBlockState state){
         EnumFacing enumFacing = state.getValue(FACING).rotateYCCW();
         return calculateInputStrengthFromFace(worldIn, pos, enumFacing);
     }
 
-    protected int getBPower(World worldIn, BlockPos pos, IBlockState state){
+    protected int getRawBPower(World worldIn, BlockPos pos, IBlockState state){
         EnumFacing enumFacing = state.getValue(FACING).rotateYCCW().rotateYCCW();
         return calculateInputStrengthFromFace(worldIn, pos, enumFacing);
     }
 
-    protected int getCPower(World worldIn, BlockPos pos, IBlockState state){
+    protected int getRawCPower(World worldIn, BlockPos pos, IBlockState state){
         EnumFacing enumFacing = state.getValue(FACING).rotateYCCW().rotateYCCW().rotateYCCW();
         return calculateInputStrengthFromFace(worldIn, pos, enumFacing);
     }
 
+    protected int getAPower(World worldIn, BlockPos pos, IBlockState state){
+        return isAEnabled(worldIn, pos) ? getRawAPower(worldIn, pos, state) : 0;
+    }
+
+    protected int getBPower(World worldIn, BlockPos pos, IBlockState state){
+        return isBEnabled(worldIn, pos) ? getRawBPower(worldIn, pos, state) : 0;
+    }
+
+    protected int getCPower(World worldIn, BlockPos pos, IBlockState state){
+        return isCEnabled(worldIn, pos) ? getRawCPower(worldIn, pos, state) : 0;
+    }
+
+    protected boolean isLogicallyPowered(IBlockState blockState, World world, BlockPos pos){
+        return getOutputPower(blockState,  world,  pos) > 0;
+    }
 
     /**
      * Determine if this block can make a redstone connection on the side provided,
@@ -250,14 +289,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
     protected abstract int getOutputPower(IBlockState blockState, World world, BlockPos pos);
 
-    /** How much weak power does this block provide to the adjacent block?
-     * @param blockAccess
-     * @param pos the position of this block
-     * @param blockState the blockstate of this block
-     * @param side the side of the block - eg EAST means that this is to the EAST of the adjacent block.
-     * @return The power provided [0 - 15]
-     */
-    @Override
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         blockState = getActualState(blockState, blockAccess, pos);
         if(blockAccess instanceof World){
@@ -271,9 +302,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
         return super.getWeakPower(blockState, blockAccess, pos, side);
     }
 
-    /**
-     * Called When an Entity Collided with the Block
-     */
     @Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         blockState = getActualState(blockState, blockAccess, pos);

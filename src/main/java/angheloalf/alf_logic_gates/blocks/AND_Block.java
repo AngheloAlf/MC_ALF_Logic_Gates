@@ -13,19 +13,14 @@ public class AND_Block extends LogicBlock{
 
     @Override
     protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
-        boolean aEnabled = isAEnabled(world, pos);
-        boolean bEnabled = isBEnabled(world, pos);
-        boolean cEnabled = isCEnabled(world, pos);
-
-        int aPower = aEnabled ? getAPower(world, pos, blockState) : 0;
-        int bPower = bEnabled ? getBPower(world, pos, blockState) : 0;
-        int cPower = cEnabled ? getCPower(world, pos, blockState) : 0;
-
         LogicTileEntity tileEntity = getTE(world, pos);
         if(tileEntity == null){
             return 0;
         }
 
+        int aPower = getAPower(world, pos, blockState);
+        int bPower = getBPower(world, pos, blockState);
+        int cPower = getCPower(world, pos, blockState);
         switch(tileEntity.getClickCount()){
             case 0:
                 return and(aPower, bPower);

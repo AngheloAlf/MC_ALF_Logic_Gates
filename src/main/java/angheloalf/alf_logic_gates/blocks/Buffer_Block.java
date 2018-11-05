@@ -16,11 +16,11 @@ public class Buffer_Block extends LogicBlock{
         int block_state = blockState.getValue(BLOCK_STATE);
         switch(block_state){
             case 0:
-                return buffer(getAPower(world, pos, blockState));
+                return buffer(getRawAPower(world, pos, blockState));
             case 1:
-                return buffer(getBPower(world, pos, blockState));
+                return buffer(getRawBPower(world, pos, blockState));
             case 2:
-                return buffer(getCPower(world, pos, blockState));
+                return buffer(getRawCPower(world, pos, blockState));
             case 3:
                 return 0;
         }

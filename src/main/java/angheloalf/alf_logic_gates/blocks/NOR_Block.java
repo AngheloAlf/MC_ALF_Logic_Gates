@@ -12,9 +12,9 @@ public class NOR_Block extends LogicBlock{
 
     @Override
     protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
-        int aPower = isAEnabled(world, pos) ? getAPower(world, pos, blockState) : 0;
-        int bPower = isBEnabled(world, pos) ? getBPower(world, pos, blockState) : 0;
-        int cPower = isCEnabled(world, pos) ? getCPower(world, pos, blockState) : 0;
+        int aPower = getAPower(world, pos, blockState);
+        int bPower = getBPower(world, pos, blockState);
+        int cPower = getCPower(world, pos, blockState);
 
         return negate(OR_Block.or(OR_Block.or(aPower, bPower), cPower));
     }
