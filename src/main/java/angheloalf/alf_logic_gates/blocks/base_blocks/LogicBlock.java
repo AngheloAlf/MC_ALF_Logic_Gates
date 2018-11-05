@@ -4,10 +4,10 @@ import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -22,10 +22,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public abstract class LogicBlock extends AlfBaseBlock{
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 5);
 
     public LogicBlock(String blockName){
@@ -35,23 +38,10 @@ public abstract class LogicBlock extends AlfBaseBlock{
     }
 
     /* Block state */
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState()
-                .withProperty(FACING, EnumFacing.getFront((meta & 3) + 2));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex()-2;
-    }
-
     @Override
     protected BlockStateContainer createBlockState(){
         return new BlockStateContainer(this, FACING, BLOCK_STATE);
     }
-
     /* End Block state */
 
 
@@ -88,6 +78,8 @@ public abstract class LogicBlock extends AlfBaseBlock{
         }
         return state;
     }
+    /* END Tile Entity */
+
 
     protected boolean isAEnabled(World world, BlockPos pos){
         LogicTileEntity tileEntity;
@@ -137,15 +129,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
         return false;
     }
 
-    /* END Tile Entity */
 
-    // Create the appropriate state for the block being placed - in this case, figure out which way the target is facing
-    @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos thisBlockPos, EnumFacing faceOfNeighbour,
-                                            float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-        EnumFacing directionTargetIsPointing = (placer == null) ? EnumFacing.NORTH : EnumFacing.fromAngle(placer.rotationYaw);
-        return this.getDefaultState().withProperty(FACING, directionTargetIsPointing);
-    }
 
     // Called just after the player places a block.
     @Override
@@ -181,14 +165,16 @@ public abstract class LogicBlock extends AlfBaseBlock{
     // For that, we need to store the information in the tileentity and trigger a block update to send the
     //   information to the client side
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos){
-        LogicTileEntity tileEntity = getTE(worldIn, pos);
-        if(tileEntity != null){
-            boolean old = tileEntity.getHowMuchPower() > 0;
-            tileEntity.setHowMuchPower(getOutputPower(state, worldIn, pos));
+    public void neighborChanged(@Nullable IBlockState state, @Nullable World worldIn, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
+        if(state != null && worldIn != null && pos != null){
+            LogicTileEntity tileEntity = getTE(worldIn, pos);
+            if(tileEntity != null){
+                boolean old = tileEntity.getHowMuchPower() > 0;
+                tileEntity.setHowMuchPower(getOutputPower(state, worldIn, pos));
 
-            if(old != (tileEntity.getHowMuchPower() > 0)){
-                worldIn.notifyBlockUpdate(pos, state, state, 3);
+                if(old != (tileEntity.getHowMuchPower() > 0)){
+                    worldIn.notifyBlockUpdate(pos, state, state, 3);
+                }
             }
         }
     }
@@ -289,7 +275,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
         blockState = getActualState(blockState, blockAccess, pos);
         if(blockAccess instanceof World){
             World world = (World) blockAccess;
-            //world.notifyBlockUpdate(pos, blockState, blockState, 3);
+            // world.notifyBlockUpdate(pos, blockState, blockState, 3);
             // world.notifyNeighborsOfStateChange(pos, this, true);
             if(side == blockState.getValue(FACING).getOpposite()){
                 return getOutputPower(blockState, world, pos);

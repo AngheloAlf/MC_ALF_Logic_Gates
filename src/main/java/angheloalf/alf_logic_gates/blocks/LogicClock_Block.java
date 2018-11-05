@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class LogicClock_Block extends AlfBaseBlock{
-    public static final PropertyDirection FACING = PropertyDirection.create("facing");
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     public LogicClock_Block(){
@@ -35,25 +34,21 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
 
-
     /* Block state */
-
     @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState()
-                .withProperty(FACING, EnumFacing.getFront((meta & 7))).withProperty(POWERED, (meta&8)>0);
+    public IBlockState getStateFromMeta(int meta){
+        return super.getStateFromMeta(meta).withProperty(POWERED, (meta&8)>0);
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex() | (state.getValue(POWERED)?8:0);
+    public int getMetaFromState(IBlockState state){
+        return super.getMetaFromState(state) | (state.getValue(POWERED)?8:0);
     }
 
     @Override
     protected BlockStateContainer createBlockState(){
         return new BlockStateContainer(this, FACING, POWERED);
     }
-
     /* End Block state */
 
 
