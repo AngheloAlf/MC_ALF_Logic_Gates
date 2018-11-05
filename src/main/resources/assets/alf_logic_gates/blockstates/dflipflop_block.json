@@ -1,0 +1,67 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alf_logic_gates:dflipflop_block",
+    "textures": {
+      "left": "alf_logic_gates:blocks/dflipflop/clk",
+      "back": "alf_logic_gates:blocks/dflipflop/in",
+      "right": "alf_logic_gates:blocks/dflipflop/off"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+    "block_state": {
+      "0": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/dflipflop/clk",
+          "back": "alf_logic_gates:blocks/dflipflop/in",
+          "right": "alf_logic_gates:blocks/dflipflop/off"
+        }
+      },
+      "1": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/dflipflop/clk",
+          "back": "alf_logic_gates:blocks/dflipflop/off",
+          "right": "alf_logic_gates:blocks/dflipflop/in"
+        }
+      },
+      "2": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/dflipflop/off",
+          "back": "alf_logic_gates:blocks/dflipflop/clk",
+          "right": "alf_logic_gates:blocks/dflipflop/in"
+        }
+      },
+      "3": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/dflipflop/in",
+          "back": "alf_logic_gates:blocks/dflipflop/clk",
+          "right": "alf_logic_gates:blocks/dflipflop/off"
+        }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/dflipflop/in",
+          "back": "alf_logic_gates:blocks/dflipflop/off",
+          "right": "alf_logic_gates:blocks/dflipflop/clk"
+        }
+      },
+      "5": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/dflipflop/off",
+          "back": "alf_logic_gates:blocks/dflipflop/in",
+          "right": "alf_logic_gates:blocks/dflipflop/clk"
+        }
+      }
+    }
+  }
+}

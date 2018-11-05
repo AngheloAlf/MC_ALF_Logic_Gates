@@ -18,6 +18,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
     protected int clicked = 0;
     protected int clicksMax = 4;
     protected int howMuchPower = 0;
+    protected boolean powered = false;
 
     public LogicTileEntity(){
         super();
@@ -59,6 +60,14 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         this.howMuchPower = power;
     }
 
+    public boolean isPowered(){
+        return powered;
+    }
+
+    public void setPowered(boolean powered){
+        this.powered = powered;
+    }
+
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState){
         return (oldState.getBlock() != newState.getBlock());
@@ -70,6 +79,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         clicked = compound.getInteger("clickedCount");
         clicksMax = compound.getInteger("clicksMax");
         howMuchPower = compound.getInteger("howMuchPower");
+        powered = compound.getBoolean("powered");
     }
 
     @Override
@@ -78,6 +88,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         compound.setInteger("clickedCount", clicked);
         compound.setInteger("clicksMax", clicksMax);
         compound.setInteger("howMuchPower", howMuchPower);
+        compound.setBoolean("powered", powered);
         return compound;
     }
 

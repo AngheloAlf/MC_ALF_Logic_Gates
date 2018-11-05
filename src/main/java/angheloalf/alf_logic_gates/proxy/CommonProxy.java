@@ -77,6 +77,9 @@ public class CommonProxy {
 
         block = new DLatch_Block();
         event.getRegistry().register(block);
+
+        block = new DFlipFlop_Block();
+        event.getRegistry().register(block);
     }
 
     @SubscribeEvent
@@ -102,6 +105,7 @@ public class CommonProxy {
         //event.getRegistry().register(getItemForRegistry(ModBlocks.logicClock_block));
         event.getRegistry().register(new ItemBlock(ModBlocks.logicClock_block).setRegistryName(ModBlocks.logicClock_block.getBlockName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.dLatch_block).setRegistryName(ModBlocks.dLatch_block.getBlockName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.dFlipFlop_block).setRegistryName(ModBlocks.dFlipFlop_block.getBlockName()));
 
         // Items
         event.getRegistry().register(new ExampleItem());
@@ -136,6 +140,7 @@ public class CommonProxy {
 
         registerRender(Item.getItemFromBlock(ModBlocks.logicClock_block));
         registerRender(Item.getItemFromBlock(ModBlocks.dLatch_block));
+        registerRender(Item.getItemFromBlock(ModBlocks.dFlipFlop_block));
 
         // Items
         registerRender(ModItems.exampleItem);

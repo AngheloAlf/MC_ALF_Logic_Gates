@@ -48,7 +48,11 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":dlatch_block")
     public static DLatch_Block dLatch_block = new DLatch_Block();
 
-    public static AlfBaseBlock otherBlocks[] = {logicClock_block, dLatch_block};
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":dflipflop_block")
+    public static DFlipFlop_Block dFlipFlop_block = new DFlipFlop_Block();
+
+    public static AlfBaseBlock otherBlocks[] = {logicClock_block,
+                                                dLatch_block, dFlipFlop_block};
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {

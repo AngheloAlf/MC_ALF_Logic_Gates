@@ -13,6 +13,7 @@ tile.alf_logic_gates.buffer_block.name=Buffer
 
 tile.alf_logic_gates.logic_clock.name=Logic clock
 tile.alf_logic_gates.dlatch_block.name=D Latch
+tile.alf_logic_gates.dflipflop_block.name=D Flip Flop
 
 
 item.alf_logic_gates.exampleitem.name=Example item
