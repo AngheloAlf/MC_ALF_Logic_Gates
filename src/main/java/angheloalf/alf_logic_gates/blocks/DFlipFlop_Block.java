@@ -75,7 +75,7 @@ public class DFlipFlop_Block extends LogicBlock{
                 return side == left || side == right;
             case 2:
             case 5:
-                return side == left || side == right;
+                return side == back || side == right;
         }
         return false;
     }

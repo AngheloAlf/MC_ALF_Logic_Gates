@@ -34,7 +34,9 @@ public abstract class LogicBlock extends AlfBaseBlock{
     public LogicBlock(String blockName){
         super(Material.CIRCUITS, blockName, ModCreativeTabs.logicGatesTab);
 
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BLOCK_STATE, 0));
+        IBlockState state = blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)
+                .withProperty(BLOCK_STATE, 0);
+        setDefaultState(state);
     }
 
     /* Block state */
@@ -53,11 +55,12 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
-        LogicTileEntity tileEntity = new LogicTileEntity();
+        return new LogicTileEntity();
+        /*LogicTileEntity tileEntity = new LogicTileEntity();
         if(state != null){
-            tileEntity.setClick(state.getValue(BLOCK_STATE));
+            // tileEntity.setClick(state.getValue(BLOCK_STATE));
         }
-        return tileEntity;
+        return tileEntity;*/
     }
 
     @Nullable
@@ -308,6 +311,5 @@ public abstract class LogicBlock extends AlfBaseBlock{
         }
         return Config.repeatSignal ? 15 : power;
     }
-
     /* END Redstone */
 }

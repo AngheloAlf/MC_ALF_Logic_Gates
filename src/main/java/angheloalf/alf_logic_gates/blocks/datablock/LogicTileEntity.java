@@ -17,12 +17,13 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class LogicTileEntity extends TileEntity implements ITickable{
     protected int clicked = 0;
     protected int clicksMax = 4;
+
+    // D Latch & D Flip-Flop
     protected int howMuchPower = 0;
     protected boolean powered = false;
 
     public LogicTileEntity(){
         super();
-        clicksMax = 4;
     }
 
     @Override

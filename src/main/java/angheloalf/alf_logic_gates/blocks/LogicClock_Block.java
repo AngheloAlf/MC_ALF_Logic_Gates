@@ -3,10 +3,8 @@ package angheloalf.alf_logic_gates.blocks;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
-import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -42,7 +40,7 @@ public class LogicClock_Block extends AlfBaseBlock{
 
     @Override
     public int getMetaFromState(IBlockState state){
-        return super.getMetaFromState(state) | (state.getValue(POWERED)?8:0);
+        return super.getMetaFromState(state) | (state.getValue(POWERED) ? 8: 0);
     }
 
     @Override
@@ -121,7 +119,6 @@ public class LogicClock_Block extends AlfBaseBlock{
 
 
     /* Redstone */
-
     @Override
     public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, EnumFacing side){
         if (side == null) return false;
@@ -142,13 +139,8 @@ public class LogicClock_Block extends AlfBaseBlock{
     @Override
     public boolean canProvidePower(IBlockState state){
         return true;
-    }/** How much weak power does this block provide to the adjacent block?
-     * @param blockAccess
-     * @param pos the position of this block
-     * @param blockState the blockstate of this block
-     * @param side the side of the block - eg EAST means that this is to the EAST of the adjacent block.
-     * @return The power provided [0 - 15]
-     */
+    }
+
     @Override
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         blockState = getActualState(blockState, blockAccess, pos);
@@ -156,17 +148,8 @@ public class LogicClock_Block extends AlfBaseBlock{
             ((World) blockAccess).notifyBlockUpdate(pos, blockState, blockState, 3);
         }
         return getOutputPower(blockAccess, pos);
-
-        /*blockState = getActualState(blockState, blockAccess, pos);
-        if(side == blockState.getValue(FACING).getOpposite() && blockAccess instanceof World){
-            // return getOutputPower(blockState, (World) blockAccess, pos);
-        }
-        return super.getWeakPower(blockState, blockAccess, pos, side);*/
     }
 
-    /**
-     * Called When an Entity Collided with the Block
-     */
     @Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         blockState = getActualState(blockState, blockAccess, pos);
