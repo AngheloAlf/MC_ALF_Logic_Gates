@@ -1,7 +1,9 @@
 package angheloalf.alf_logic_gates.blocks.datablock;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -10,13 +12,18 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class ClockEntity extends TileEntity implements ITickable{
     private boolean lit = false;
 
     private int counter = 0;
     // private int delayCounter = 10;
-    private int lastCount = 1;
+    private int step = 1;
+    private int maxCount = 40;
+    // private int multiplier = 10;
 
     public ClockEntity(){
         super();
@@ -26,15 +33,32 @@ public class ClockEntity extends TileEntity implements ITickable{
         return lit;
     }
 
+    public int getMaxCount(){
+        return maxCount;
+    }
+
+    public void setMaxCount(int newMaxCount){
+        maxCount = newMaxCount;
+    }
+
     @Override
     public void update(){
-        counter -= lastCount * 4;
+        counter -= step; // * multiplier;
         if (counter <= 0) {
             lit = !lit;
-            counter = 400;
+            counter = maxCount; //  * multiplier;
             markDirty();
             world.notifyNeighborsOfStateChange(getPos(), blockType, false);
         }
+    }
+
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        if (this.world.getTileEntity(this.pos) != this) return false;
+        final double X_CENTRE_OFFSET = 0.5;
+        final double Y_CENTRE_OFFSET = 0.5;
+        final double Z_CENTRE_OFFSET = 0.5;
+        final double MAXIMUM_DISTANCE_SQ = 8.0 * 8.0;
+        return player.getDistanceSq(pos.getX() + X_CENTRE_OFFSET, pos.getY() + Y_CENTRE_OFFSET, pos.getZ() + Z_CENTRE_OFFSET) < MAXIMUM_DISTANCE_SQ;
     }
 
     @Override
@@ -46,7 +70,8 @@ public class ClockEntity extends TileEntity implements ITickable{
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         counter = compound.getInteger("counter");
-        lastCount = compound.getInteger("lastCount");
+        // lastCount = compound.getInteger("lastCount");
+        maxCount = compound.getInteger("maxCount");
         lit = compound.getBoolean("lit");
     }
 
@@ -54,7 +79,8 @@ public class ClockEntity extends TileEntity implements ITickable{
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound = super.writeToNBT(compound);
         compound.setInteger("counter", counter);
-        compound.setInteger("lastCount", lastCount);
+        // compound.setInteger("lastCount", lastCount);
+        compound.setInteger("maxCount", maxCount);
         compound.setBoolean("lit", lit);
         return compound;
     }

@@ -11,9 +11,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
 public class DLatch_Block extends LogicBlock{
     public DLatch_Block(){
         super("dlatch_block");
@@ -81,7 +82,7 @@ public class DLatch_Block extends LogicBlock{
         return false;
     }
 
-    private int getCLKPower(IBlockState blockState, World world, BlockPos pos, @Nonnull LogicTileEntity tileEntity){
+    private int getCLKPower(IBlockState blockState, World world, BlockPos pos, LogicTileEntity tileEntity){
         int aPower = getRawAPower(world, pos, blockState);
         int bPower = getRawBPower(world, pos, blockState);
         int cPower = getRawCPower(world, pos, blockState);
@@ -99,7 +100,7 @@ public class DLatch_Block extends LogicBlock{
         return 0;
     }
 
-    private int getDPower(IBlockState blockState, World world, BlockPos pos, @Nonnull LogicTileEntity tileEntity){
+    private int getDPower(IBlockState blockState, World world, BlockPos pos, LogicTileEntity tileEntity){
         int aPower = getRawAPower(world, pos, blockState);
         int bPower = getRawBPower(world, pos, blockState);
         int cPower = getRawCPower(world, pos, blockState);

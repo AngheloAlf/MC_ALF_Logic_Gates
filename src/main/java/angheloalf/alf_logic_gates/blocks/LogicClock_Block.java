@@ -1,8 +1,11 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.ModCreativeTabs;
+import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
+import angheloalf.alf_logic_gates.gui.GuiHandler;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -17,14 +20,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class LogicClock_Block extends AlfBaseBlock{
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     public LogicClock_Block(){
-        // super("logic_clock");
         super(Material.CIRCUITS, "logic_clock", ModCreativeTabs.logicGatesTab);
         setTickRandomly(false);
 
@@ -50,7 +54,6 @@ public class LogicClock_Block extends AlfBaseBlock{
     /* End Block state */
 
 
-
     /* Tile Entity */
     @Override
     public boolean hasTileEntity(IBlockState state){
@@ -59,11 +62,7 @@ public class LogicClock_Block extends AlfBaseBlock{
 
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
-        ClockEntity tileEntity = new ClockEntity();
-        if(state != null){
-            // tileEntity.setClick(state.getValue(BLOCK_STATE));
-        }
-        return tileEntity;
+        return new ClockEntity();
     }
 
     @Nullable
@@ -113,6 +112,7 @@ public class LogicClock_Block extends AlfBaseBlock{
                 //world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
                 world.notifyNeighborsOfStateChange(pos, this, true);
             }
+            player.openGui(Mod_ALF_Logic_Gates.instance, GuiHandler.getGuiID(), world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
     }
@@ -120,15 +120,11 @@ public class LogicClock_Block extends AlfBaseBlock{
 
     /* Redstone */
     @Override
-    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, EnumFacing side){
-        if (side == null) return false;
-        // if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
-
-        // state = getActualState(state, world, posConnectingFrom);
-        return true;
+    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, @Nullable EnumFacing side){
+        return side != null;
     }
 
-    protected int getOutputPower(@Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos){
+    protected int getOutputPower(IBlockAccess blockAccess, BlockPos pos){
         ClockEntity entity = getTE(blockAccess, pos);
         if(entity != null){
             return entity.isOn() ? 15 : 0;
