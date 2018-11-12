@@ -3,6 +3,8 @@ package angheloalf.alf_logic_gates.gui;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.containers.ClockContainer;
 import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
+import angheloalf.alf_logic_gates.network.ClockMessage;
+import angheloalf.alf_logic_gates.network.LogicGatesPacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -42,6 +44,8 @@ public class LogicClockGui extends GuiContainer{
             case 2: // +
                 System.out.println("Setting: " + (actualMaxCount+1));
                 clockEntity.setMaxCount(actualMaxCount + 1);
+
+                LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(actualMaxCount+1, clockEntity.getStep()));
                 break;
             case 3: // -
                 System.out.println("Setting: " + (actualMaxCount-1));

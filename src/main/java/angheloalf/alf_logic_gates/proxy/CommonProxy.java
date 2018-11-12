@@ -9,15 +9,14 @@ import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
 import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
-import angheloalf.alf_logic_gates.gui.LogicClockGui;
 import angheloalf.alf_logic_gates.items.*;
 
 
+import angheloalf.alf_logic_gates.network.LogicGatesPacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -36,6 +35,7 @@ public class CommonProxy {
         Config.preInit();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(Mod_ALF_Logic_Gates.instance, GuiHandler.getInstance());
+        LogicGatesPacketHandler.init();
     }
 
     public void init(FMLInitializationEvent e) {
@@ -88,7 +88,7 @@ public class CommonProxy {
     }
 
     @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
+    public static void registerItems(RegistryEvent.Register<Item> event){
         // Items from blocks
         event.getRegistry().register(new ItemBlock(ModBlocks.exampleBlock).setRegistryName(ModBlocks.exampleBlock.getRegistryName()));
 

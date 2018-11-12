@@ -41,6 +41,14 @@ public class ClockEntity extends TileEntity implements ITickable{
         maxCount = newMaxCount;
     }
 
+    public int getStep(){
+        return step;
+    }
+
+    public void setStep(int step){
+        this.step = step;
+    }
+
     @Override
     public void update(){
         counter -= step; // * multiplier;

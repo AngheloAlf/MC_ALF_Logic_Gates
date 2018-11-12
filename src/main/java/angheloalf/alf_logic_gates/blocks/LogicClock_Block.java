@@ -107,11 +107,10 @@ public class LogicClock_Block extends AlfBaseBlock{
         //This makes it work on server side.
         if(!world.isRemote){
             ClockEntity tileEntity = getTE(world, pos);
-            if(tileEntity != null){
-                //int clicked = tileEntity.click();
-                //world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
-                world.notifyNeighborsOfStateChange(pos, this, true);
+            if(tileEntity == null){
+                return false;
             }
+            world.notifyNeighborsOfStateChange(pos, this, true);
             player.openGui(Mod_ALF_Logic_Gates.instance, GuiHandler.getGuiID(), world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
