@@ -42,7 +42,7 @@ public class GuiHandler implements IGuiHandler{
         TileEntity tileEntity = world.getTileEntity(xyz);
         if (tileEntity instanceof ClockEntity) {
             ClockEntity clockEntity = (ClockEntity) tileEntity;
-            return new LogicClockGui(clockEntity);
+            return new LogicClockGui(clockEntity, xyz);
         }
         return null;
     }

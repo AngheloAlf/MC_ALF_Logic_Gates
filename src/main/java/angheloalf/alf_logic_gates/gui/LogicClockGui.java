@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 
 import java.awt.*;
 
@@ -17,10 +18,12 @@ import java.awt.*;
 public class LogicClockGui extends GuiContainer{
     private static final ResourceLocation texture = new ResourceLocation(Mod_ALF_Logic_Gates.MODID, "textures/gui/basic_gui.png");
     private ClockEntity clockEntity;
+    private BlockPos position;
 
-    public  LogicClockGui(ClockEntity clockEntity){
+    public LogicClockGui(ClockEntity clockEntity, BlockPos pos){
         super(new ClockContainer(clockEntity));
         this.clockEntity = clockEntity;
+        this.position = pos;
         xSize = 176;
         ySize = 75;
     }
@@ -35,6 +38,7 @@ public class LogicClockGui extends GuiContainer{
 
     @Override
     protected void actionPerformed(GuiButton b){
+
         int actualMaxCount = clockEntity.getMaxCount();
         System.out.println("Actual: " + actualMaxCount);
         switch(b.id){
@@ -42,10 +46,11 @@ public class LogicClockGui extends GuiContainer{
                 System.out.println("Reset button clicked!");
                 break;
             case 2: // +
-                System.out.println("Setting: " + (actualMaxCount+1));
-                clockEntity.setMaxCount(actualMaxCount + 1);
+                ++actualMaxCount;
+                System.out.println("Setting: " + actualMaxCount);
+                clockEntity.setMaxCount(actualMaxCount);
 
-                LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(actualMaxCount+1, clockEntity.getStep()));
+                LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(position.getX(), position.getY(), position.getZ(), actualMaxCount, clockEntity.getStep()));
                 break;
             case 3: // -
                 System.out.println("Setting: " + (actualMaxCount-1));
@@ -67,7 +72,7 @@ public class LogicClockGui extends GuiContainer{
     // draw the foreground for the GUI - rendered after the slots, but before the dragged items and tooltips
     // renders relative to the top left corner of the background
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY){
         final int LABEL_XPOS = 8;
         final int LABEL_YPOS = 6;
         String name = "Logic clock";
@@ -77,4 +82,9 @@ public class LogicClockGui extends GuiContainer{
         fontRenderer.drawString(name, LABEL_XPOS, LABEL_YPOS, Color.darkGray.getRGB());
     }
 
+
+    @Override
+    public void onGuiClosed(){
+        System.out.println("Closing GUI.");
+    }
 }
