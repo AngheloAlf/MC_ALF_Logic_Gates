@@ -64,17 +64,14 @@ public class ClockMessage implements IMessage{
             TileEntity tileEntity = serverPlayer.world.getTileEntity(new BlockPos(xBlock, yBlock, zBlock));
 
             int maxCount = message.maxCount;
-            System.out.println("SERVER: "+maxCount);
-
-            // How do i access the tile entity?
-
+            int step = message.step;
             if(tileEntity instanceof ClockEntity){
                 serverPlayer.getServerWorld().addScheduledTask(() -> {
                     ((ClockEntity) tileEntity).setMaxCount(maxCount);
+                    ((ClockEntity) tileEntity).setStep(step);
                 });
             }
-            // No response packet
-            return null;
+            return null; // No response packet
         }
     }
 }

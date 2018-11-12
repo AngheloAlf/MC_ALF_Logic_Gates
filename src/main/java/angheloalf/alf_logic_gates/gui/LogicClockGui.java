@@ -7,18 +7,22 @@ import angheloalf.alf_logic_gates.network.ClockMessage;
 import angheloalf.alf_logic_gates.network.LogicGatesPacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 import java.awt.*;
+import java.io.IOException;
 
 
 public class LogicClockGui extends GuiContainer{
     private static final ResourceLocation texture = new ResourceLocation(Mod_ALF_Logic_Gates.MODID, "textures/gui/basic_gui.png");
     private ClockEntity clockEntity;
     private BlockPos position;
+
+    private GuiTextField maxCountField;
 
     public LogicClockGui(ClockEntity clockEntity, BlockPos pos){
         super(new ClockContainer(clockEntity));
@@ -31,37 +35,39 @@ public class LogicClockGui extends GuiContainer{
     @Override
     public void initGui(){
         super.initGui();
-        buttonList.add(new GuiButton(1, guiLeft+30, guiTop+50, 40, 20, "reset"));
-        buttonList.add(new GuiButton(2, guiLeft+40, guiTop+30, 20, 20, "+"));
-        buttonList.add(new GuiButton(3, guiLeft+20, guiTop+30, 20, 20, "-"));
+        buttonList.add(new GuiButton(1, guiLeft+41, guiTop+50, 40, 20, "reset"));
+
+        buttonList.add(new GuiButton(2, guiLeft+20, guiTop+20, 20, 20, "-"));
+        maxCountField = new GuiTextField(4, this.fontRenderer, 20+20+1, 20, 40, 20);
+        buttonList.add(new GuiButton(3, guiLeft+20+20+40+2, guiTop+20, 20, 20, "+"));
     }
 
     @Override
     protected void actionPerformed(GuiButton b){
-
         int actualMaxCount = clockEntity.getMaxCount();
-        System.out.println("Actual: " + actualMaxCount);
+        // System.out.println("Actual: " + actualMaxCount);
         switch(b.id){
             case 1: // reset
                 System.out.println("Reset button clicked!");
                 break;
-            case 2: // +
-                ++actualMaxCount;
-                System.out.println("Setting: " + actualMaxCount);
-                clockEntity.setMaxCount(actualMaxCount);
-
+            case 2: // -
+                --actualMaxCount;
+                // System.out.println("Setting: " + (actualMaxCount-1));
+                // clockEntity.setMaxCount(actualMaxCount - 1);
                 LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(position.getX(), position.getY(), position.getZ(), actualMaxCount, clockEntity.getStep()));
                 break;
-            case 3: // -
-                System.out.println("Setting: " + (actualMaxCount-1));
-                clockEntity.setMaxCount(actualMaxCount - 1);
+            case 3: // +
+                ++actualMaxCount;
+                // System.out.println("Setting: " + actualMaxCount);
+                // clockEntity.setMaxCount(actualMaxCount);
+                LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(position.getX(), position.getY(), position.getZ(), actualMaxCount, clockEntity.getStep()));
                 break;
         }
-
+        updateTextFields();
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int x, int y) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int x, int y){
         // Bind the image texture of our custom container
         Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
         // Draw the image
@@ -73,6 +79,8 @@ public class LogicClockGui extends GuiContainer{
     // renders relative to the top left corner of the background
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY){
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+
         final int LABEL_XPOS = 8;
         final int LABEL_YPOS = 6;
         String name = "Logic clock";
@@ -80,8 +88,20 @@ public class LogicClockGui extends GuiContainer{
             name = clockEntity.getDisplayName().getUnformattedText();
         }
         fontRenderer.drawString(name, LABEL_XPOS, LABEL_YPOS, Color.darkGray.getRGB());
+
+        updateTextFields();
+        maxCountField.drawTextBox();
     }
 
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+
+    }
+
+    protected void updateTextFields(){
+        maxCountField.setText(String.valueOf(clockEntity.getMaxCount()));
+    }
 
     @Override
     public void onGuiClosed(){
