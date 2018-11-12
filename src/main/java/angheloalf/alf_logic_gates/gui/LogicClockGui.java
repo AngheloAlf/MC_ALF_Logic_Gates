@@ -35,7 +35,7 @@ public class LogicClockGui extends GuiContainer{
     @Override
     public void initGui(){
         super.initGui();
-        buttonList.add(new GuiButton(1, guiLeft+41, guiTop+50, 40, 20, "reset"));
+        buttonList.add(new GuiButton(1, guiLeft+41, guiTop+40, 40, 20, "reset"));
 
         buttonList.add(new GuiButton(2, guiLeft+20, guiTop+20, 20, 20, "-"));
         maxCountField = new GuiTextField(4, this.fontRenderer, 20+20+1, 20, 40, 20);
@@ -44,25 +44,24 @@ public class LogicClockGui extends GuiContainer{
 
     @Override
     protected void actionPerformed(GuiButton b){
+        int x = position.getX();
+        int y = position.getY();
+        int z = position.getZ();
         int actualMaxCount = clockEntity.getMaxCount();
-        // System.out.println("Actual: " + actualMaxCount);
+
         switch(b.id){
             case 1: // reset
-                System.out.println("Reset button clicked!");
+                clockEntity.reset();
                 break;
             case 2: // -
-                --actualMaxCount;
-                // System.out.println("Setting: " + (actualMaxCount-1));
-                // clockEntity.setMaxCount(actualMaxCount - 1);
-                LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(position.getX(), position.getY(), position.getZ(), actualMaxCount, clockEntity.getStep()));
+                clockEntity.setMaxCount(--actualMaxCount);
                 break;
             case 3: // +
-                ++actualMaxCount;
-                // System.out.println("Setting: " + actualMaxCount);
-                // clockEntity.setMaxCount(actualMaxCount);
-                LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(position.getX(), position.getY(), position.getZ(), actualMaxCount, clockEntity.getStep()));
+                clockEntity.setMaxCount(++actualMaxCount);
                 break;
         }
+
+        LogicGatesPacketHandler.INSTANCE.sendToServer(new ClockMessage(x, y, z, clockEntity.getMaxCount(), clockEntity.getStep()));
         updateTextFields();
     }
 
