@@ -1,7 +1,7 @@
 package angheloalf.alf_logic_gates.gui;
 
 import angheloalf.alf_logic_gates.blocks.containers.ClockContainer;
-import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

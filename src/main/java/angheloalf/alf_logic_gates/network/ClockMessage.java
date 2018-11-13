@@ -1,6 +1,6 @@
 package angheloalf.alf_logic_gates.network;
 
-import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.tileentity.TileEntity;

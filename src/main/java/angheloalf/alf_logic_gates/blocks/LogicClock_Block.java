@@ -3,7 +3,7 @@ package angheloalf.alf_logic_gates.blocks;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
-import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
@@ -123,7 +123,7 @@ public class LogicClock_Block extends AlfBaseBlock{
 
         ClockEntity tileEntity = getTE(worldIn, pos);
         if(tileEntity != null){
-            int power = worldIn.getRedstonePower(pos, EnumFacing.UP) + worldIn.getRedstonePower(pos, EnumFacing.DOWN);
+            // int power = worldIn.getRedstonePower(pos, EnumFacing.UP) + worldIn.getRedstonePower(pos, EnumFacing.DOWN);
             // tileEntity.disable(power > 0);
         }
     }

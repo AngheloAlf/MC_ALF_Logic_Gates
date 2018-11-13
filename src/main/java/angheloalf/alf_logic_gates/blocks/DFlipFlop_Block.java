@@ -1,7 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.LogicBlock;
-import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -41,7 +41,11 @@ public class DFlipFlop_Block extends LogicBlock{
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos){
+    public void neighborChanged(@Nullable IBlockState state, @Nullable World worldIn, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
+        if(worldIn == null || pos == null || state == null){
+            return;
+        }
+
         LogicTileEntity tileEntity = getTE(worldIn, pos);
         if(tileEntity != null){
             boolean clkPower = getCLKPower(state, worldIn, pos, tileEntity) > 0;

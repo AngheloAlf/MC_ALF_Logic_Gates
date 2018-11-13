@@ -1,11 +1,14 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.LogicBlock;
-import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class XNOR_Block extends LogicBlock{
     public XNOR_Block(){
         super("xnor_block");

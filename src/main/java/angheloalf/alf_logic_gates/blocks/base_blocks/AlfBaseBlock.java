@@ -2,6 +2,7 @@ package angheloalf.alf_logic_gates.blocks.base_blocks;
 
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -19,16 +20,20 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public abstract class AlfBaseBlock extends Block{
-    protected String blockName;
+    private String blockName;
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public AlfBaseBlock(Material material, String blockName){
         super(material);
 
         this.blockName = blockName;
-        setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
         setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + blockName);
+        setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
     }
 
     public AlfBaseBlock(Material material, String blockName, CreativeTabs tab){

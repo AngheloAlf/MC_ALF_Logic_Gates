@@ -1,4 +1,4 @@
-package angheloalf.alf_logic_gates.blocks.datablock;
+package angheloalf.alf_logic_gates.blocks.tileentities;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;

@@ -8,12 +8,14 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class LogicGatesTab extends CreativeTabs {
     private boolean withSearch;
 
-    public LogicGatesTab(@Nonnull String name, @Nullable String background, boolean withSearch){
+    public LogicGatesTab(String name, @Nullable String background, boolean withSearch){
         super(name);
         if(background != null){
             this.setBackgroundImageName(background);

@@ -2,7 +2,7 @@ package angheloalf.alf_logic_gates.gui;
 
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.containers.ClockContainer;
-import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import angheloalf.alf_logic_gates.network.ClockMessage;
 import angheloalf.alf_logic_gates.network.LogicGatesPacketHandler;
 import net.minecraft.client.Minecraft;

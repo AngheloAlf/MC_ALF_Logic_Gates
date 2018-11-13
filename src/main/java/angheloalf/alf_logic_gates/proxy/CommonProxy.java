@@ -6,8 +6,8 @@ import angheloalf.alf_logic_gates.ModItems;
 import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.blocks.*;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
-import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
-import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
 import angheloalf.alf_logic_gates.items.*;
 

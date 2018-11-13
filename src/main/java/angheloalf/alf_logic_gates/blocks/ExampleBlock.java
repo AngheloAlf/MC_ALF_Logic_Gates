@@ -2,7 +2,7 @@ package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
-import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;

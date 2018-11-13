@@ -14,7 +14,7 @@ public abstract class AlfBaseItem extends Item{
         super();
 
         this.itemName = itemName;
-        setRegistryName(itemName);        // The unique name (within your mod) that identifies this item
+        setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + itemName);        // The unique name (within your mod) that identifies this item
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + itemName);
     }
 

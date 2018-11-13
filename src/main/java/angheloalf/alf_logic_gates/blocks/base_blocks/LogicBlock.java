@@ -2,7 +2,7 @@ package angheloalf.alf_logic_gates.blocks.base_blocks;
 
 import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
-import angheloalf.alf_logic_gates.blocks.datablock.LogicTileEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
@@ -252,7 +252,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
      * @return True to make the connection
      */
     @Override
-    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, EnumFacing side){
+    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, @Nullable EnumFacing side){
         if (side == null) return false;
         if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
 
