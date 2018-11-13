@@ -47,6 +47,8 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
 
     /* Tile Entity */
+    abstract protected int getMaxStates();
+
     @Override
     public boolean hasTileEntity(IBlockState state){
         return true;
@@ -54,12 +56,12 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
-        return new LogicTileEntity();
-        /*LogicTileEntity tileEntity = new LogicTileEntity();
+        LogicTileEntity tileEntity = new LogicTileEntity();
+        tileEntity.setMax(getMaxStates());
         if(state != null){
-            // tileEntity.setClick(state.getValue(BLOCK_STATE));
+            tileEntity.setClick(state.getValue(BLOCK_STATE));
         }
-        return tileEntity;*/
+        return tileEntity;
     }
 
     @Nullable
@@ -181,23 +183,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
         }
     }
 
-    protected boolean isSideEnabled(IBlockState state, EnumFacing side){
-        int block_state = state.getValue(BLOCK_STATE);
-        EnumFacing left = state.getValue(FACING).getOpposite().rotateYCCW();
-        EnumFacing back = left.rotateYCCW();
-        EnumFacing right = back.rotateYCCW();
-        switch(block_state){
-            case 0:
-                return side == left || side == back;
-            case 1:
-                return side == left || side == right;
-            case 2:
-                return side == back || side == right;
-            case 3:
-                return side == left || side == back || side == right;
-        }
-        return false;
-    }
+    abstract protected boolean isSideEnabled(IBlockState state, EnumFacing side);
 
 
     /* Redstone */

@@ -129,7 +129,6 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
 
-
     /* Redstone */
     @Override
     public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, @Nullable EnumFacing side){
