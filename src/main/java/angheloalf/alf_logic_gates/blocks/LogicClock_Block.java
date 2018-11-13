@@ -6,6 +6,7 @@ import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import angheloalf.alf_logic_gates.blocks.datablock.ClockEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -115,6 +116,18 @@ public class LogicClock_Block extends AlfBaseBlock{
         }
         return true;
     }
+
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos){
+        super.neighborChanged(state, worldIn, pos, neighborBlock, neighborPos);
+
+        ClockEntity tileEntity = getTE(worldIn, pos);
+        if(tileEntity != null){
+            int power = worldIn.getRedstonePower(pos, EnumFacing.UP) + worldIn.getRedstonePower(pos, EnumFacing.DOWN);
+            // tileEntity.disable(power > 0);
+        }
+    }
+
 
 
     /* Redstone */

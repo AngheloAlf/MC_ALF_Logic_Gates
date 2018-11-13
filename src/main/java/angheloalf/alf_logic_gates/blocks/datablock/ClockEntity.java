@@ -18,27 +18,34 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class ClockEntity extends TileEntity implements ITickable{
     private boolean lit = false;
+    private boolean disabled = false;
+    private boolean fullRestarting = false;
+
+    private final int defaultMaxCont = 20; // 20 equals 1 second
 
     private int counter = 0;
-    // private int delayCounter = 10;
     private int step = 1;
-    private int maxCount = 40;
-    // private int multiplier = 10;
+    private int maxCount = defaultMaxCont;
 
     public ClockEntity(){
         super();
     }
 
     public boolean isOn(){
-        return lit;
+        return lit && !disabled;
+    }
+
+    public void disable(boolean disable){
+        this.disabled = disable;
+        fullRestarting = true;
     }
 
     public int getMaxCount(){
-        return maxCount;
+        return maxCount/2;
     }
 
     public void setMaxCount(int newMaxCount){
-        maxCount = newMaxCount;
+        maxCount = newMaxCount*2;
     }
 
     public int getStep(){
@@ -49,14 +56,33 @@ public class ClockEntity extends TileEntity implements ITickable{
         this.step = step;
     }
 
+    public void reset(){
+        maxCount = defaultMaxCont;
+        step = 1;
+    }
+
+    public void fullRestart(){
+        reset();
+
+        counter = 0;
+        lit = false;
+        disabled = false;
+        fullRestarting = false;
+    }
+
     @Override
     public void update(){
-        counter -= step; // * multiplier;
-        if (counter <= 0) {
-            lit = !lit;
-            counter = maxCount; //  * multiplier;
-            markDirty();
-            world.notifyNeighborsOfStateChange(getPos(), blockType, false);
+        if(!disabled){
+            if(fullRestarting){
+                fullRestart();
+            }
+            counter -= step; // * multiplier;
+            if(counter <= 0){
+                lit = !lit;
+                counter = maxCount; //  * multiplier;
+                markDirty();
+                world.notifyNeighborsOfStateChange(getPos(), blockType, false);
+            }
         }
     }
 

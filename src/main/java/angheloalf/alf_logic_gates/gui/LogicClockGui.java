@@ -28,14 +28,14 @@ public class LogicClockGui extends GuiContainer{
         super(new ClockContainer(clockEntity));
         this.clockEntity = clockEntity;
         this.position = pos;
-        xSize = 176;
-        ySize = 75;
+        xSize = 122;
+        ySize = 70;
     }
 
     @Override
     public void initGui(){
         super.initGui();
-        buttonList.add(new GuiButton(1, guiLeft+41, guiTop+40, 40, 20, "reset"));
+        buttonList.add(new GuiButton(1, guiLeft+41, guiTop+40+1, 40, 20, "reset"));
 
         buttonList.add(new GuiButton(2, guiLeft+20, guiTop+20, 20, 20, "-"));
         maxCountField = new GuiTextField(4, this.fontRenderer, 20+20+1, 20, 40, 20);
@@ -104,6 +104,7 @@ public class LogicClockGui extends GuiContainer{
 
     @Override
     public void onGuiClosed(){
+        super.onGuiClosed();
         System.out.println("Closing GUI.");
     }
 }
