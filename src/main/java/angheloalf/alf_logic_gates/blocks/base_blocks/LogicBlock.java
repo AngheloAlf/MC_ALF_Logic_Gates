@@ -32,6 +32,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
     public LogicBlock(String blockName){
         super(Material.CIRCUITS, blockName, ModCreativeTabs.logicGatesTab);
+        setTickRandomly(false);
 
         IBlockState state = blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)
                 .withProperty(BLOCK_STATE, 0);
@@ -155,28 +156,25 @@ public abstract class LogicBlock extends AlfBaseBlock{
         //This makes it work on server side.
         if(!world.isRemote){
             LogicTileEntity tileEntity = getTE(world, pos);
-            if(tileEntity != null){
-                int clicked = tileEntity.click();
-                world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
-                world.notifyNeighborsOfStateChange(pos, this, false);
+            if(tileEntity == null){
+                return false;
             }
+            int clicked = tileEntity.click();
+            world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
+            world.notifyNeighborsOfStateChange(pos, this, false);
         }
         return true;
     }
 
-    // Called when a neighbouring block changes.
-    // Only called on the server side- so it doesn't help us alter rendering on the client side.
-    // For that, we need to store the information in the tileentity and trigger a block update to send the
-    //   information to the client side
     @Override
     public void neighborChanged(@Nullable IBlockState state, @Nullable World worldIn, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
         if(state != null && worldIn != null && pos != null){
             LogicTileEntity tileEntity = getTE(worldIn, pos);
             if(tileEntity != null){
-                boolean old = tileEntity.getHowMuchPower() > 0;
+                int old = tileEntity.getHowMuchPower();
                 tileEntity.setHowMuchPower(getOutputPower(state, worldIn, pos));
 
-                if(old != (tileEntity.getHowMuchPower() > 0)){
+                if(old != tileEntity.getHowMuchPower()){
                     worldIn.notifyBlockUpdate(pos, state, state, 3);
                 }
             }
@@ -243,7 +241,9 @@ public abstract class LogicBlock extends AlfBaseBlock{
         if (side == EnumFacing.UP || side == EnumFacing.DOWN) return false;
 
         state = getActualState(state, world, posConnectingFrom);
-        if (side == state.getValue(FACING).getOpposite()) return true;
+        if(side == state.getValue(FACING).getOpposite()){
+            return true;
+        }
 
         return isSideEnabled(state, side);
     }

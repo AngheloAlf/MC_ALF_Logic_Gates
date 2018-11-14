@@ -76,12 +76,13 @@ public class ClockEntity extends TileEntity implements ITickable{
             if(fullRestarting){
                 fullRestart();
             }
-            counter -= step; // * multiplier;
+            counter -= step;
             if(counter <= 0){
                 lit = !lit;
-                counter = maxCount; //  * multiplier;
+                counter = maxCount;
                 markDirty();
-                world.notifyNeighborsOfStateChange(getPos(), blockType, false);
+                world.notifyNeighborsOfStateChange(pos, blockType, false);
+                world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
             }
         }
     }

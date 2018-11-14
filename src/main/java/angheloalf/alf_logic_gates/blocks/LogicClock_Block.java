@@ -36,7 +36,6 @@ public class LogicClock_Block extends AlfBaseBlock{
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
     }
 
-
     /* Block state */
     @Override
     public IBlockState getStateFromMeta(int meta){
@@ -116,18 +115,6 @@ public class LogicClock_Block extends AlfBaseBlock{
         }
         return true;
     }
-
-    @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block neighborBlock, BlockPos neighborPos){
-        super.neighborChanged(state, worldIn, pos, neighborBlock, neighborPos);
-
-        ClockEntity tileEntity = getTE(worldIn, pos);
-        if(tileEntity != null){
-            // int power = worldIn.getRedstonePower(pos, EnumFacing.UP) + worldIn.getRedstonePower(pos, EnumFacing.DOWN);
-            // tileEntity.disable(power > 0);
-        }
-    }
-
 
     /* Redstone */
     @Override
