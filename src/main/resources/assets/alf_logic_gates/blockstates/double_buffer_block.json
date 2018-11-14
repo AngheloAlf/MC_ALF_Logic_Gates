@@ -1,0 +1,63 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alf_logic_gates:double_buffer_block",
+    "textures": {
+      "left": "alf_logic_gates:blocks/double_buffer/in",
+      "back": "alf_logic_gates:blocks/double_buffer/in",
+      "right": "alf_logic_gates:blocks/double_buffer/out",
+      "top": "alf_logic_gates:blocks/double_buffer/top0",
+      "down": "alf_logic_gates:blocks/double_buffer/top0"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+    "block_state": {
+      "0": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/double_buffer/in",
+          "back": "alf_logic_gates:blocks/double_buffer/in",
+          "right": "alf_logic_gates:blocks/double_buffer/out",
+          "top": "alf_logic_gates:blocks/double_buffer/top0",
+          "down": "alf_logic_gates:blocks/double_buffer/down0"
+        }
+      },
+      "1": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/double_buffer/in",
+          "back": "alf_logic_gates:blocks/double_buffer/out",
+          "right": "alf_logic_gates:blocks/double_buffer/in",
+          "top": "alf_logic_gates:blocks/double_buffer/top1",
+          "down": "alf_logic_gates:blocks/double_buffer/down1"
+        }
+      },
+      "2": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/double_buffer/in",
+          "back": "alf_logic_gates:blocks/double_buffer/out",
+          "right": "alf_logic_gates:blocks/double_buffer/in",
+          "top": "alf_logic_gates:blocks/double_buffer/top2",
+          "down": "alf_logic_gates:blocks/double_buffer/down2"
+        }
+      },
+      "3": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/double_buffer/in",
+          "back": "alf_logic_gates:blocks/double_buffer/in",
+          "right": "alf_logic_gates:blocks/double_buffer/out",
+          "top": "alf_logic_gates:blocks/double_buffer/top3",
+          "down": "alf_logic_gates:blocks/double_buffer/down3"
+        }
+      }
+    }
+  }
+}

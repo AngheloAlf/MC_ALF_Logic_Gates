@@ -2,7 +2,10 @@ package angheloalf.alf_logic_gates.blocks.base_blocks;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -35,5 +38,21 @@ public abstract class OneInputLogicBlock extends LogicBlock{
                 return false;
         }
         return false;
+    }
+
+    @Nullable
+    @Override
+    protected EnumFacing[] getAlternativesOutputs(IBlockState state){
+        return null;
+    }
+
+    @Override
+    protected boolean hasAlternativesOutputs(){
+        return false;
+    }
+
+    @Override
+    protected int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side){
+        return 0;
     }
 }

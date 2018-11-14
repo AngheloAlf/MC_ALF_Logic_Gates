@@ -76,6 +76,9 @@ public class CommonProxy {
         block = new Buffer_Block();
         event.getRegistry().register(block);
 
+        block = new DoubleBuffer_Block();
+        event.getRegistry().register(block);
+
 
         block = new LogicClock_Block();
         event.getRegistry().register(block);
@@ -105,6 +108,7 @@ public class CommonProxy {
 
         event.getRegistry().register(new ItemBlock(ModBlocks.not_block).setRegistryName(ModBlocks.not_block.getBlockName()));
         event.getRegistry().register(new ItemBlock(ModBlocks.buffer_block).setRegistryName(ModBlocks.buffer_block.getBlockName()));
+        event.getRegistry().register(new ItemBlock(ModBlocks.double_buffer_block).setRegistryName(ModBlocks.double_buffer_block.getBlockName()));
 
 
         //event.getRegistry().register(getItemForRegistry(ModBlocks.logicClock_block));
@@ -141,6 +145,7 @@ public class CommonProxy {
 
         registerRender(Item.getItemFromBlock(ModBlocks.not_block));
         registerRender(Item.getItemFromBlock(ModBlocks.buffer_block));
+        registerRender(Item.getItemFromBlock(ModBlocks.double_buffer_block));
 
 
         registerRender(Item.getItemFromBlock(ModBlocks.logicClock_block));

@@ -6,6 +6,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -74,6 +75,22 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
             case 2:
                 return cPower;
         }
+        return 0;
+    }
+
+    @Nullable
+    @Override
+    protected EnumFacing[] getAlternativesOutputs(IBlockState state){
+        return null;
+    }
+
+    @Override
+    protected boolean hasAlternativesOutputs(){
+        return false;
+    }
+
+    @Override
+    protected int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side){
         return 0;
     }
 }

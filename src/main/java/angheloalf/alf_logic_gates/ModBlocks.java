@@ -37,9 +37,12 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":buffer_block")
     public static Buffer_Block buffer_block = new Buffer_Block();
 
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":double_buffer_block")
+    public static DoubleBuffer_Block double_buffer_block = new DoubleBuffer_Block();
+
     public static LogicBlock logicBlocks[] = {or_block, and_block, xor_block,
                                               nor_block, nand_block, xnor_block,
-                                              not_block, buffer_block};
+                                              not_block, buffer_block, double_buffer_block};
 
 
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":logic_clock")

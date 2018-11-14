@@ -3,14 +3,14 @@ package angheloalf.alf_logic_gates.blocks.base_blocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.IBlockAccess;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public abstract class TwoInputLogicBlock extends LogicBlock{
-    public TwoInputLogicBlock(String blockName){
+public abstract class TwoInputTwoOutputLogicBlock extends LogicBlock{
+    public TwoInputTwoOutputLogicBlock(String blockName){
         super(blockName);
     }
 
@@ -29,30 +29,22 @@ public abstract class TwoInputLogicBlock extends LogicBlock{
         EnumFacing right = back.rotateYCCW();
         switch(block_state){
             case 0:
+            case 4:
                 return side == left || side == back;
             case 1:
-                return side == left || side == right;
             case 2:
-                return side == back || side == right;
-            case 3:
-                return side == left || side == back || side == right;
+                return side == left || side == right;
         }
         return false;
     }
 
-    @Nullable
-    @Override
-    protected EnumFacing[] getAlternativesOutputs(IBlockState state){
-        return null;
-    }
-
-    @Override
     protected boolean hasAlternativesOutputs(){
-        return false;
+        return true;
     }
 
     @Override
-    protected int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side){
-        return 0;
+    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, @Nullable EnumFacing side){
+        return side != null && side != EnumFacing.UP && side != EnumFacing.DOWN;
     }
 }
+
