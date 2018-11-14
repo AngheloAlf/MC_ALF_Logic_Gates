@@ -8,11 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ModBlocks {
-
-    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":exampleblock")
-    public static ExampleBlock exampleBlock;
-
+public class ModBlocks{
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":or_block")
     public static OR_Block or_block = new OR_Block();
 
@@ -59,8 +55,6 @@ public class ModBlocks {
 
     @SideOnly(Side.CLIENT)
     public static void initModels() {
-        exampleBlock.initModel();
-
         for(AlfBaseBlock item: logicBlocks){
             item.initModel();
         }
@@ -69,5 +63,4 @@ public class ModBlocks {
             item.initModel();
         }
     }
-
 }

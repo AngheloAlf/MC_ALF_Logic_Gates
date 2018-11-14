@@ -6,7 +6,6 @@ import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -27,12 +26,12 @@ public class LogicGatesTab extends CreativeTabs {
     }
     
     @Override
-    public ItemStack getTabIconItem() {
-        return new ItemStack(ModItems.exampleItem);
+    public ItemStack getTabIconItem(){
+        return new ItemStack(ModItems.logic_circuit_item);
     }
 
     @Override
-    public boolean hasSearchBar() {
+    public boolean hasSearchBar(){
         return withSearch;
     }
 }

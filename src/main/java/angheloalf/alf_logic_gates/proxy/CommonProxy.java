@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -28,6 +29,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+
+import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
@@ -46,7 +49,6 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(new ExampleBlock());
         GameRegistry.registerTileEntity(LogicTileEntity.class, Mod_ALF_Logic_Gates.MODID + ":logictileentity");
         GameRegistry.registerTileEntity(ClockEntity.class, Mod_ALF_Logic_Gates.MODID + ":clockentity");
 
@@ -93,7 +95,6 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event){
         // Items from blocks
-        event.getRegistry().register(new ItemBlock(ModBlocks.exampleBlock).setRegistryName(ModBlocks.exampleBlock.getRegistryName()));
 
         // for(AlfBaseBlock block: ModBlocks.logicBlocks){
         //     event.getRegistry().register(new ItemBlock(block).setRegistryName(block.getBlockName()));
@@ -117,8 +118,6 @@ public class CommonProxy {
         event.getRegistry().register(new ItemBlock(ModBlocks.dFlipFlop_block).setRegistryName(ModBlocks.dFlipFlop_block.getBlockName()));
 
         // Items
-        event.getRegistry().register(new ExampleItem());
-
         event.getRegistry().register(new LogicCircuitItem());
     }
 
@@ -129,8 +128,6 @@ public class CommonProxy {
 	@SubscribeEvent
 	public static void registerRenders(ModelRegistryEvent event) {
         // Items from blocks
-        registerRender(Item.getItemFromBlock(ModBlocks.exampleBlock));
-
         // for(AlfBaseBlock block: ModBlocks.logicBlocks){
         //     registerRender(Item.getItemFromBlock(block));
         // }
@@ -153,11 +150,17 @@ public class CommonProxy {
         registerRender(Item.getItemFromBlock(ModBlocks.dFlipFlop_block));
 
         // Items
-        registerRender(ModItems.exampleItem);
         registerRender(ModItems.logic_circuit_item);
     }
 
-    public static void registerRender(Item item) {
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation( item.getRegistryName(), "inventory"));
+    private static void registerRender(@Nonnull Item item){
+        ResourceLocation registryName = item.getRegistryName();
+        if(registryName != null){
+            ModelResourceLocation modelResourceLocation =  new ModelResourceLocation(registryName, "inventory");
+            ModelLoader.setCustomModelResourceLocation(item, 0, modelResourceLocation);
+        }
+        else{
+            throw new NullPointerException();
+        }
     }
 }
