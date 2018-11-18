@@ -8,11 +8,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -24,11 +24,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
+public abstract class LogicBlock extends AlfBaseBlock{
     protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 5);
 
     public LogicBlock(String blockName){
-        super(Material.CIRCUITS, blockName, LogicTileEntity.class, ModCreativeTabs.logicGatesTab);
+        super(Material.CIRCUITS, blockName, ModCreativeTabs.logicGatesTab);
 
         setDefaultState(getDefaultBaseState().withProperty(BLOCK_STATE, 0));
     }
@@ -45,12 +45,18 @@ public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
     /* Tile Entity */
     abstract protected int getMaxStates();
 
+    public boolean hasTileEntity(IBlockState state){
+        return true;
+    }
 
-    protected void applyTileEntityState(LogicTileEntity tileEntity, @Nullable World world, @Nullable IBlockState state){
+    @Override
+    public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
+        LogicTileEntity tileEntity = new LogicTileEntity();
         tileEntity.setMax(getMaxStates());
         if(state != null){
             tileEntity.setClick(state.getValue(BLOCK_STATE));
         }
+        return tileEntity;
     }
 
     @Override
@@ -60,11 +66,21 @@ public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
         if(logicTileEntity != null){
             state = state.withProperty(BLOCK_STATE, logicTileEntity.getClickCount());
         }
-        if(worldIn instanceof  World){
+        /*if(worldIn instanceof  World){
             int output = getOutputPower(state, (World)worldIn, pos);
             state = state.withProperty(POWER, output).withProperty(POWERING, output > 0);
-        }
+        }*/
         return state;
+    }
+
+    @Nullable
+    protected LogicTileEntity getTE(IBlockAccess worldIn, BlockPos pos){
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+        if(tileEntity instanceof LogicTileEntity){
+            return (LogicTileEntity) tileEntity;
+        }
+        return null;
     }
     /* END Tile Entity */
 
@@ -163,13 +179,14 @@ public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
 
 
                     worldIn.notifyNeighborsOfStateChange(pos, this, true);
-
+/*
                     worldIn.notifyNeighborsOfStateChange(pos.west(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.east(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.down(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.up(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.north(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.south(), this, true);
+                */
                 }
             }
         }

@@ -34,14 +34,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class AlfBaseBlock<TE extends TileEntity> extends Block{
+public abstract class AlfBaseBlock extends Block{
     private String blockName;
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     public static final PropertyBool POWERING = PropertyBool.create("powering");
     public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
-    private Class<TE> tileEntity;
+    // private Class<TE> tileEntity;
 
-    public AlfBaseBlock(Material material, String blockName, Class<TE> tileentity){
+    public AlfBaseBlock(Material material, String blockName){
         super(material);
         setTickRandomly(false);
 
@@ -49,10 +49,10 @@ public abstract class AlfBaseBlock<TE extends TileEntity> extends Block{
         setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + blockName);
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
 
-        this.tileEntity = tileentity;
+        //this.tileEntity = tileentity;
     }
-    public AlfBaseBlock(Material material, String blockName, Class<TE> tileentity, CreativeTabs tab){
-        this(material, blockName, tileentity);
+    public AlfBaseBlock(Material material, String blockName, CreativeTabs tab){
+        this(material, blockName);
 
         setCreativeTab(tab);
     }
@@ -121,13 +121,13 @@ public abstract class AlfBaseBlock<TE extends TileEntity> extends Block{
     }
 
     /* Tile Entity */
-    @Override
+    /*@Override
     public boolean hasTileEntity(IBlockState state){
         return true;
-    }
+    }*/
 
-    protected abstract void applyTileEntityState(TE tileEntity, @Nullable World world, @Nullable IBlockState state);
-
+    // protected abstract void applyTileEntityState(TE tileEntity, @Nullable World world, @Nullable IBlockState state);
+/*
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
         try{
@@ -139,8 +139,8 @@ public abstract class AlfBaseBlock<TE extends TileEntity> extends Block{
             e.printStackTrace();
         }
         return null;
-    }
-
+    }*/
+/*
     @Nullable
     protected TE getTE(IBlockAccess worldIn, BlockPos pos){
         TileEntity tileEntity = worldIn.getTileEntity(pos);
@@ -149,7 +149,7 @@ public abstract class AlfBaseBlock<TE extends TileEntity> extends Block{
             return this.tileEntity.cast(tileEntity);
         }
         return null;
-    }
+    }*/
     /* END Tile Entity */
 
 

@@ -4,6 +4,7 @@ import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
+import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.Material;
@@ -12,6 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -23,9 +25,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class LogicClock_Block extends AlfBaseBlock<ClockEntity>{
+public class LogicClock_Block extends AlfBaseBlock{
     public LogicClock_Block(){
-        super(Material.CIRCUITS, "logic_clock", ClockEntity.class, ModCreativeTabs.logicGatesTab);
+        super(Material.CIRCUITS, "logic_clock", ModCreativeTabs.logicGatesTab);
 
         setDefaultState(getDefaultBaseState());
     }
@@ -49,8 +51,15 @@ public class LogicClock_Block extends AlfBaseBlock<ClockEntity>{
         return null;
     }
 
-    protected void applyTileEntityState(ClockEntity tileEntity, @Nullable World world, @Nullable IBlockState state){
+    /* Tile Entity*/
 
+    public boolean hasTileEntity(IBlockState state){
+        return true;
+    }
+
+    @Override
+    public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
+        return  new ClockEntity();
     }
 
     @Override
@@ -62,6 +71,16 @@ public class LogicClock_Block extends AlfBaseBlock<ClockEntity>{
             state = state.withProperty(POWER, logicTileEntity.isOn() ? 15 : 0);
         }
         return state;
+    }
+
+    @Nullable
+    protected ClockEntity getTE(IBlockAccess worldIn, BlockPos pos){
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+        if(tileEntity instanceof ClockEntity){
+            return (ClockEntity) tileEntity;
+        }
+        return null;
     }
     /* END Tile Entity */
 
