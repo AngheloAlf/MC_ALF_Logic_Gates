@@ -30,18 +30,10 @@ public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
     public LogicBlock(String blockName){
         super(Material.CIRCUITS, blockName, LogicTileEntity.class, ModCreativeTabs.logicGatesTab);
 
-        IBlockState state = blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)
-                .withProperty(BLOCK_STATE, 0);
-        setDefaultState(state);
-        // setDefaultState(getDefaultBaseState().withProperty(BLOCK_STATE, 0));
+        setDefaultState(getDefaultBaseState().withProperty(BLOCK_STATE, 0));
     }
 
     /* Block state */
-    @Override
-    protected BlockStateContainer createBlockState(){
-        return new BlockStateContainer(this, FACING, BLOCK_STATE);
-    }
-
     @Nullable
     @Override
     protected IProperty<?>[] getExtraProperties(){
@@ -67,6 +59,10 @@ public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
         LogicTileEntity logicTileEntity = getTE(worldIn, pos);
         if(logicTileEntity != null){
             state = state.withProperty(BLOCK_STATE, logicTileEntity.getClickCount());
+        }
+        if(worldIn instanceof  World){
+            int output = getOutputPower(state, (World)worldIn, pos);
+            state = state.withProperty(POWER, output).withProperty(POWERING, output > 0);
         }
         return state;
     }
@@ -127,13 +123,13 @@ public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
         super.onBlockPlacedBy(world, pos, state, placer, stack);
 
-        int block_state = 0;
+        /*int block_state = 0;
         LogicTileEntity logicTileEntity = getTE(world, pos);
         if(logicTileEntity != null){
             block_state = logicTileEntity.getClickCount();
-        }
+        }*/
 
-        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(BLOCK_STATE, block_state);
+        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()); //.withProperty(BLOCK_STATE, block_state);
         world.setBlockState(pos, newState, 2);
     }
 
@@ -145,8 +141,9 @@ public abstract class LogicBlock extends AlfBaseBlock<LogicTileEntity>{
             if(tileEntity == null){
                 return false;
             }
-            int clicked = tileEntity.click();
-            world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
+            tileEntity.click();
+            // world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
+            world.setBlockState(pos, getActualState(state, world, pos), 3);
             world.notifyNeighborsOfStateChange(pos, this, false);
         }
         return true;
