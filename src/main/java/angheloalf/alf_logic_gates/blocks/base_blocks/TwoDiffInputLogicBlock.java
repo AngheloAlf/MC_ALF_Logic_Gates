@@ -25,7 +25,11 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
     @Override
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
         int block_state = state.getValue(BLOCK_STATE);
-        EnumFacing left = state.getValue(FACING).getOpposite().rotateYCCW();
+        EnumFacing front = state.getValue(FACING).getOpposite();
+        if(side == front){
+            return true;
+        }
+        EnumFacing left = front.rotateYCCW();
         EnumFacing back = left.rotateYCCW();
         EnumFacing right = back.rotateYCCW();
         switch(block_state){

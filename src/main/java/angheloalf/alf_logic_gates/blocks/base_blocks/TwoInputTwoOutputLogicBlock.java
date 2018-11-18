@@ -20,7 +20,7 @@ public abstract class TwoInputTwoOutputLogicBlock extends LogicBlock{
 
     @Override
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
-        return true;
+        return side != EnumFacing.UP && side != EnumFacing.DOWN;
     }
 
     @Override
