@@ -8,7 +8,6 @@ import angheloalf.alf_logic_gates.gui.GuiHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,29 +24,29 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class LogicClock_Block extends AlfBaseBlock<ClockEntity>{
-    public static final PropertyBool POWERED = PropertyBool.create("powered");
-
     public LogicClock_Block(){
         super(Material.CIRCUITS, "logic_clock", ClockEntity.class, ModCreativeTabs.logicGatesTab);
 
-        setDefaultState(getDefaultBaseState().withProperty(POWERED, false));
+        setDefaultState(getDefaultBaseState());
     }
 
     /* Block state */
     @Override
     public IBlockState getStateFromMeta(int meta){
-        return super.getStateFromMeta(meta).withProperty(POWERED, (meta&8)>0);
+        boolean powering = (meta&8)>0;
+        int power = powering ? 15 : 0;
+        return super.getStateFromMeta(meta).withProperty(POWERING, powering).withProperty(POWER, power);
     }
 
     @Override
     public int getMetaFromState(IBlockState state){
-        return super.getMetaFromState(state) | (state.getValue(POWERED) ? 8: 0);
+        return super.getMetaFromState(state) | (state.getValue(POWERING) ? 8: 0);
     }
 
     @Nullable
     @Override
     protected IProperty<?>[] getExtraProperties(){
-        return new IProperty[]{POWERED};
+        return null;
     }
 
     protected void applyTileEntityState(ClockEntity tileEntity, @Nullable World world, @Nullable IBlockState state){
@@ -59,7 +58,8 @@ public class LogicClock_Block extends AlfBaseBlock<ClockEntity>{
         state = super.getActualState(state, worldIn, pos);
         ClockEntity logicTileEntity = getTE(worldIn, pos);
         if(logicTileEntity != null){
-            state = state.withProperty(POWERED, logicTileEntity.isOn());
+            state = state.withProperty(POWERING, logicTileEntity.isOn());
+            state = state.withProperty(POWER, logicTileEntity.isOn() ? 15 : 0);
         }
         return state;
     }
@@ -72,13 +72,15 @@ public class LogicClock_Block extends AlfBaseBlock<ClockEntity>{
         super.onBlockPlacedBy(world, pos, state, placer, stack);
 
         boolean powered = false;
+        int power = 0;
 
         ClockEntity clockEntity = getTE(world, pos);
         if(clockEntity != null){
             powered = clockEntity.isOn();
+            power = clockEntity.isOn() ? 15 : 0;
         }
 
-        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERED, powered);
+        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERING, powered).withProperty(POWER, power);
         world.setBlockState(pos, newState, 2);
     }
 
@@ -99,13 +101,13 @@ public class LogicClock_Block extends AlfBaseBlock<ClockEntity>{
     /* Redstone */
     @Override
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
-        return state.getValue(POWERED);
+        return state.getValue(POWERING);
     }
 
     @Override
     protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
         blockState = getActualState(blockState, world, pos);
-        return blockState.getValue(POWERED) ? 15 : 0;
+        return blockState.getValue(POWER);
         /*
         ClockEntity entity = getTE(world, pos);
         if(entity != null){

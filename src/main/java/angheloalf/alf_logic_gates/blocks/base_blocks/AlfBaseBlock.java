@@ -27,14 +27,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import scala.tools.nsc.backend.icode.analysis.ProgramPoint;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import java.util.Map;
-
-import static angheloalf.alf_logic_gates.blocks.base_blocks.LogicBlock.BLOCK_STATE;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault

@@ -17,7 +17,7 @@
       "up": {"x": -90},
       "down": {"x": 90}
     },
-    "powered": {
+    "powering": {
       "false": {
         "textures": {
           "side": "alf_logic_gates:blocks/clock/off"
@@ -28,6 +28,24 @@
           "side": "alf_logic_gates:blocks/clock/out"
         }
       }
+    },
+    "power": {
+      "0": {},
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {},
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "13": {},
+      "14": {},
+      "15": {}
     }
   }
 }
