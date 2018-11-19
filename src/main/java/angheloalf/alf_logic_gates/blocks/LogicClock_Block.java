@@ -4,7 +4,6 @@ import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
-import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.Material;
@@ -67,8 +66,8 @@ public class LogicClock_Block extends AlfBaseBlock{
         state = super.getActualState(state, worldIn, pos);
         ClockEntity logicTileEntity = getTE(worldIn, pos);
         if(logicTileEntity != null){
-            state = state.withProperty(POWERING, logicTileEntity.isOn());
-            state = state.withProperty(POWER, logicTileEntity.isOn() ? 15 : 0);
+            state = state.withProperty(POWERING, logicTileEntity.isAlternatePowering());
+            state = state.withProperty(POWER, logicTileEntity.isAlternatePowering() ? 15: 0);
         }
         return state;
     }
@@ -95,8 +94,8 @@ public class LogicClock_Block extends AlfBaseBlock{
 
         ClockEntity clockEntity = getTE(world, pos);
         if(clockEntity != null){
-            powered = clockEntity.isOn();
-            power = clockEntity.isOn() ? 15 : 0;
+            powered = clockEntity.isAlternatePowering();
+            power = clockEntity.isAlternatePowering() ? 15: 0;
         }
 
         IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERING, powered).withProperty(POWER, power);
@@ -131,7 +130,7 @@ public class LogicClock_Block extends AlfBaseBlock{
         ClockEntity entity = getTE(world, pos);
         if(entity != null){
             state = getActualState(state, world, pos);
-            int output = entity.isOn() || state.getValue(POWERED) ? 15 : 0;
+            int output = entity.isAlternatePowering() || state.getValue(POWERED) ? 15 : 0;
             System.out.println(getBlockName() + ": output="+output);
             return output;
         }

@@ -52,9 +52,9 @@ public abstract class LogicBlock extends AlfBaseBlock{
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
         LogicTileEntity tileEntity = new LogicTileEntity();
-        tileEntity.setMax(getMaxStates());
+        tileEntity.setDefaultMax(getMaxStates());
         if(state != null){
-            tileEntity.setClick(state.getValue(BLOCK_STATE));
+            tileEntity.setCounter(state.getValue(BLOCK_STATE));
         }
         return tileEntity;
     }
@@ -64,7 +64,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
         state = super.getActualState(state, worldIn, pos);
         LogicTileEntity logicTileEntity = getTE(worldIn, pos);
         if(logicTileEntity != null){
-            state = state.withProperty(BLOCK_STATE, logicTileEntity.getClickCount());
+            state = state.withProperty(BLOCK_STATE, logicTileEntity.getCounter());
         }
         /*if(worldIn instanceof  World){
             int output = getOutputPower(state, (World)worldIn, pos);
@@ -130,7 +130,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
         /*int block_state = 0;
         LogicTileEntity logicTileEntity = getTE(world, pos);
         if(logicTileEntity != null){
-            block_state = logicTileEntity.getClickCount();
+            block_state = logicTileEntity.getCounter();
         }*/
 
         IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()); //.withProperty(BLOCK_STATE, block_state);
@@ -145,7 +145,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
             if(tileEntity == null){
                 return false;
             }
-            tileEntity.click();
+            tileEntity.count();
             // world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
             world.setBlockState(pos, getActualState(state, world, pos), 3);
             world.notifyNeighborsOfStateChange(pos, this, false);
@@ -159,10 +159,10 @@ public abstract class LogicBlock extends AlfBaseBlock{
             IBlockState actualState = getActualState(state, worldIn, pos);
             LogicTileEntity tileEntity = getTE(worldIn, pos);
             if(tileEntity != null){
-                int old = tileEntity.getHowMuchPower();
-                tileEntity.setHowMuchPower(getOutputPower(actualState, worldIn, pos));
+                int old = tileEntity.getPower();
+                tileEntity.setPower(getOutputPower(actualState, worldIn, pos));
 
-                if(old != tileEntity.getHowMuchPower()){
+                if(old != tileEntity.getPower()){
                     worldIn.notifyBlockUpdate(pos, state, actualState, 3);
 
 

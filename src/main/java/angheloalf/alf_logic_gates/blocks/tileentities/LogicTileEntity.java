@@ -31,11 +31,11 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         world.notifyNeighborsOfStateChange(getPos(), blockType, false);
     }
 
-    public void setMax(int max){
+    public void setDefaultMax(int max){
         clicksMax = max;
     }
 
-    public int click(){
+    public int count(){
         ++clicked;
         if(clicked >= clicksMax){
             clicked = 0;
@@ -44,28 +44,28 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         return clicked;
     }
 
-    public int getClickCount(){
+    public int getCounter(){
         return clicked;
     }
 
-    public int setClick(int clicks){
+    public int setCounter(int clicks){
         clicked = clicks % clicksMax;
         return clicked;
     }
 
-    public int getHowMuchPower(){
+    public int getPower(){
         return howMuchPower;
     }
 
-    public void setHowMuchPower(int power){
+    public void setPower(int power){
         this.howMuchPower = power;
     }
 
-    public boolean isPowered(){
+    public boolean isAlternatePowering(){
         return powered;
     }
 
-    public void setPowered(boolean powered){
+    public void setAlternatePower(boolean powered){
         this.powered = powered;
     }
 

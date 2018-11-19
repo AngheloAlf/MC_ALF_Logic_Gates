@@ -28,7 +28,7 @@ public class DLatch_Block extends TwoDiffInputLogicBlock{
             return repeatSignalOrPower(getDPower(state, world, pos));
         }
 
-        return tileEntity.getHowMuchPower();
+        return tileEntity.getPower();
     }
 
     @Override
@@ -40,10 +40,10 @@ public class DLatch_Block extends TwoDiffInputLogicBlock{
         LogicTileEntity tileEntity = getTE(worldIn, pos);
         if(tileEntity != null){
             if(getCLKPower(state, worldIn, pos) > 0){
-                boolean old = tileEntity.getHowMuchPower() > 0;
-                tileEntity.setHowMuchPower(getDPower(state, worldIn, pos));
+                boolean old = tileEntity.getPower() > 0;
+                tileEntity.setPower(getDPower(state, worldIn, pos));
 
-                if(old != (tileEntity.getHowMuchPower() > 0)){
+                if(old != (tileEntity.getPower() > 0)){
                     worldIn.notifyBlockUpdate(pos, state, state, 3);
                 }
             }

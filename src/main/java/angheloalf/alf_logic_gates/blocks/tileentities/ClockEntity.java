@@ -31,7 +31,7 @@ public class ClockEntity extends TileEntity implements ITickable{
         super();
     }
 
-    public boolean isOn(){
+    public boolean isAlternatePowering(){
         return lit && !disabled;
     }
 

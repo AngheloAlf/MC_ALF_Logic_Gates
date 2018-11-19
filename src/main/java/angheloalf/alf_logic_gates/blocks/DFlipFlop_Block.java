@@ -22,7 +22,7 @@ public class DFlipFlop_Block extends TwoDiffInputLogicBlock{
         if(tileEntity == null){
             return 0;
         }
-        return repeatSignalOrPower(tileEntity.getHowMuchPower());
+        return repeatSignalOrPower(tileEntity.getPower());
     }
 
     @Override
@@ -35,15 +35,15 @@ public class DFlipFlop_Block extends TwoDiffInputLogicBlock{
         if(tileEntity != null){
             boolean clkPower = getCLKPower(state, worldIn, pos) > 0;
             if(clkPower){
-                if(tileEntity.isPowered() != clkPower){
-                    tileEntity.setPowered(true);
+                if(tileEntity.isAlternatePowering() != clkPower){
+                    tileEntity.setAlternatePower(true);
 
-                    tileEntity.setHowMuchPower(getDPower(state, worldIn, pos));
+                    tileEntity.setPower(getDPower(state, worldIn, pos));
                     worldIn.notifyBlockUpdate(pos, state, state, 3);
                 }
             }
             else{
-                tileEntity.setPowered(false);
+                tileEntity.setAlternatePower(false);
             }
         }
     }
