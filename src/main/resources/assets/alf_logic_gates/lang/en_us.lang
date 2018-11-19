@@ -18,9 +18,10 @@ tile.alf_logic_gates.double_buffer_block.name=Double buffer
 
 item.alf_logic_gates.logic_circuit.name=Logic circuit
 
-gui.config.mainTitle=Main title
+gui.config.mainTitle=ALF_Logic_Gates configuration
 gui.config.ctgy.general=General configuration
 gui.config.ctgy.general.tooltip=The general configuration
 gui.config.repeatSignal=Repeat signal
+gui.config.repeatSignal.comment=Set true to repeat the signal (15 if block is powered), or false to repeat the same power input.
 
 message.alf_logic_gates.clicked=Click: %d
