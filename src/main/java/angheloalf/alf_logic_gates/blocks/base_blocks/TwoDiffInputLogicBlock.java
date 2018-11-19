@@ -1,6 +1,5 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
-import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;

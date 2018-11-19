@@ -39,7 +39,6 @@ public abstract class AlfBaseBlock extends Block{
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     public static final PropertyBool POWERING = PropertyBool.create("powering");
     public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
-    // private Class<TE> tileEntity;
 
     public AlfBaseBlock(Material material, String blockName){
         super(material);
@@ -48,8 +47,6 @@ public abstract class AlfBaseBlock extends Block{
         this.blockName = blockName;
         setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + blockName);
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
-
-        //this.tileEntity = tileentity;
     }
     public AlfBaseBlock(Material material, String blockName, CreativeTabs tab){
         this(material, blockName);
