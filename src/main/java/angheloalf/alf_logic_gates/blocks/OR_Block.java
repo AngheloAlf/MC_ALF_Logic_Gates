@@ -21,9 +21,4 @@ public class OR_Block extends TwoInputLogicBlock{
 
         return or(or(aPower, bPower), cPower);
     }
-
-    public static int or(int a, int b){
-        int value = a > b ? a : b;
-        return repeatSignalOrPower(value);
-    }
 }

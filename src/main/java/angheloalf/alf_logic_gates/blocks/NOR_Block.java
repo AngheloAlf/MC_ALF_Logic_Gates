@@ -19,6 +19,6 @@ public class NOR_Block extends TwoInputLogicBlock{
         int bPower = getBPower(world, pos, state);
         int cPower = getCPower(world, pos, state);
 
-        return negate(OR_Block.or(OR_Block.or(aPower, bPower), cPower));
+        return negate(or(or(aPower, bPower), cPower));
     }
 }

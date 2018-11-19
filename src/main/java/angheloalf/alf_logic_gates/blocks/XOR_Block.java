@@ -31,15 +31,4 @@ public class XOR_Block extends TwoInputLogicBlock{
         }
         return 0;
     }
-
-    public static int xor(int a, int b){
-        int value = 0;
-        if(b == 0){
-            value = a;
-        }
-        else if(a == 0){
-            value = b;
-        }
-        return repeatSignalOrPower(value);
-    }
 }

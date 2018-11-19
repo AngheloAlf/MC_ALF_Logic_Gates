@@ -27,8 +27,4 @@ public class Buffer_Block extends OneInputLogicBlock{
         }
         return 0;
     }
-
-    public static int buffer(int a){
-        return repeatSignalOrPower(a);
-    }
 }

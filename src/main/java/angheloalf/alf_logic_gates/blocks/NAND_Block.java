@@ -21,13 +21,13 @@ public class NAND_Block extends TwoInputLogicBlock{
         int cPower = getCPower(world, pos, state);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return negate(AND_Block.and(aPower, bPower));
+                return negate(and(aPower, bPower));
             case 1:
-                return negate(AND_Block.and(aPower, cPower));
+                return negate(and(aPower, cPower));
             case 2:
-                return negate(AND_Block.and(bPower, cPower));
+                return negate(and(bPower, cPower));
             case 3:
-                return negate(AND_Block.and(AND_Block.and(bPower, cPower), cPower));
+                return negate(and(and(bPower, cPower), cPower));
         }
         return 0;
     }

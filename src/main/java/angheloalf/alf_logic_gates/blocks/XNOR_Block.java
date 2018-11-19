@@ -21,13 +21,13 @@ public class XNOR_Block extends TwoInputLogicBlock{
         int cPower = getCPower(world, pos, state);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return negate(XOR_Block.xor(aPower, bPower));
+                return negate(xor(aPower, bPower));
             case 1:
-                return negate(XOR_Block.xor(aPower, cPower));
+                return negate(xor(aPower, cPower));
             case 2:
-                return negate(XOR_Block.xor(bPower, cPower));
+                return negate(xor(bPower, cPower));
             case 3:
-                return negate(XOR_Block.xor(XOR_Block.xor(aPower, bPower), cPower));
+                return negate(xor(xor(aPower, bPower), cPower));
         }
         return 0;
     }
