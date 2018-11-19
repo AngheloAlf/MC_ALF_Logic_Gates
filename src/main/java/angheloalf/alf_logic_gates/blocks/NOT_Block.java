@@ -14,15 +14,14 @@ public class NOT_Block extends OneInputLogicBlock{
     }
 
     @Override
-    protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
-        int block_state = blockState.getValue(BLOCK_STATE);
-        switch(block_state){
+    protected int getOutputPower(IBlockState state, World world, BlockPos pos){
+        switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return negate(Buffer_Block.buffer(getRawAPower(world, pos, blockState)));
+                return negate(Buffer_Block.buffer(getRawAPower(world, pos, state)));
             case 1:
-                return negate(Buffer_Block.buffer(getRawBPower(world, pos, blockState)));
+                return negate(Buffer_Block.buffer(getRawBPower(world, pos, state)));
             case 2:
-                return negate(Buffer_Block.buffer(getRawCPower(world, pos, blockState)));
+                return negate(Buffer_Block.buffer(getRawCPower(world, pos, state)));
             case 3:
                 return negate(Buffer_Block.buffer(0));
         }

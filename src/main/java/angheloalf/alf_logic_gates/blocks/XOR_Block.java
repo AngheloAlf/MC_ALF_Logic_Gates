@@ -15,16 +15,11 @@ public class XOR_Block extends TwoInputLogicBlock{
     }
 
     @Override
-    protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
-        LogicTileEntity tileEntity = getTE(world, pos);
-        if(tileEntity == null){
-            return 0;
-        }
-
-        int aPower = getAPower(world, pos, blockState);
-        int bPower = getBPower(world, pos, blockState);
-        int cPower = getCPower(world, pos, blockState);
-        switch(tileEntity.getClickCount()){
+    protected int getOutputPower(IBlockState state, World world, BlockPos pos){
+        int aPower = getAPower(world, pos, state);
+        int bPower = getBPower(world, pos, state);
+        int cPower = getCPower(world, pos, state);
+        switch(state.getValue(BLOCK_STATE)){
             case 0:
                 return xor(aPower, bPower);
             case 1:

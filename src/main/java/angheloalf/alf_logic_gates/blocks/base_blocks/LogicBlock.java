@@ -85,50 +85,38 @@ public abstract class LogicBlock extends AlfBaseBlock{
     /* END Tile Entity */
 
 
-    protected boolean isAEnabled(World world, BlockPos pos){
-        LogicTileEntity tileEntity;
-        if((tileEntity = getTE(world, pos)) != null){
-            switch(tileEntity.getClickCount()){
-                case 0:
-                case 1:
-                case 3:
-                    return true;
-                case 2:
-                default:
-                    return false;
-            }
+    protected boolean isAEnabled(IBlockState state){
+        switch(state.getValue(BLOCK_STATE)){
+            case 0:
+            case 1:
+            case 3:
+                return true;
+            case 2:
+                return false;
         }
         return false;
     }
 
-    protected boolean isBEnabled(World world, BlockPos pos){
-        LogicTileEntity tileEntity;
-        if((tileEntity = getTE(world, pos)) != null){
-            switch(tileEntity.getClickCount()){
-                case 0:
-                case 2:
-                case 3:
-                    return true;
-                case 1:
-                default:
-                    return false;
-            }
+    protected boolean isBEnabled(IBlockState state){
+        switch(state.getValue(BLOCK_STATE)){
+            case 0:
+            case 2:
+            case 3:
+                return true;
+            case 1:
+                return false;
         }
         return false;
     }
 
-    protected boolean isCEnabled(World world, BlockPos pos){
-        LogicTileEntity tileEntity;
-        if((tileEntity = getTE(world, pos)) != null){
-            switch(tileEntity.getClickCount()){
-                case 1:
-                case 2:
-                case 3:
-                    return true;
-                case 0:
-                default:
-                    return false;
-            }
+    protected boolean isCEnabled(IBlockState state){
+        switch(state.getValue(BLOCK_STATE)){
+            case 1:
+            case 2:
+            case 3:
+                return true;
+            case 0:
+                return false;
         }
         return false;
     }
@@ -179,14 +167,13 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
 
                     worldIn.notifyNeighborsOfStateChange(pos, this, true);
-/*
+
                     worldIn.notifyNeighborsOfStateChange(pos.west(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.east(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.down(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.up(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.north(), this, true);
                     worldIn.notifyNeighborsOfStateChange(pos.south(), this, true);
-                */
                 }
             }
         }
@@ -211,15 +198,15 @@ public abstract class LogicBlock extends AlfBaseBlock{
     }
 
     protected int getAPower(World worldIn, BlockPos pos, IBlockState state){
-        return isAEnabled(worldIn, pos) ? getRawAPower(worldIn, pos, state) : 0;
+        return isAEnabled(state) ? getRawAPower(worldIn, pos, state) : 0;
     }
 
     protected int getBPower(World worldIn, BlockPos pos, IBlockState state){
-        return isBEnabled(worldIn, pos) ? getRawBPower(worldIn, pos, state) : 0;
+        return isBEnabled(state) ? getRawBPower(worldIn, pos, state) : 0;
     }
 
     protected int getCPower(World worldIn, BlockPos pos, IBlockState state){
-        return isCEnabled(worldIn, pos) ? getRawCPower(worldIn, pos, state) : 0;
+        return isCEnabled(state) ? getRawCPower(worldIn, pos, state) : 0;
     }
     /* END Redstone */
 }

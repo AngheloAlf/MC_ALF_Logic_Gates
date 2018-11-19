@@ -14,10 +14,10 @@ public class NOR_Block extends TwoInputLogicBlock{
     }
 
     @Override
-    protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
-        int aPower = getAPower(world, pos, blockState);
-        int bPower = getBPower(world, pos, blockState);
-        int cPower = getCPower(world, pos, blockState);
+    protected int getOutputPower(IBlockState state, World world, BlockPos pos){
+        int aPower = getAPower(world, pos, state);
+        int bPower = getBPower(world, pos, state);
+        int cPower = getCPower(world, pos, state);
 
         return negate(OR_Block.or(OR_Block.or(aPower, bPower), cPower));
     }

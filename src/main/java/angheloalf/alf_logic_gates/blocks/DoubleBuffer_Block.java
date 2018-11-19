@@ -16,16 +16,15 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     }
 
     @Override
-    protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
-        int block_state = blockState.getValue(BLOCK_STATE);
-        switch(block_state){
+    protected int getOutputPower(IBlockState state, World world, BlockPos pos){
+        switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
-                return getRawAPower(world, pos, blockState);
+                return getRawAPower(world, pos, state);
             case 2:
-                return getRawCPower(world, pos, blockState);
+                return getRawCPower(world, pos, state);
             case 3:
-                return getRawBPower(world, pos, blockState);
+                return getRawBPower(world, pos, state);
         }
         return 0;
     }
@@ -33,11 +32,10 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     @Override
     @Nullable
     protected EnumFacing[] getAlternativesOutputs(IBlockState state){
-        int block_state = state.getValue(BLOCK_STATE);
         EnumFacing left = state.getValue(FACING).getOpposite().rotateYCCW();
         EnumFacing back = left.rotateYCCW();
         EnumFacing right = back.rotateYCCW();
-        switch(block_state){
+        switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 3:
                 return new EnumFacing[]{right};
@@ -49,21 +47,20 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     }
 
     @Override
-    protected int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side){
-        int block_state = blockState.getValue(BLOCK_STATE);
-        EnumFacing[] outputs = getAlternativesOutputs(blockState);
+    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
+        EnumFacing[] outputs = getAlternativesOutputs(state);
         if(outputs != null){
             for(EnumFacing face: outputs){
                 if(face == side){
-                    switch(block_state){
+                    switch(state.getValue(BLOCK_STATE)){
                         case 0:
-                            return getRawBPower(world, pos, blockState);
+                            return getRawBPower(world, pos, state);
                         case 1:
-                            return getRawCPower(world, pos, blockState);
+                            return getRawCPower(world, pos, state);
                         case 2:
-                            return getRawAPower(world, pos, blockState);
+                            return getRawAPower(world, pos, state);
                         case 3:
-                            return getRawAPower(world, pos, blockState);
+                            return getRawAPower(world, pos, state);
                     }
                 }
             }

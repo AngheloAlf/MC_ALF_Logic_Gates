@@ -17,7 +17,7 @@ public class DFlipFlop_Block extends TwoDiffInputLogicBlock{
     }
 
     @Override
-    protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
+    protected int getOutputPower(IBlockState state, World world, BlockPos pos){
         LogicTileEntity tileEntity = getTE(world, pos);
         if(tileEntity == null){
             return 0;
@@ -33,12 +33,12 @@ public class DFlipFlop_Block extends TwoDiffInputLogicBlock{
 
         LogicTileEntity tileEntity = getTE(worldIn, pos);
         if(tileEntity != null){
-            boolean clkPower = getCLKPower(state, worldIn, pos, tileEntity) > 0;
+            boolean clkPower = getCLKPower(state, worldIn, pos) > 0;
             if(clkPower){
                 if(tileEntity.isPowered() != clkPower){
                     tileEntity.setPowered(true);
 
-                    tileEntity.setHowMuchPower(getDPower(state, worldIn, pos, tileEntity));
+                    tileEntity.setHowMuchPower(getDPower(state, worldIn, pos));
                     worldIn.notifyBlockUpdate(pos, state, state, 3);
                 }
             }

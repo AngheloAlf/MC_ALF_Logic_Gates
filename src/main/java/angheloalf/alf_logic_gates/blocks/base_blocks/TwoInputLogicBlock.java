@@ -56,7 +56,7 @@ public abstract class TwoInputLogicBlock extends LogicBlock{
     }
 
     @Override
-    protected int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side){
+    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         return 0;
     }
 }

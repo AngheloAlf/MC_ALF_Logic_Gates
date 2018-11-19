@@ -124,14 +124,14 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
     @Override
-    protected int getOutputPower(IBlockState blockState, World world, BlockPos pos){
-        blockState = getActualState(blockState, world, pos);
-        return blockState.getValue(POWER);
+    protected int getOutputPower(IBlockState state, World world, BlockPos pos){
+        state = getActualState(state, world, pos);
+        return state.getValue(POWER);
         /*
         ClockEntity entity = getTE(world, pos);
         if(entity != null){
-            blockState = getActualState(blockState, world, pos);
-            int output = entity.isOn() || blockState.getValue(POWERED) ? 15 : 0;
+            state = getActualState(state, world, pos);
+            int output = entity.isOn() || state.getValue(POWERED) ? 15 : 0;
             System.out.println(getBlockName() + ": output="+output);
             return output;
         }
@@ -154,8 +154,8 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
     @Override
-    protected int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side){
-        return getOutputPower(blockState, world, pos);
+    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
+        return getOutputPower(state, world, pos);
     }
     /* END Redstone */
 }

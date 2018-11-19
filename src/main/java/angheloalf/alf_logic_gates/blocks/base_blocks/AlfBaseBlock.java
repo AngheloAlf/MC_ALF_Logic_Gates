@@ -79,7 +79,7 @@ public abstract class AlfBaseBlock extends Block{
     }
 
     protected IBlockState getDefaultBaseState(){
-        return blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)
+        return this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)
                 .withProperty(POWER, 0).withProperty(POWERING, false);
     }
 
@@ -184,25 +184,25 @@ public abstract class AlfBaseBlock extends Block{
         return isSideEnabled(state, side);
     }
 
-    protected abstract int getOutputPower(IBlockState blockState, World world, BlockPos pos);
+    protected abstract int getOutputPower(IBlockState state, World world, BlockPos pos);
 
     @Nullable
     protected abstract EnumFacing[] getAlternativesOutputs(IBlockState state);
 
     protected abstract boolean hasAlternativesOutputs();
 
-    protected abstract int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side);
+    protected abstract int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side);
 
-    public int getSidedPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
+    public int getSidedPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         if(blockAccess instanceof World){
             World world = (World) blockAccess;
-            blockState = getActualState(blockState, blockAccess, pos);
+            state = getActualState(state, blockAccess, pos);
 
-            if(side == blockState.getValue(FACING).getOpposite()){
-                return getOutputPower(blockState, world, pos);
+            if(side == state.getValue(FACING).getOpposite()){
+                return getOutputPower(state, world, pos);
             }
             if(hasAlternativesOutputs()){
-                return getAlternativePower(blockState, world, pos, side);
+                return getAlternativePower(state, world, pos, side);
             }
         }
         return 0;
@@ -210,14 +210,14 @@ public abstract class AlfBaseBlock extends Block{
 
 
     @Override
-    public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        return getSidedPower(blockState, blockAccess, pos, side);
+    public int getWeakPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
+        return getSidedPower(state, blockAccess, pos, side);
         // return 0;
     }
 
     @Override
-    public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        return getSidedPower(blockState, blockAccess, pos, side);
+    public int getStrongPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
+        return getSidedPower(state, blockAccess, pos, side);
     }
 
     /*@Override

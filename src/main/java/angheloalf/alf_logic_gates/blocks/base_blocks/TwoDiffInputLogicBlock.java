@@ -46,11 +46,11 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
         return false;
     }
 
-    protected int getCLKPower(IBlockState blockState, World world, BlockPos pos, LogicTileEntity tileEntity){
-        int aPower = getRawAPower(world, pos, blockState);
-        int bPower = getRawBPower(world, pos, blockState);
-        int cPower = getRawCPower(world, pos, blockState);
-        switch(tileEntity.getClickCount()){
+    protected int getCLKPower(IBlockState state, World world, BlockPos pos){
+        int aPower = getRawAPower(world, pos, state);
+        int bPower = getRawBPower(world, pos, state);
+        int cPower = getRawCPower(world, pos, state);
+        switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
                 return aPower;
@@ -64,11 +64,11 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
         return 0;
     }
 
-    protected int getDPower(IBlockState blockState, World world, BlockPos pos, LogicTileEntity tileEntity){
-        int aPower = getRawAPower(world, pos, blockState);
-        int bPower = getRawBPower(world, pos, blockState);
-        int cPower = getRawCPower(world, pos, blockState);
-        switch(tileEntity.getClickCount()){
+    protected int getDPower(IBlockState state, World world, BlockPos pos){
+        int aPower = getRawAPower(world, pos, state);
+        int bPower = getRawBPower(world, pos, state);
+        int cPower = getRawCPower(world, pos, state);
+        switch(state.getValue(BLOCK_STATE)){
             case 3:
             case 4:
                 return aPower;
@@ -94,7 +94,7 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
     }
 
     @Override
-    protected int getAlternativePower(IBlockState blockState, World world, BlockPos pos, EnumFacing side){
+    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         return 0;
     }
 }
