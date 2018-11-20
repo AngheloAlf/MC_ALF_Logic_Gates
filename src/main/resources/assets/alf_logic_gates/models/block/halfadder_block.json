@@ -2,11 +2,11 @@
   "parent": "block/cube",
   "textures": {
     "particle": "alf_logic_gates:blocks/halfadder/top0",
-    "down": "#down",
-    "up": "#top",
     "north": "alf_logic_gates:blocks/halfadder/out",
     "west": "#left",
     "east": "#right",
-    "south": "#back"
+    "south": "#back",
+    "down": "#down",
+    "up": "#top"
   }
 }

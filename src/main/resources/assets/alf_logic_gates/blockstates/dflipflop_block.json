@@ -5,7 +5,9 @@
     "textures": {
       "left": "alf_logic_gates:blocks/dflipflop/clk",
       "back": "alf_logic_gates:blocks/dflipflop/in",
-      "right": "alf_logic_gates:blocks/dflipflop/off"
+      "right": "alf_logic_gates:blocks/dflipflop/off",
+      "top": "alf_logic_gates:blocks/dflipflop/top0",
+      "down": "alf_logic_gates:blocks/dflipflop/down0"
     }
   },
   "variants": {
@@ -24,42 +26,54 @@
         "textures": {
           "left": "alf_logic_gates:blocks/dflipflop/clk",
           "back": "alf_logic_gates:blocks/dflipflop/in",
-          "right": "alf_logic_gates:blocks/dflipflop/off"
+          "right": "alf_logic_gates:blocks/dflipflop/off",
+          "top": "alf_logic_gates:blocks/dflipflop/top0",
+          "down": "alf_logic_gates:blocks/dflipflop/down0"
         }
       },
       "1": {
         "textures": {
           "left": "alf_logic_gates:blocks/dflipflop/clk",
           "back": "alf_logic_gates:blocks/dflipflop/off",
-          "right": "alf_logic_gates:blocks/dflipflop/in"
+          "right": "alf_logic_gates:blocks/dflipflop/in",
+          "top": "alf_logic_gates:blocks/dflipflop/top1",
+          "down": "alf_logic_gates:blocks/dflipflop/down1"
         }
       },
       "2": {
         "textures": {
           "left": "alf_logic_gates:blocks/dflipflop/off",
           "back": "alf_logic_gates:blocks/dflipflop/clk",
-          "right": "alf_logic_gates:blocks/dflipflop/in"
+          "right": "alf_logic_gates:blocks/dflipflop/in",
+          "top": "alf_logic_gates:blocks/dflipflop/top2",
+          "down": "alf_logic_gates:blocks/dflipflop/down2"
         }
       },
       "3": {
         "textures": {
           "left": "alf_logic_gates:blocks/dflipflop/in",
           "back": "alf_logic_gates:blocks/dflipflop/clk",
-          "right": "alf_logic_gates:blocks/dflipflop/off"
+          "right": "alf_logic_gates:blocks/dflipflop/off",
+          "top": "alf_logic_gates:blocks/dflipflop/top3",
+          "down": "alf_logic_gates:blocks/dflipflop/down3"
         }
       },
       "4": {
         "textures": {
           "left": "alf_logic_gates:blocks/dflipflop/in",
           "back": "alf_logic_gates:blocks/dflipflop/off",
-          "right": "alf_logic_gates:blocks/dflipflop/clk"
+          "right": "alf_logic_gates:blocks/dflipflop/clk",
+          "top": "alf_logic_gates:blocks/dflipflop/top4",
+          "down": "alf_logic_gates:blocks/dflipflop/down4"
         }
       },
       "5": {
         "textures": {
           "left": "alf_logic_gates:blocks/dflipflop/off",
           "back": "alf_logic_gates:blocks/dflipflop/in",
-          "right": "alf_logic_gates:blocks/dflipflop/clk"
+          "right": "alf_logic_gates:blocks/dflipflop/clk",
+          "top": "alf_logic_gates:blocks/dflipflop/top5",
+          "down": "alf_logic_gates:blocks/dflipflop/down5"
         }
       }
     }

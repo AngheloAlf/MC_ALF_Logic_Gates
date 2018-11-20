@@ -9,9 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -42,7 +40,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
 
 
     /* Tile Entity */
-    abstract protected int getMaxStates();
+    protected abstract int getMaxStates();
 
     public boolean hasTileEntity(IBlockState state){
         return true;
@@ -59,16 +57,11 @@ public abstract class LogicBlock extends AlfBaseBlock{
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
-        state = super.getActualState(state, blockAccess, pos);
+    public IBlockState getActualState(IBlockState state, IBlockAccess blockAccess, BlockPos pos){
         LogicTileEntity logicTileEntity = getTE(blockAccess, pos);
         if(logicTileEntity != null){
             state = state.withProperty(BLOCK_STATE, logicTileEntity.getCounter());
         }
-        /*if(worldIn instanceof  World){
-            int output = getOutputPower(state, (World)worldIn, pos);
-            state = state.withProperty(POWER, output).withProperty(POWERING, output > 0);
-        }*/
         return state;
     }
 
@@ -82,16 +75,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
         return null;
     }
     /* END Tile Entity */
-
-
-    /*// Called just after the player places a block.
-    @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
-        super.onBlockPlacedBy(world, pos, state, placer, stack);
-
-        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing());
-        world.setBlockState(pos, newState, 2);
-    }*/
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {

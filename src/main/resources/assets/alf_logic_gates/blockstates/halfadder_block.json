@@ -48,6 +48,33 @@
           "top": "alf_logic_gates:blocks/halfadder/top2",
           "down": "alf_logic_gates:blocks/halfadder/down2"
         }
+      },
+      "3": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/halfadder/off",
+          "back": "alf_logic_gates:blocks/halfadder/off",
+          "right": "alf_logic_gates:blocks/halfadder/off",
+          "top": "alf_logic_gates:blocks/halfadder/off",
+          "down": "alf_logic_gates:blocks/halfadder/off"
+        }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/halfadder/off",
+          "back": "alf_logic_gates:blocks/halfadder/off",
+          "right": "alf_logic_gates:blocks/halfadder/off",
+          "top": "alf_logic_gates:blocks/halfadder/off",
+          "down": "alf_logic_gates:blocks/halfadder/off"
+        }
+      },
+      "5":{
+        "textures": {
+          "left": "alf_logic_gates:blocks/halfadder/off",
+          "back": "alf_logic_gates:blocks/halfadder/off",
+          "right": "alf_logic_gates:blocks/halfadder/off",
+          "top": "alf_logic_gates:blocks/halfadder/off",
+          "down": "alf_logic_gates:blocks/halfadder/off"
+        }
       }
     }
   }

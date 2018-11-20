@@ -5,7 +5,9 @@
     "textures": {
       "left": "alf_logic_gates:blocks/xor/in",
       "back": "alf_logic_gates:blocks/xor/in",
-      "right": "alf_logic_gates:blocks/xor/off"
+      "right": "alf_logic_gates:blocks/xor/off",
+      "top": "alf_logic_gates:blocks/xor/top0",
+      "down": "alf_logic_gates:blocks/xor/down0"
     }
   },
   "variants": {
@@ -24,28 +26,54 @@
         "textures": {
           "left": "alf_logic_gates:blocks/xor/in",
           "back": "alf_logic_gates:blocks/xor/in",
-          "right": "alf_logic_gates:blocks/xor/off"
+          "right": "alf_logic_gates:blocks/xor/off",
+          "top": "alf_logic_gates:blocks/xor/top0",
+          "down": "alf_logic_gates:blocks/xor/down0"
         }
       },
       "1": {
         "textures": {
           "left": "alf_logic_gates:blocks/xor/in",
           "back": "alf_logic_gates:blocks/xor/off",
-          "right": "alf_logic_gates:blocks/xor/in"
+          "right": "alf_logic_gates:blocks/xor/in",
+          "top": "alf_logic_gates:blocks/xor/top1",
+          "down": "alf_logic_gates:blocks/xor/down1"
         }
       },
       "2": {
         "textures": {
           "left": "alf_logic_gates:blocks/xor/off",
           "back": "alf_logic_gates:blocks/xor/in",
-          "right": "alf_logic_gates:blocks/xor/in"
+          "right": "alf_logic_gates:blocks/xor/in",
+          "top": "alf_logic_gates:blocks/xor/top2",
+          "down": "alf_logic_gates:blocks/xor/down2"
         }
       },
       "3": {
         "textures": {
           "left": "alf_logic_gates:blocks/xor/in",
           "back": "alf_logic_gates:blocks/xor/in",
-          "right": "alf_logic_gates:blocks/xor/in"
+          "right": "alf_logic_gates:blocks/xor/in",
+          "top": "alf_logic_gates:blocks/xor/top3",
+          "down": "alf_logic_gates:blocks/xor/down3"
+        }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/xor/off",
+          "back": "alf_logic_gates:blocks/xor/off",
+          "right": "alf_logic_gates:blocks/xor/off",
+          "top": "alf_logic_gates:blocks/xor/off",
+          "down": "alf_logic_gates:blocks/xor/off"
+        }
+      },
+      "5":{
+        "textures": {
+          "left": "alf_logic_gates:blocks/xor/off",
+          "back": "alf_logic_gates:blocks/xor/off",
+          "right": "alf_logic_gates:blocks/xor/off",
+          "top": "alf_logic_gates:blocks/xor/off",
+          "down": "alf_logic_gates:blocks/xor/off"
         }
       }
     }

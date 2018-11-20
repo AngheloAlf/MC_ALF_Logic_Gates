@@ -1,12 +1,12 @@
 {
   "parent": "block/cube",
   "textures": {
-    "particle": "alf_logic_gates:blocks/xor/top",
-    "down": "alf_logic_gates:blocks/xor/down",
-    "up": "alf_logic_gates:blocks/xor/top",
+    "particle": "alf_logic_gates:blocks/xor/top0",
     "north": "alf_logic_gates:blocks/xor/out",
     "west": "#left",
     "east": "#right",
-    "south": "#back"
+    "south": "#back",
+    "down": "#down",
+    "up": "#top"
   }
 }

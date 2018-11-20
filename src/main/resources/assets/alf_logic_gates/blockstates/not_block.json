@@ -5,7 +5,9 @@
     "textures": {
       "left": "alf_logic_gates:blocks/not/in",
       "back": "alf_logic_gates:blocks/not/off",
-      "right": "alf_logic_gates:blocks/not/off"
+      "right": "alf_logic_gates:blocks/not/off",
+      "top": "alf_logic_gates:blocks/not/top0",
+      "down": "alf_logic_gates:blocks/not/down0"
     }
   },
   "variants": {
@@ -24,28 +26,54 @@
         "textures": {
           "left": "alf_logic_gates:blocks/not/in",
           "back": "alf_logic_gates:blocks/not/off",
-          "right": "alf_logic_gates:blocks/not/off"
+          "right": "alf_logic_gates:blocks/not/off",
+          "top": "alf_logic_gates:blocks/not/top0",
+          "down": "alf_logic_gates:blocks/not/down0"
         }
       },
       "1": {
         "textures": {
           "left": "alf_logic_gates:blocks/not/off",
           "back": "alf_logic_gates:blocks/not/in",
-          "right": "alf_logic_gates:blocks/not/off"
+          "right": "alf_logic_gates:blocks/not/off",
+          "top": "alf_logic_gates:blocks/not/top1",
+          "down": "alf_logic_gates:blocks/not/down1"
         }
       },
       "2": {
         "textures": {
           "left": "alf_logic_gates:blocks/not/off",
           "back": "alf_logic_gates:blocks/not/off",
-          "right": "alf_logic_gates:blocks/not/in"
+          "right": "alf_logic_gates:blocks/not/in",
+          "top": "alf_logic_gates:blocks/not/top2",
+          "down": "alf_logic_gates:blocks/not/down2"
         }
       },
       "3": {
         "textures": {
           "left": "alf_logic_gates:blocks/not/off",
           "back": "alf_logic_gates:blocks/not/off",
-          "right": "alf_logic_gates:blocks/not/off"
+          "right": "alf_logic_gates:blocks/not/off",
+          "top": "alf_logic_gates:blocks/not/top3",
+          "down": "alf_logic_gates:blocks/not/down3"
+        }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/not/off",
+          "back": "alf_logic_gates:blocks/not/off",
+          "right": "alf_logic_gates:blocks/not/off",
+          "top": "alf_logic_gates:blocks/not/off",
+          "down": "alf_logic_gates:blocks/not/off"
+        }
+      },
+      "5":{
+        "textures": {
+          "left": "alf_logic_gates:blocks/not/off",
+          "back": "alf_logic_gates:blocks/not/off",
+          "right": "alf_logic_gates:blocks/not/off",
+          "top": "alf_logic_gates:blocks/not/off",
+          "down": "alf_logic_gates:blocks/not/off"
         }
       }
     }

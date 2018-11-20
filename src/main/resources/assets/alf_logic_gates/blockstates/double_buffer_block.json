@@ -57,6 +57,24 @@
           "top": "alf_logic_gates:blocks/double_buffer/top3",
           "down": "alf_logic_gates:blocks/double_buffer/down3"
         }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/double_buffer/off",
+          "back": "alf_logic_gates:blocks/double_buffer/off",
+          "right": "alf_logic_gates:blocks/double_buffer/off",
+          "top": "alf_logic_gates:blocks/double_buffer/off",
+          "down": "alf_logic_gates:blocks/double_buffer/off"
+        }
+      },
+      "5":{
+        "textures": {
+          "left": "alf_logic_gates:blocks/double_buffer/off",
+          "back": "alf_logic_gates:blocks/double_buffer/off",
+          "right": "alf_logic_gates:blocks/double_buffer/off",
+          "top": "alf_logic_gates:blocks/double_buffer/off",
+          "down": "alf_logic_gates:blocks/double_buffer/off"
+        }
       }
     }
   }

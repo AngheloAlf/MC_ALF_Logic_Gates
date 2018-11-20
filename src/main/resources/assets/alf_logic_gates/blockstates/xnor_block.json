@@ -5,7 +5,9 @@
     "textures": {
       "left": "alf_logic_gates:blocks/xnor/in",
       "back": "alf_logic_gates:blocks/xnor/in",
-      "right": "alf_logic_gates:blocks/xnor/off"
+      "right": "alf_logic_gates:blocks/xnor/off",
+      "top": "alf_logic_gates:blocks/xnor/top0",
+      "down": "alf_logic_gates:blocks/xnor/down0"
     }
   },
   "variants": {
@@ -24,28 +26,54 @@
         "textures": {
           "left": "alf_logic_gates:blocks/xnor/in",
           "back": "alf_logic_gates:blocks/xnor/in",
-          "right": "alf_logic_gates:blocks/xnor/off"
+          "right": "alf_logic_gates:blocks/xnor/off",
+          "top": "alf_logic_gates:blocks/xnor/top0",
+          "down": "alf_logic_gates:blocks/xnor/down0"
         }
       },
       "1": {
         "textures": {
           "left": "alf_logic_gates:blocks/xnor/in",
           "back": "alf_logic_gates:blocks/xnor/off",
-          "right": "alf_logic_gates:blocks/xnor/in"
+          "right": "alf_logic_gates:blocks/xnor/in",
+          "top": "alf_logic_gates:blocks/xnor/top1",
+          "down": "alf_logic_gates:blocks/xnor/down1"
         }
       },
       "2": {
         "textures": {
           "left": "alf_logic_gates:blocks/xnor/off",
           "back": "alf_logic_gates:blocks/xnor/in",
-          "right": "alf_logic_gates:blocks/xnor/in"
+          "right": "alf_logic_gates:blocks/xnor/in",
+          "top": "alf_logic_gates:blocks/xnor/top2",
+          "down": "alf_logic_gates:blocks/xnor/down2"
         }
       },
       "3": {
         "textures": {
           "left": "alf_logic_gates:blocks/xnor/in",
           "back": "alf_logic_gates:blocks/xnor/in",
-          "right": "alf_logic_gates:blocks/xnor/in"
+          "right": "alf_logic_gates:blocks/xnor/in",
+          "top": "alf_logic_gates:blocks/xnor/top3",
+          "down": "alf_logic_gates:blocks/xnor/down3"
+        }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/xnor/off",
+          "back": "alf_logic_gates:blocks/xnor/off",
+          "right": "alf_logic_gates:blocks/xnor/off",
+          "top": "alf_logic_gates:blocks/xnor/off",
+          "down": "alf_logic_gates:blocks/xnor/off"
+        }
+      },
+      "5":{
+        "textures": {
+          "left": "alf_logic_gates:blocks/xnor/off",
+          "back": "alf_logic_gates:blocks/xnor/off",
+          "right": "alf_logic_gates:blocks/xnor/off",
+          "top": "alf_logic_gates:blocks/xnor/off",
+          "down": "alf_logic_gates:blocks/xnor/off"
         }
       }
     }

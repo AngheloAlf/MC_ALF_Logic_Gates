@@ -5,7 +5,9 @@
     "textures": {
       "left": "alf_logic_gates:blocks/nor/in",
       "back": "alf_logic_gates:blocks/nor/in",
-      "right": "alf_logic_gates:blocks/nor/off"
+      "right": "alf_logic_gates:blocks/nor/off",
+      "top": "alf_logic_gates:blocks/nor/top0",
+      "down": "alf_logic_gates:blocks/nor/down0"
     }
   },
   "variants": {
@@ -24,28 +26,54 @@
         "textures": {
           "left": "alf_logic_gates:blocks/nor/in",
           "back": "alf_logic_gates:blocks/nor/in",
-          "right": "alf_logic_gates:blocks/nor/off"
+          "right": "alf_logic_gates:blocks/nor/off",
+          "top": "alf_logic_gates:blocks/nor/top0",
+          "down": "alf_logic_gates:blocks/nor/down0"
         }
       },
       "1": {
         "textures": {
           "left": "alf_logic_gates:blocks/nor/in",
           "back": "alf_logic_gates:blocks/nor/off",
-          "right": "alf_logic_gates:blocks/nor/in"
+          "right": "alf_logic_gates:blocks/nor/in",
+          "top": "alf_logic_gates:blocks/nor/top1",
+          "down": "alf_logic_gates:blocks/nor/down1"
         }
       },
       "2": {
         "textures": {
           "left": "alf_logic_gates:blocks/nor/off",
           "back": "alf_logic_gates:blocks/nor/in",
-          "right": "alf_logic_gates:blocks/nor/in"
+          "right": "alf_logic_gates:blocks/nor/in",
+          "top": "alf_logic_gates:blocks/nor/top2",
+          "down": "alf_logic_gates:blocks/nor/down2"
         }
       },
       "3": {
         "textures": {
           "left": "alf_logic_gates:blocks/nor/in",
           "back": "alf_logic_gates:blocks/nor/in",
-          "right": "alf_logic_gates:blocks/nor/in"
+          "right": "alf_logic_gates:blocks/nor/in",
+          "top": "alf_logic_gates:blocks/nor/top3",
+          "down": "alf_logic_gates:blocks/nor/down3"
+        }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/nor/off",
+          "back": "alf_logic_gates:blocks/nor/off",
+          "right": "alf_logic_gates:blocks/nor/off",
+          "top": "alf_logic_gates:blocks/nor/off",
+          "down": "alf_logic_gates:blocks/nor/off"
+        }
+      },
+      "5":{
+        "textures": {
+          "left": "alf_logic_gates:blocks/nor/off",
+          "back": "alf_logic_gates:blocks/nor/off",
+          "right": "alf_logic_gates:blocks/nor/off",
+          "top": "alf_logic_gates:blocks/nor/off",
+          "down": "alf_logic_gates:blocks/nor/off"
         }
       }
     }
