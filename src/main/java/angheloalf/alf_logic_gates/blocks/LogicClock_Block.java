@@ -8,6 +8,8 @@ import angheloalf.alf_logic_gates.gui.GuiHandler;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +27,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class LogicClock_Block extends AlfBaseBlock{
+    protected static final PropertyBool POWERING = PropertyBool.create("powering");
+    protected static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
+
     public LogicClock_Block(){
         super(Material.CIRCUITS, "logic_clock", ModCreativeTabs.logicGatesTab);
 
-        setDefaultState(getDefaultBaseState());
+        setDefaultState(getDefaultBaseState()
+                .withProperty(POWERING, false).withProperty(POWER, 0));
     }
 
     /* Block state */
@@ -44,10 +50,9 @@ public class LogicClock_Block extends AlfBaseBlock{
         return super.getMetaFromState(state) | (state.getValue(POWERING) ? 8: 0);
     }
 
-    @Nullable
     @Override
     protected IProperty<?>[] getExtraProperties(){
-        return null;
+        return new IProperty<?>[]{POWERING, POWER};
     }
 
     /* Tile Entity*/
@@ -67,7 +72,7 @@ public class LogicClock_Block extends AlfBaseBlock{
         ClockEntity logicTileEntity = getTE(worldIn, pos);
         if(logicTileEntity != null){
             state = state.withProperty(POWERING, logicTileEntity.isAlternatePowering());
-            state = state.withProperty(POWER, logicTileEntity.isAlternatePowering() ? 15: 0);
+            state = state.withProperty(POWER, logicTileEntity.getPower());
         }
         return state;
     }
@@ -95,7 +100,7 @@ public class LogicClock_Block extends AlfBaseBlock{
         ClockEntity clockEntity = getTE(world, pos);
         if(clockEntity != null){
             powered = clockEntity.isAlternatePowering();
-            power = clockEntity.isAlternatePowering() ? 15: 0;
+            power = clockEntity.getPower();
         }
 
         IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERING, powered).withProperty(POWER, power);

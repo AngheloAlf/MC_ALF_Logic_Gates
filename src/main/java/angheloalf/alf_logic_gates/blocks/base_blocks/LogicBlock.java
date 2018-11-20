@@ -34,7 +34,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
     }
 
     /* Block state */
-    @Nullable
     @Override
     protected IProperty<?>[] getExtraProperties(){
         return new IProperty[]{BLOCK_STATE};

@@ -17,9 +17,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ClockEntity extends TileEntity implements ITickable{
-    private boolean lit = false;
     private boolean disabled = false;
     private boolean fullRestarting = false;
+
+    private boolean lit = false;
+    private int power = 0;
 
     private final int defaultMaxCont = 20; // 20 equals 1 second
 
@@ -33,6 +35,10 @@ public class ClockEntity extends TileEntity implements ITickable{
 
     public boolean isAlternatePowering(){
         return lit && !disabled;
+    }
+
+    public int getPower(){
+        return power;
     }
 
     public void disable(boolean disable){
@@ -79,6 +85,7 @@ public class ClockEntity extends TileEntity implements ITickable{
             counter -= step;
             if(counter <= 0){
                 lit = !lit;
+                power = lit ? 15 : 0;
                 counter = maxCount;
                 markDirty();
                 world.notifyNeighborsOfStateChange(pos, blockType, false);
@@ -104,19 +111,31 @@ public class ClockEntity extends TileEntity implements ITickable{
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        counter = compound.getInteger("counter");
-        // lastCount = compound.getInteger("lastCount");
-        maxCount = compound.getInteger("maxCount");
+        disabled = compound.getBoolean("disabled");
+        fullRestarting = compound.getBoolean("fullRestarting");
+
         lit = compound.getBoolean("lit");
+        power = compound.getInteger("power");
+
+        counter = compound.getInteger("counter");
+        step = compound.getInteger("step");
+        maxCount = compound.getInteger("maxCount");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound = super.writeToNBT(compound);
-        compound.setInteger("counter", counter);
-        // compound.setInteger("lastCount", lastCount);
-        compound.setInteger("maxCount", maxCount);
+
+        compound.setBoolean("disabled", disabled);
+        compound.setBoolean("fullRestarting", fullRestarting);
+
         compound.setBoolean("lit", lit);
+        compound.setInteger("power", power);
+
+        compound.setInteger("counter", counter);
+        compound.setInteger("step", step);
+        compound.setInteger("maxCount", maxCount);
+
         return compound;
     }
 

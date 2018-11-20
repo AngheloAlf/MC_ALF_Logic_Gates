@@ -8,9 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -18,7 +16,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
@@ -31,14 +28,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public abstract class AlfBaseBlock extends Block{
     private String blockName;
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-    public static final PropertyBool POWERING = PropertyBool.create("powering");
-    public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
+    protected static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public AlfBaseBlock(Material material, String blockName){
         super(material);
@@ -76,17 +70,12 @@ public abstract class AlfBaseBlock extends Block{
     }
 
     protected IBlockState getDefaultBaseState(){
-        return this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH)
-                .withProperty(POWER, 0).withProperty(POWERING, false);
+        return this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH);
     }
 
-    @Nullable
     protected abstract IProperty<?>[] getExtraProperties();
 
-    private IProperty<?>[] addMoreProperties(IProperty<?>[] array, @Nullable IProperty<?>[] extraProperties){
-        if(extraProperties == null){
-            return array;
-        }
+    private IProperty<?>[] addMoreProperties(IProperty<?>[] array, IProperty<?>[] extraProperties){
         final int oldLength = array.length;
         array = java.util.Arrays.copyOf(array, oldLength + extraProperties.length);
         System.arraycopy(extraProperties, 0, array, oldLength, extraProperties.length);
@@ -95,7 +84,7 @@ public abstract class AlfBaseBlock extends Block{
 
     @Override
     protected BlockStateContainer createBlockState(){
-        IProperty<?>[] actualProperties = new IProperty<?>[]{FACING, POWERING, POWER};
+        IProperty<?>[] actualProperties = new IProperty<?>[]{FACING};
         IProperty<?>[] extraProperties = getExtraProperties();
         return new BlockStateContainer(this, addMoreProperties(actualProperties, extraProperties));
     }
@@ -116,39 +105,6 @@ public abstract class AlfBaseBlock extends Block{
                 (float) (entity.posY - clickedBlock.getY()),
                 (float) (entity.posZ - clickedBlock.getZ()));
     }
-
-    /* Tile Entity */
-    /*@Override
-    public boolean hasTileEntity(IBlockState state){
-        return true;
-    }*/
-
-    // protected abstract void applyTileEntityState(TE tileEntity, @Nullable World world, @Nullable IBlockState state);
-/*
-    @Override
-    public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
-        try{
-            TE tileEntity = this.tileEntity.newInstance();
-            applyTileEntityState(tileEntity, world, state);
-            return tileEntity;
-        }
-        catch(InstantiationException | IllegalAccessException e){
-            e.printStackTrace();
-        }
-        return null;
-    }*/
-/*
-    @Nullable
-    protected TE getTE(IBlockAccess worldIn, BlockPos pos){
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
-
-        if(this.tileEntity.isInstance(tileEntity)){
-            return this.tileEntity.cast(tileEntity);
-        }
-        return null;
-    }*/
-    /* END Tile Entity */
-
 
     /* Redstone */
     @Override
