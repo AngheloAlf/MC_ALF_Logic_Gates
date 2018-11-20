@@ -1,5 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.tileentities;
 
+import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 
@@ -88,8 +89,9 @@ public class ClockEntity extends TileEntity implements ITickable{
                 power = lit ? 15 : 0;
                 counter = maxCount;
                 markDirty();
-                world.notifyNeighborsOfStateChange(pos, blockType, false);
                 world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+
+                AlfBaseBlock.notifyStrongPowerToNeighbors(world, blockType, pos);
             }
         }
     }

@@ -55,9 +55,9 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
-                return getRawAPower(state, world, pos);
+                return getLeftSidePower(state, world, pos);
             case 2:
-                return getRawCPower(state, world, pos);
+                return getRightSidePower(state, world, pos);
         }
         return 0;
     }
@@ -65,11 +65,11 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
     public int getSecondInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getRawBPower(state, world, pos);
+                return getBackSidePower(state, world, pos);
             case 1:
-                return getRawCPower(state, world, pos);
+                return getRightSidePower(state, world, pos);
             case 2:
-                return getRawAPower(state, world, pos);
+                return getLeftSidePower(state, world, pos);
         }
         return 0;
     }

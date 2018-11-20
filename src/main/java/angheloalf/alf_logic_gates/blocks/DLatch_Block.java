@@ -45,6 +45,7 @@ public class DLatch_Block extends TwoDiffInputLogicBlock{
 
                 if(old != (tileEntity.getPower() > 0)){
                     world.notifyBlockUpdate(pos, state, state, 3);
+                    notifyStrongPowerToNeighbors(world, pos);
                 }
             }
         }

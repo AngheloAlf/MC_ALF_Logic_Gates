@@ -10,8 +10,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class TwoInputLogicBlock extends LogicBlock{
-    public TwoInputLogicBlock(String blockName){
+public abstract class TwoThreeInputLogicBlock extends LogicBlock{
+    public TwoThreeInputLogicBlock(String blockName){
         super(blockName);
     }
 
@@ -58,5 +58,53 @@ public abstract class TwoInputLogicBlock extends LogicBlock{
     @Override
     protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         return 0;
+    }
+
+    private boolean isAEnabled(IBlockState state){
+        switch(state.getValue(BLOCK_STATE)){
+            case 0:
+            case 1:
+            case 3:
+                return true;
+            case 2:
+                return false;
+        }
+        return false;
+    }
+
+    private boolean isBEnabled(IBlockState state){
+        switch(state.getValue(BLOCK_STATE)){
+            case 0:
+            case 2:
+            case 3:
+                return true;
+            case 1:
+                return false;
+        }
+        return false;
+    }
+
+    private boolean isCEnabled(IBlockState state){
+        switch(state.getValue(BLOCK_STATE)){
+            case 1:
+            case 2:
+            case 3:
+                return true;
+            case 0:
+                return false;
+        }
+        return false;
+    }
+
+    protected int getAPower(IBlockState state, World world, BlockPos pos){
+        return isAEnabled(state) ? getLeftSidePower(state, world, pos): 0;
+    }
+
+    protected int getBPower(IBlockState state, World world, BlockPos pos){
+        return isBEnabled(state) ? getBackSidePower(state, world, pos): 0;
+    }
+
+    protected int getCPower(IBlockState state, World world, BlockPos pos){
+        return isCEnabled(state) ? getRightSidePower(state, world, pos): 0;
     }
 }

@@ -37,9 +37,10 @@ public class DFlipFlop_Block extends TwoDiffInputLogicBlock{
             if(clkPower){
                 if(tileEntity.isAlternatePowering() != clkPower){
                     tileEntity.setAlternatePower(true);
-
                     tileEntity.setPower(getDPower(state, world, pos));
+
                     world.notifyBlockUpdate(pos, state, state, 3);
+                    notifyStrongPowerToNeighbors(world, pos);
                 }
             }
             else{

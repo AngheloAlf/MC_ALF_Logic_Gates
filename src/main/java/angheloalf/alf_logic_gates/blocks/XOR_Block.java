@@ -1,6 +1,6 @@
 package angheloalf.alf_logic_gates.blocks;
 
-import angheloalf.alf_logic_gates.blocks.base_blocks.TwoInputLogicBlock;
+import angheloalf.alf_logic_gates.blocks.base_blocks.TwoThreeInputLogicBlock;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class XOR_Block extends TwoInputLogicBlock{
+public class XOR_Block extends TwoThreeInputLogicBlock{
     public XOR_Block(){
         super("xor_block");
     }

@@ -15,16 +15,6 @@ public class Buffer_Block extends OneInputLogicBlock{
 
     @Override
     protected int getOutputPower(IBlockState state, World world, BlockPos pos){
-        switch(state.getValue(BLOCK_STATE)){
-            case 0:
-                return buffer(getRawAPower(state, world, pos));
-            case 1:
-                return buffer(getRawBPower(state, world, pos));
-            case 2:
-                return buffer(getRawCPower(state, world, pos));
-            case 3:
-                return 0;
-        }
-        return 0;
+        return buffer(getOnlyInput(state, world, pos));
     }
 }

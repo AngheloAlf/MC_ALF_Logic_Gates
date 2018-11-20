@@ -16,6 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
@@ -90,6 +91,14 @@ public abstract class AlfBaseBlock extends Block{
     }
     /* End Block state */
 
+    // Called just after the player places a block.
+    @Override
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
+        super.onBlockPlacedBy(world, pos, state, placer, stack);
+
+        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing());
+        world.setBlockState(pos, newState, 2);
+    }
 
     // Create the appropriate state for the block being placed - in this case, figure out which way the target is facing
     @Override
@@ -178,6 +187,21 @@ public abstract class AlfBaseBlock extends Block{
     }*/
 
     /* END Redstone */
+
+    public void notifyStrongPowerToNeighbors(World world, BlockPos pos){
+        notifyStrongPowerToNeighbors(world, this, pos);
+    }
+
+    public static void notifyStrongPowerToNeighbors(World world, Block block, BlockPos pos){
+        world.notifyNeighborsOfStateChange(pos, block, true);
+
+        world.notifyNeighborsOfStateChange(pos.west(), block, true);
+        world.notifyNeighborsOfStateChange(pos.east(), block, true);
+        world.notifyNeighborsOfStateChange(pos.down(), block, true);
+        world.notifyNeighborsOfStateChange(pos.up(), block, true);
+        world.notifyNeighborsOfStateChange(pos.north(), block, true);
+        world.notifyNeighborsOfStateChange(pos.south(), block, true);
+    }
 
     /* Logic */
     protected static int repeatSignalOrPower(int power){

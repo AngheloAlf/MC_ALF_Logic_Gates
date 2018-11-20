@@ -11,9 +11,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -54,16 +52,16 @@ public class LogicClock_Block extends AlfBaseBlock{
     protected IProperty<?>[] getExtraProperties(){
         return new IProperty<?>[]{POWERING, POWER};
     }
+    /* End Block state */
 
     /* Tile Entity*/
-
     public boolean hasTileEntity(IBlockState state){
         return true;
     }
 
     @Override
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
-        return  new ClockEntity();
+        return new ClockEntity();
     }
 
     @Override
@@ -89,23 +87,24 @@ public class LogicClock_Block extends AlfBaseBlock{
     /* END Tile Entity */
 
 
-    // Called just after the player places a block.
+    /*// Called just after the player places a block.
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
-        super.onBlockPlacedBy(world, pos, state, placer, stack);
+        super.onBlockPlacedBy(world, pos, state, placer, stack);*/
 
-        boolean powered = false;
+        /*boolean powered = false;
         int power = 0;
 
         ClockEntity clockEntity = getTE(world, pos);
         if(clockEntity != null){
             powered = clockEntity.isAlternatePowering();
             power = clockEntity.getPower();
-        }
+        }*/
 
-        IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERING, powered).withProperty(POWER, power);
+        // IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERING, powered).withProperty(POWER, power);
+        /*IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing());
         world.setBlockState(pos, newState, 2);
-    }
+    }*/
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -115,8 +114,8 @@ public class LogicClock_Block extends AlfBaseBlock{
             if(tileEntity == null){
                 return false;
             }
-            world.notifyNeighborsOfStateChange(pos, this, false);
             player.openGui(Mod_ALF_Logic_Gates.instance, GuiHandler.getGuiID(), world, pos.getX(), pos.getY(), pos.getZ());
+            notifyStrongPowerToNeighbors(world, pos);
         }
         return true;
     }

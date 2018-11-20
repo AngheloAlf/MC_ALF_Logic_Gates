@@ -36,7 +36,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
     /* Block state */
     @Override
     protected IProperty<?>[] getExtraProperties(){
-        return new IProperty[]{BLOCK_STATE};
+        return new IProperty<?>[]{BLOCK_STATE};
     }
     /* End Block state */
 
@@ -52,9 +52,9 @@ public abstract class LogicBlock extends AlfBaseBlock{
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
         LogicTileEntity tileEntity = new LogicTileEntity();
         tileEntity.setDefaultMax(getMaxStates());
-        if(state != null){
+        /*if(state != null){
             tileEntity.setCounter(state.getValue(BLOCK_STATE));
-        }
+        }*/
         return tileEntity;
     }
 
@@ -84,51 +84,14 @@ public abstract class LogicBlock extends AlfBaseBlock{
     /* END Tile Entity */
 
 
-    protected boolean isAEnabled(IBlockState state){
-        switch(state.getValue(BLOCK_STATE)){
-            case 0:
-            case 1:
-            case 3:
-                return true;
-            case 2:
-                return false;
-        }
-        return false;
-    }
-
-    protected boolean isBEnabled(IBlockState state){
-        switch(state.getValue(BLOCK_STATE)){
-            case 0:
-            case 2:
-            case 3:
-                return true;
-            case 1:
-                return false;
-        }
-        return false;
-    }
-
-    protected boolean isCEnabled(IBlockState state){
-        switch(state.getValue(BLOCK_STATE)){
-            case 1:
-            case 2:
-            case 3:
-                return true;
-            case 0:
-                return false;
-        }
-        return false;
-    }
-
-
-    // Called just after the player places a block.
+    /*// Called just after the player places a block.
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
         super.onBlockPlacedBy(world, pos, state, placer, stack);
 
         IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing());
         world.setBlockState(pos, newState, 2);
-    }
+    }*/
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -139,67 +102,48 @@ public abstract class LogicBlock extends AlfBaseBlock{
                 return false;
             }
             tileEntity.count();
-            // world.setBlockState(pos, state.withProperty(BLOCK_STATE, clicked), 3);
             world.setBlockState(pos, getActualState(state, world, pos), 3);
-            world.notifyNeighborsOfStateChange(pos, this, false);
+
+            notifyStrongPowerToNeighbors(world, pos);
         }
         return true;
     }
 
     @Override
     public void neighborChanged(@Nullable IBlockState state, @Nullable World world, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
-        if(state != null && world != null && pos != null){
-            IBlockState actualState = getActualState(state, world, pos);
-            LogicTileEntity tileEntity = getTE(world, pos);
-            if(tileEntity != null){
-                int old = tileEntity.getPower();
-                tileEntity.setPower(getOutputPower(actualState, world, pos));
+        if(state == null || world == null || pos == null){
+            return;
+        }
 
-                if(old != tileEntity.getPower()){
-                    world.notifyBlockUpdate(pos, state, actualState, 3);
+        IBlockState actualState = getActualState(state, world, pos);
+        LogicTileEntity tileEntity = getTE(world, pos);
+        if(tileEntity != null){
+            int old = tileEntity.getPower();
+            tileEntity.setPower(getOutputPower(actualState, world, pos));
 
+            if(old != tileEntity.getPower()){
+                world.notifyBlockUpdate(pos, state, actualState, 3);
 
-                    world.notifyNeighborsOfStateChange(pos, this, true);
-
-                    world.notifyNeighborsOfStateChange(pos.west(), this, true);
-                    world.notifyNeighborsOfStateChange(pos.east(), this, true);
-                    world.notifyNeighborsOfStateChange(pos.down(), this, true);
-                    world.notifyNeighborsOfStateChange(pos.up(), this, true);
-                    world.notifyNeighborsOfStateChange(pos.north(), this, true);
-                    world.notifyNeighborsOfStateChange(pos.south(), this, true);
-                }
+                notifyStrongPowerToNeighbors(world, pos);
             }
         }
     }
 
 
     /* Redstone */
-
-    protected int getRawAPower(IBlockState state, World world, BlockPos pos){
+    protected int getLeftSidePower(IBlockState state, World world, BlockPos pos){
         EnumFacing enumFacing = state.getValue(FACING).rotateYCCW();
         return calculateInputStrengthFromFace(world, pos, enumFacing);
     }
 
-    protected int getRawBPower(IBlockState state, World world, BlockPos pos){
+    protected int getBackSidePower(IBlockState state, World world, BlockPos pos){
         EnumFacing enumFacing = state.getValue(FACING).rotateYCCW().rotateYCCW();
         return calculateInputStrengthFromFace(world, pos, enumFacing);
     }
 
-    protected int getRawCPower(IBlockState state, World world, BlockPos pos){
+    protected int getRightSidePower(IBlockState state, World world, BlockPos pos){
         EnumFacing enumFacing = state.getValue(FACING).rotateYCCW().rotateYCCW().rotateYCCW();
         return calculateInputStrengthFromFace(world, pos, enumFacing);
-    }
-
-    protected int getAPower(IBlockState state, World world, BlockPos pos){
-        return isAEnabled(state) ? getRawAPower(state, world, pos): 0;
-    }
-
-    protected int getBPower(IBlockState state, World world, BlockPos pos){
-        return isBEnabled(state) ? getRawBPower(state, world, pos): 0;
-    }
-
-    protected int getCPower(IBlockState state, World world, BlockPos pos){
-        return isCEnabled(state) ? getRawCPower(state, world, pos): 0;
     }
     /* END Redstone */
 }

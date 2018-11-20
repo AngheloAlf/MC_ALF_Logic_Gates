@@ -59,4 +59,16 @@ public abstract class OneInputLogicBlock extends LogicBlock{
     protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         return 0;
     }
+
+    protected int getOnlyInput(IBlockState state, World world, BlockPos pos){
+        switch(state.getValue(BLOCK_STATE)){
+            case 0:
+                return getLeftSidePower(state, world, pos);
+            case 1:
+                return getBackSidePower(state, world, pos);
+            case 2:
+                return getRightSidePower(state, world, pos);
+        }
+        return 0;
+    }
 }
