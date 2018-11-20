@@ -32,19 +32,19 @@ public class DLatch_Block extends TwoDiffInputLogicBlock{
     }
 
     @Override
-    public void neighborChanged(@Nullable IBlockState state, @Nullable World worldIn, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
-        if(worldIn == null || pos == null || state == null){
+    public void neighborChanged(@Nullable IBlockState state, @Nullable World world, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
+        if(world == null || pos == null || state == null){
             return;
         }
 
-        LogicTileEntity tileEntity = getTE(worldIn, pos);
+        LogicTileEntity tileEntity = getTE(world, pos);
         if(tileEntity != null){
-            if(getCLKPower(state, worldIn, pos) > 0){
+            if(getCLKPower(state, world, pos) > 0){
                 boolean old = tileEntity.getPower() > 0;
-                tileEntity.setPower(getDPower(state, worldIn, pos));
+                tileEntity.setPower(getDPower(state, world, pos));
 
                 if(old != (tileEntity.getPower() > 0)){
-                    worldIn.notifyBlockUpdate(pos, state, state, 3);
+                    world.notifyBlockUpdate(pos, state, state, 3);
                 }
             }
         }

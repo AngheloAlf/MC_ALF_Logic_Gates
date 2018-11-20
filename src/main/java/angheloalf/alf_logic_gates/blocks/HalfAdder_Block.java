@@ -7,7 +7,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -56,9 +55,9 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
-                return getRawAPower(world, pos, state);
+                return getRawAPower(state, world, pos);
             case 2:
-                return getRawCPower(world, pos, state);
+                return getRawCPower(state, world, pos);
         }
         return 0;
     }
@@ -66,11 +65,11 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
     public int getSecondInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getRawBPower(world, pos, state);
+                return getRawBPower(state, world, pos);
             case 1:
-                return getRawCPower(world, pos, state);
+                return getRawCPower(state, world, pos);
             case 2:
-                return getRawAPower(world, pos, state);
+                return getRawAPower(state, world, pos);
         }
         return 0;
     }

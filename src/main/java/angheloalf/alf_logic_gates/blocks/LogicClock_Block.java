@@ -67,9 +67,9 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        state = super.getActualState(state, worldIn, pos);
-        ClockEntity logicTileEntity = getTE(worldIn, pos);
+    public IBlockState getActualState(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
+        state = super.getActualState(state, blockAccess, pos);
+        ClockEntity logicTileEntity = getTE(blockAccess, pos);
         if(logicTileEntity != null){
             state = state.withProperty(POWERING, logicTileEntity.isAlternatePowering());
             state = state.withProperty(POWER, logicTileEntity.getPower());
@@ -78,8 +78,8 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
     @Nullable
-    protected ClockEntity getTE(IBlockAccess worldIn, BlockPos pos){
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
+    protected ClockEntity getTE(IBlockAccess blockAccess, BlockPos pos){
+        TileEntity tileEntity = blockAccess.getTileEntity(pos);
 
         if(tileEntity instanceof ClockEntity){
             return (ClockEntity) tileEntity;
@@ -131,15 +131,6 @@ public class LogicClock_Block extends AlfBaseBlock{
     protected int getOutputPower(IBlockState state, World world, BlockPos pos){
         state = getActualState(state, world, pos);
         return state.getValue(POWER);
-        /*
-        ClockEntity entity = getTE(world, pos);
-        if(entity != null){
-            state = getActualState(state, world, pos);
-            int output = entity.isAlternatePowering() || state.getValue(POWERED) ? 15 : 0;
-            System.out.println(getBlockName() + ": output="+output);
-            return output;
-        }
-        return 0;*/
     }
 
     @Override

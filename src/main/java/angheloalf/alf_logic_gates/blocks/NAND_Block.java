@@ -1,7 +1,6 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoInputLogicBlock;
-import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,9 +15,9 @@ public class NAND_Block extends TwoInputLogicBlock{
 
     @Override
     protected int getOutputPower(IBlockState state, World world, BlockPos pos){
-        int aPower = getAPower(world, pos, state);
-        int bPower = getBPower(world, pos, state);
-        int cPower = getCPower(world, pos, state);
+        int aPower = getAPower(state, world, pos);
+        int bPower = getBPower(state, world, pos);
+        int cPower = getCPower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
                 return negate(and(aPower, bPower));

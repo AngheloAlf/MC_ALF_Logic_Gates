@@ -47,9 +47,9 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
     }
 
     protected int getCLKPower(IBlockState state, World world, BlockPos pos){
-        int aPower = getRawAPower(world, pos, state);
-        int bPower = getRawBPower(world, pos, state);
-        int cPower = getRawCPower(world, pos, state);
+        int aPower = getRawAPower(state, world, pos);
+        int bPower = getRawBPower(state, world, pos);
+        int cPower = getRawCPower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
@@ -65,9 +65,9 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
     }
 
     protected int getDPower(IBlockState state, World world, BlockPos pos){
-        int aPower = getRawAPower(world, pos, state);
-        int bPower = getRawBPower(world, pos, state);
-        int cPower = getRawCPower(world, pos, state);
+        int aPower = getRawAPower(state, world, pos);
+        int bPower = getRawBPower(state, world, pos);
+        int cPower = getRawCPower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 3:
             case 4:

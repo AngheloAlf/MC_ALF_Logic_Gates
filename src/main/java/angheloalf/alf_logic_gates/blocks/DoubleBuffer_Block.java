@@ -54,11 +54,11 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
-                return getRawAPower(world, pos, state);
+                return getRawAPower(state, world, pos);
             case 2:
-                return getRawCPower(world, pos, state);
+                return getRawCPower(state, world, pos);
             case 3:
-                return getRawBPower(world, pos, state);
+                return getRawBPower(state, world, pos);
         }
         return 0;
     }
@@ -67,12 +67,12 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     public int getSecondInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getRawBPower(world, pos, state);
+                return getRawBPower(state, world, pos);
             case 1:
-                return getRawCPower(world, pos, state);
+                return getRawCPower(state, world, pos);
             case 2:
             case 3:
-                return getRawAPower(world, pos, state);
+                return getRawAPower(state, world, pos);
         }
         return 0;
     }

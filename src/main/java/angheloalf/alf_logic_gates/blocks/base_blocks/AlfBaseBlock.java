@@ -112,15 +112,15 @@ public abstract class AlfBaseBlock extends Block{
         return true;
     }
 
-    protected int calculateInputStrengthFromFace(World worldIn, BlockPos pos, EnumFacing enumFacing){
-        BlockPos blockpos = pos.offset(enumFacing);
-        int i = worldIn.getRedstonePower(blockpos, enumFacing);
+    protected int calculateInputStrengthFromFace(World world, BlockPos pos, EnumFacing side){
+        BlockPos blockpos = pos.offset(side);
+        int i = world.getRedstonePower(blockpos, side);
 
         if (i >= 15){
             return 15;
         }
         else{
-            IBlockState iblockstate = worldIn.getBlockState(blockpos);
+            IBlockState iblockstate = world.getBlockState(blockpos);
             return Math.max(i, iblockstate.getBlock() == Blocks.REDSTONE_WIRE ? iblockstate.getValue(BlockRedstoneWire.POWER): 0);
         }
     }
@@ -128,12 +128,12 @@ public abstract class AlfBaseBlock extends Block{
     abstract protected boolean isSideEnabled(IBlockState state, EnumFacing side);
 
     @Override
-    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos posConnectingFrom, @Nullable EnumFacing side){
+    public boolean canConnectRedstone(IBlockState state, IBlockAccess blockAccess, BlockPos posConnectingFrom, @Nullable EnumFacing side){
         if(side == null){
             return false;
         }
 
-        state = getActualState(state, world, posConnectingFrom);
+        state = getActualState(state, blockAccess, posConnectingFrom);
         return isSideEnabled(state, side);
     }
 

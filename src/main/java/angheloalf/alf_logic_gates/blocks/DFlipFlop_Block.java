@@ -26,20 +26,20 @@ public class DFlipFlop_Block extends TwoDiffInputLogicBlock{
     }
 
     @Override
-    public void neighborChanged(@Nullable IBlockState state, @Nullable World worldIn, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
-        if(worldIn == null || pos == null || state == null){
+    public void neighborChanged(@Nullable IBlockState state, @Nullable World world, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
+        if(world == null || pos == null || state == null){
             return;
         }
 
-        LogicTileEntity tileEntity = getTE(worldIn, pos);
+        LogicTileEntity tileEntity = getTE(world, pos);
         if(tileEntity != null){
-            boolean clkPower = getCLKPower(state, worldIn, pos) > 0;
+            boolean clkPower = getCLKPower(state, world, pos) > 0;
             if(clkPower){
                 if(tileEntity.isAlternatePowering() != clkPower){
                     tileEntity.setAlternatePower(true);
 
-                    tileEntity.setPower(getDPower(state, worldIn, pos));
-                    worldIn.notifyBlockUpdate(pos, state, state, 3);
+                    tileEntity.setPower(getDPower(state, world, pos));
+                    world.notifyBlockUpdate(pos, state, state, 3);
                 }
             }
             else{

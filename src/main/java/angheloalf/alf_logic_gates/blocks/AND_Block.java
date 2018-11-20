@@ -15,9 +15,9 @@ public class AND_Block extends TwoInputLogicBlock{
 
     @Override
     protected int getOutputPower(IBlockState state, World world, BlockPos pos){
-        int aPower = getAPower(world, pos, state);
-        int bPower = getBPower(world, pos, state);
-        int cPower = getCPower(world, pos, state);
+        int aPower = getAPower(state, world, pos);
+        int bPower = getBPower(state, world, pos);
+        int cPower = getCPower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
                 return and(aPower, bPower);
