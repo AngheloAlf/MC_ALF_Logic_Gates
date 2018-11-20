@@ -142,7 +142,6 @@ public class LogicClock_Block extends AlfBaseBlock{
         return 0;*/
     }
 
-    @Nullable
     @Override
     protected EnumFacing[] getAlternativesOutputs(IBlockState state){
         EnumFacing front = state.getValue(FACING).getOpposite();

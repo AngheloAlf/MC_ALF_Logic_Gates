@@ -26,11 +26,9 @@ public abstract class TwoInputTwoOutputLogicBlock extends LogicBlock{
     @Override
     protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         EnumFacing[] outputs = getAlternativesOutputs(state);
-        if(outputs != null){
-            for(EnumFacing face : outputs){
-                if(face == side){
-                    return getSecondOutput(state, world, pos);
-                }
+        for(EnumFacing face : outputs){
+            if(face == side){
+                return getSecondOutput(state, world, pos);
             }
         }
         return 0;

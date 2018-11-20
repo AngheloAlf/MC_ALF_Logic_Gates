@@ -139,7 +139,6 @@ public abstract class AlfBaseBlock extends Block{
 
     protected abstract int getOutputPower(IBlockState state, World world, BlockPos pos);
 
-    @Nullable
     protected abstract EnumFacing[] getAlternativesOutputs(IBlockState state);
 
     protected abstract boolean hasAlternativesOutputs();

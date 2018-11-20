@@ -30,7 +30,6 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
         return xor(getFirstInput(state, world, pos), getSecondInput(state, world, pos));
     }
 
-    @Nullable
     @Override
     protected EnumFacing[] getAlternativesOutputs(IBlockState state){
         EnumFacing left = state.getValue(FACING).getOpposite().rotateYCCW();
@@ -44,7 +43,7 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
             case 2:
                 return new EnumFacing[]{left};
         }
-        return null;
+        return new EnumFacing[0];
     }
 
     @Override

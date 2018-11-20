@@ -1,15 +1,16 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoInputTwoOutputLogicBlock;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     public DoubleBuffer_Block(){
         super("double_buffer_block");
@@ -28,7 +29,6 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     }
 
     @Override
-    @Nullable
     protected EnumFacing[] getAlternativesOutputs(IBlockState state){
         EnumFacing left = state.getValue(FACING).getOpposite().rotateYCCW();
         EnumFacing back = left.rotateYCCW();
@@ -41,7 +41,7 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
             case 2:
                 return new EnumFacing[]{back};
         }
-        return null;
+        return new EnumFacing[0];
     }
 
     @Override

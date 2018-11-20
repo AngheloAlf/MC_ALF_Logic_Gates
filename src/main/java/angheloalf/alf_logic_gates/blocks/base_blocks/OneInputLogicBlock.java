@@ -1,14 +1,15 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public abstract class OneInputLogicBlock extends LogicBlock{
     public OneInputLogicBlock(String blockName){
         super(blockName);
@@ -44,10 +45,9 @@ public abstract class OneInputLogicBlock extends LogicBlock{
         return false;
     }
 
-    @Nullable
     @Override
     protected EnumFacing[] getAlternativesOutputs(IBlockState state){
-        return null;
+        return new EnumFacing[0];
     }
 
     @Override
