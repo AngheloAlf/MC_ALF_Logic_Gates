@@ -1,0 +1,81 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alf_logic_gates:mux_block",
+    "textures": {
+      "left": "alf_logic_gates:blocks/mux/s",
+      "back": "alf_logic_gates:blocks/mux/1",
+      "right": "alf_logic_gates:blocks/mux/0",
+      "top": "alf_logic_gates:blocks/mux/top0",
+      "down": "alf_logic_gates:blocks/mux/down0"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    },
+    "block_state": {
+      "0": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/mux/s",
+          "back": "alf_logic_gates:blocks/mux/1",
+          "right": "alf_logic_gates:blocks/mux/0",
+          "top": "alf_logic_gates:blocks/mux/top0",
+          "down": "alf_logic_gates:blocks/mux/down0"
+        }
+      },
+      "1": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/mux/s",
+          "back": "alf_logic_gates:blocks/mux/0",
+          "right": "alf_logic_gates:blocks/mux/1",
+          "top": "alf_logic_gates:blocks/mux/top1",
+          "down": "alf_logic_gates:blocks/mux/down1"
+        }
+      },
+      "2": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/mux/1",
+          "back": "alf_logic_gates:blocks/mux/s",
+          "right": "alf_logic_gates:blocks/mux/0",
+          "top": "alf_logic_gates:blocks/mux/top2",
+          "down": "alf_logic_gates:blocks/mux/down2"
+        }
+      },
+      "3": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/mux/0",
+          "back": "alf_logic_gates:blocks/mux/s",
+          "right": "alf_logic_gates:blocks/mux/1",
+          "top": "alf_logic_gates:blocks/mux/top3",
+          "down": "alf_logic_gates:blocks/mux/down3"
+        }
+      },
+      "4": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/mux/1",
+          "back": "alf_logic_gates:blocks/mux/0",
+          "right": "alf_logic_gates:blocks/mux/s",
+          "top": "alf_logic_gates:blocks/mux/top4",
+          "down": "alf_logic_gates:blocks/mux/down4"
+        }
+      },
+      "5": {
+        "textures": {
+          "left": "alf_logic_gates:blocks/mux/0",
+          "back": "alf_logic_gates:blocks/mux/1",
+          "right": "alf_logic_gates:blocks/mux/s",
+          "top": "alf_logic_gates:blocks/mux/top5",
+          "down": "alf_logic_gates:blocks/mux/down5"
+        }
+      }
+    }
+  }
+}

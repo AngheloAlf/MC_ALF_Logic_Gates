@@ -8,14 +8,15 @@ tile.alf_logic_gates.nand_block.name=NAND Gate
 tile.alf_logic_gates.xnor_block.name=XNOR Gate
 tile.alf_logic_gates.not_block.name=NOT Gate
 tile.alf_logic_gates.buffer_block.name=Buffer
+tile.alf_logic_gates.double_buffer_block.name=Double buffer
 
 tile.alf_logic_gates.logic_clock.name=Logic clock
 tile.alf_logic_gates.dlatch_block.name=D Latch
 tile.alf_logic_gates.dflipflop_block.name=D Flip Flop
 
-tile.alf_logic_gates.halfadder_block.name=Half adder
+tile.alf_logic_gates.mux_block.name=MUX
 
-tile.alf_logic_gates.double_buffer_block.name=Double buffer
+tile.alf_logic_gates.halfadder_block.name=Half adder
 
 
 item.alf_logic_gates.logic_circuit.name=Logic circuit

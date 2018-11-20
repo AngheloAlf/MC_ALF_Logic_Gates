@@ -50,11 +50,15 @@ public class ModBlocks{
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":dflipflop_block")
     public static DFlipFlop_Block dFlipFlop_block = new DFlipFlop_Block();
 
+    @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":mux_block")
+    public static MUX_Block mux_block = new MUX_Block();
+
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":halfadder_block")
     public static HalfAdder_Block halfaAdder_block = new HalfAdder_Block();
 
     public static AlfBaseBlock otherBlocks[] = {logicClock_block,
                                                 dLatch_block, dFlipFlop_block,
+                                                mux_block,
                                                 halfaAdder_block};
 
     @SideOnly(Side.CLIENT)
