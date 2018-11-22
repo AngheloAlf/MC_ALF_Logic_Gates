@@ -3,6 +3,7 @@ package angheloalf.alf_logic_gates.blocks;
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+import angheloalf.alf_logic_gates.blocks.base_blocks.IAlternativesOutputs;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
 import mcp.MethodsReturnNonnullByDefault;
@@ -24,7 +25,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class LogicClock_Block extends AlfBaseBlock{
+public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutputs{
     protected static final PropertyBool POWERING = PropertyBool.create("powering");
     protected static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
 
@@ -133,7 +134,7 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
     @Override
-    protected EnumFacing[] getAlternativesOutputs(IBlockState state){
+    public EnumFacing[] getAlternativesOutputs(IBlockState state){
         EnumFacing front = state.getValue(FACING).getOpposite();
         EnumFacing left = front.rotateYCCW();
         EnumFacing back = left.rotateYCCW();
@@ -142,12 +143,7 @@ public class LogicClock_Block extends AlfBaseBlock{
     }
 
     @Override
-    protected boolean hasAlternativesOutputs(){
-        return true;
-    }
-
-    @Override
-    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
+    public int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         return getOutputPower(state, world, pos);
     }
     /* END Redstone */

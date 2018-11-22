@@ -45,21 +45,6 @@ public abstract class TwoThreeInputLogicBlock extends LogicBlock{
         return false;
     }
 
-    @Override
-    protected EnumFacing[] getAlternativesOutputs(IBlockState state){
-        return new EnumFacing[0];
-    }
-
-    @Override
-    protected boolean hasAlternativesOutputs(){
-        return false;
-    }
-
-    @Override
-    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
-        return 0;
-    }
-
     private boolean isAEnabled(IBlockState state){
         switch(state.getValue(BLOCK_STATE)){
             case 0:

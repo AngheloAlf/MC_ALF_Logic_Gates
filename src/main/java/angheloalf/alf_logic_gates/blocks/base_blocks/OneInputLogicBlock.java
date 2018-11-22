@@ -45,21 +45,6 @@ public abstract class OneInputLogicBlock extends LogicBlock{
         return false;
     }
 
-    @Override
-    protected EnumFacing[] getAlternativesOutputs(IBlockState state){
-        return new EnumFacing[0];
-    }
-
-    @Override
-    protected boolean hasAlternativesOutputs(){
-        return false;
-    }
-
-    @Override
-    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
-        return 0;
-    }
-
     protected int getOnlyInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:

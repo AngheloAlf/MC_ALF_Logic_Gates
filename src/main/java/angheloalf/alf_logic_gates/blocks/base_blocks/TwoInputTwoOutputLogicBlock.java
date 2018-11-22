@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public abstract class TwoInputTwoOutputLogicBlock extends LogicBlock{
+public abstract class TwoInputTwoOutputLogicBlock extends LogicBlock implements IAlternativesOutputs{
     public TwoInputTwoOutputLogicBlock(String blockName){
         super(blockName);
     }
@@ -19,12 +19,7 @@ public abstract class TwoInputTwoOutputLogicBlock extends LogicBlock{
     }
 
     @Override
-    protected boolean hasAlternativesOutputs(){
-        return true;
-    }
-
-    @Override
-    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
+    public int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         EnumFacing[] outputs = getAlternativesOutputs(state);
         for(EnumFacing face : outputs){
             if(face == side){

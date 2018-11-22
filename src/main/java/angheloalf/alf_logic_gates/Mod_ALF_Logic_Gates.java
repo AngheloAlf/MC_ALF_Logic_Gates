@@ -141,12 +141,13 @@ public class Mod_ALF_Logic_Gates {
         for (final Object obj : objects) {
             final Field[] fields = obj.getClass().getDeclaredFields();
             info("Dump of " + obj + ":");
-            for (int i = 0; i < fields.length; i++) {
-                try {
-                    fields[i].setAccessible(true);
-                    info(fields[i].getName() + " - " + fields[i].get(obj));
-                } catch (IllegalArgumentException | IllegalAccessException e) {
-                    info("Error getting field " + fields[i].getName());
+            for(Field field : fields){
+                try{
+                    field.setAccessible(true);
+                    info(field.getName() + " - " + field.get(obj));
+                }
+                catch(IllegalArgumentException | IllegalAccessException e){
+                    info("Error getting field " + field.getName());
                     info(e.getLocalizedMessage());
                 }
             }

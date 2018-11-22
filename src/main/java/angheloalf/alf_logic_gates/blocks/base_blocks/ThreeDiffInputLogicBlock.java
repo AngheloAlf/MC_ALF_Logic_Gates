@@ -25,22 +25,6 @@ public abstract class ThreeDiffInputLogicBlock extends LogicBlock{
         return side != EnumFacing.UP && side != EnumFacing.DOWN;
     }
 
-
-    @Override
-    protected EnumFacing[] getAlternativesOutputs(IBlockState state){
-        return new EnumFacing[0];
-    }
-
-    @Override
-    protected boolean hasAlternativesOutputs(){
-        return false;
-    }
-
-    @Override
-    protected int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side){
-        return 0;
-    }
-
     protected int getSpecialInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:

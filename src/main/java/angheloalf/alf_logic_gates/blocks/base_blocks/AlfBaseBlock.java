@@ -138,12 +138,6 @@ public abstract class AlfBaseBlock extends Block{
 
     protected abstract int getOutputPower(IBlockState state, World world, BlockPos pos);
 
-    protected abstract EnumFacing[] getAlternativesOutputs(IBlockState state);
-
-    protected abstract boolean hasAlternativesOutputs();
-
-    protected abstract int getAlternativePower(IBlockState state, World world, BlockPos pos, EnumFacing side);
-
     public int getSidedPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         if(blockAccess instanceof World){
             World world = (World) blockAccess;
@@ -152,10 +146,10 @@ public abstract class AlfBaseBlock extends Block{
             if(side == state.getValue(FACING).getOpposite()){
                 return getOutputPower(state, world, pos);
             }
-            if(hasAlternativesOutputs()){
-                return getAlternativePower(state, world, pos, side);
+
+            if(this instanceof IAlternativesOutputs)
+                return ((IAlternativesOutputs) this).getAlternativePower(state, world, pos, side);
             }
-        }
         return 0;
     }
 
@@ -171,10 +165,6 @@ public abstract class AlfBaseBlock extends Block{
         return getSidedPower(state, blockAccess, pos, side);
     }
 
-    /*@Override
-    public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side){
-        return true;
-    }*/
 
     /* END Redstone */
 
