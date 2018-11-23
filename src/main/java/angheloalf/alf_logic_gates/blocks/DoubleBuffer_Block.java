@@ -35,10 +35,10 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
         EnumFacing right = back.rotateYCCW();
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-            case 3:
-                return new EnumFacing[]{right};
             case 1:
+                return new EnumFacing[]{right};
             case 2:
+            case 3:
                 return new EnumFacing[]{back};
         }
         return new EnumFacing[0];
@@ -53,12 +53,12 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     public int getFirstInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-            case 1:
-                return getLeftSidePower(state, world, pos);
-            case 2:
-                return getRightSidePower(state, world, pos);
-            case 3:
                 return getBackSidePower(state, world, pos);
+            case 1:
+            case 2:
+                return getLeftSidePower(state, world, pos);
+            case 3:
+                return getRightSidePower(state, world, pos);
         }
         return 0;
     }
@@ -67,10 +67,11 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
     public int getSecondInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getBackSidePower(state, world, pos);
+                return getLeftSidePower(state, world, pos);
             case 1:
-                return getRightSidePower(state, world, pos);
+                return getBackSidePower(state, world, pos);
             case 2:
+                return getRightSidePower(state, world, pos);
             case 3:
                 return getLeftSidePower(state, world, pos);
         }
