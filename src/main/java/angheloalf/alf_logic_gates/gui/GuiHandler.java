@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler{
-    private static GuiHandler guiHandlerRegistry = new GuiHandler();
-    private static final int GUI_ID = 0xa1f;
+    private final static GuiHandler guiHandlerRegistry = new GuiHandler();
+    private final static int GUI_ID = 0xa1f;
     public static int getGuiID() {return GUI_ID;}
 
     public static GuiHandler getInstance(){

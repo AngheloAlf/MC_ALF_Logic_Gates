@@ -5,7 +5,7 @@ import angheloalf.alf_logic_gates.blocks.*;
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ModBlocks{
+public final class ModBlocks{
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":or_block")
     public static final OR_Block or_block = new OR_Block();
 

@@ -27,7 +27,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public abstract class AlfBaseBlock extends Block{
-    private String blockName;
+    private final String blockName;
     protected static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
     public AlfBaseBlock(Material material, String blockName){

@@ -6,7 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public abstract class AlfBaseItem extends Item{
-    protected String itemName;
+    private final String itemName;
 
     public AlfBaseItem(String itemName){
         super();

@@ -1,5 +1,6 @@
 package angheloalf.alf_logic_gates;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -8,13 +9,15 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Config{
-
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+public final class Config{
     // Define your configuration object
     private static Configuration config = null;
 

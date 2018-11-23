@@ -12,7 +12,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class LogicGatesTab extends CreativeTabs {
-    private boolean withSearch;
+    private final boolean withSearch;
 
     public LogicGatesTab(String name, @Nullable String background, boolean withSearch){
         super(name);

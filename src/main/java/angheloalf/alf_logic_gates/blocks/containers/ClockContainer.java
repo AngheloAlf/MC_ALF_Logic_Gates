@@ -8,7 +8,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class ClockContainer extends Container{
-    private ClockEntity tileEntity;
+    private final ClockEntity tileEntity;
 
     public ClockContainer(ClockEntity tileEntity) {
         this.tileEntity = tileEntity;

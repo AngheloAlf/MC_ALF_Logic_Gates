@@ -36,13 +36,12 @@ public class LogicTileEntity extends TileEntity implements ITickable{
         clicksMax = max;
     }
 
-    public int count(){
+    public void count(){
         ++clicked;
         if(clicked >= clicksMax){
             clicked = 0;
         }
         markDirty();
-        return clicked;
     }
 
     public int getCounter(){

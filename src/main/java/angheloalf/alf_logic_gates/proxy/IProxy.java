@@ -9,11 +9,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import javax.annotation.Nonnull;
 
 public interface IProxy{
-    public void preInit(FMLPreInitializationEvent e);
+    void preInit(FMLPreInitializationEvent e);
 
-    public void init(FMLInitializationEvent e);
+    void init(FMLInitializationEvent e);
 
-    public void postInit(FMLPostInitializationEvent e);
+    void postInit(FMLPostInitializationEvent e);
 
     default void logPhysicalSide() {
         Mod_ALF_Logic_Gates.info("Physical Side: " + getPhysicalSide());

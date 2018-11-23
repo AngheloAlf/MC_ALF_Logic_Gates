@@ -19,8 +19,8 @@ import java.io.IOException;
 
 public class LogicClockGui extends GuiContainer{
     private static final ResourceLocation texture = new ResourceLocation(Mod_ALF_Logic_Gates.MODID, "textures/gui/basic_gui.png");
-    private ClockEntity clockEntity;
-    private BlockPos position;
+    private final ClockEntity clockEntity;
+    private final BlockPos position;
 
     private GuiTextField maxCountField;
 
@@ -92,11 +92,11 @@ public class LogicClockGui extends GuiContainer{
         maxCountField.drawTextBox();
     }
 
-    @Override
+    /*@Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-    }
+    }*/
 
     protected void updateTextFields(){
         maxCountField.setText(String.valueOf(clockEntity.getMaxCount()));
