@@ -3,7 +3,6 @@
   "textures": {
     "layer0": "alf_logic_gates:items/logic_circuit"
   },
-
   "display": {
     "thirdperson": {
       "rotation": [-90,0,0],

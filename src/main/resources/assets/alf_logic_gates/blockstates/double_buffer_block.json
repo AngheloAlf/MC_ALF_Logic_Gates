@@ -67,7 +67,7 @@
           "down": "alf_logic_gates:blocks/double_buffer/off"
         }
       },
-      "5":{
+      "5": {
         "textures": {
           "left": "alf_logic_gates:blocks/double_buffer/off",
           "back": "alf_logic_gates:blocks/double_buffer/off",

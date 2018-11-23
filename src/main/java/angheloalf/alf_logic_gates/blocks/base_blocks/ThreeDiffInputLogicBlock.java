@@ -61,7 +61,7 @@ public abstract class ThreeDiffInputLogicBlock extends LogicBlock{
     protected int getSecondInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-            return getRightSidePower(state, world, pos);
+                return getRightSidePower(state, world, pos);
             case 1:
                 return getBackSidePower(state, world, pos);
             case 2:

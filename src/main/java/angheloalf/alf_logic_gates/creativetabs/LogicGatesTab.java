@@ -11,7 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class LogicGatesTab extends CreativeTabs {
+public class LogicGatesTab extends CreativeTabs{
     private final boolean withSearch;
 
     public LogicGatesTab(String name, @Nullable String background, boolean withSearch){
@@ -24,7 +24,7 @@ public class LogicGatesTab extends CreativeTabs {
             this.setBackgroundImageName("item_search.png");
         }
     }
-    
+
     @Override
     public ItemStack getTabIconItem(){
         return new ItemStack(ModItems.logic_circuit_item);

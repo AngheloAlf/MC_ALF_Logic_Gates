@@ -15,7 +15,7 @@ public interface IProxy{
 
     void postInit(FMLPostInitializationEvent e);
 
-    default void logPhysicalSide() {
+    default void logPhysicalSide(){
         Mod_ALF_Logic_Gates.info("Physical Side: " + getPhysicalSide());
     }
 

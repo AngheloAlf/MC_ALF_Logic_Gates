@@ -67,7 +67,7 @@
           "down": "alf_logic_gates:blocks/or/off"
         }
       },
-      "5":{
+      "5": {
         "textures": {
           "left": "alf_logic_gates:blocks/or/off",
           "back": "alf_logic_gates:blocks/or/off",

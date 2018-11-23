@@ -77,7 +77,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
     /* END Tile Entity */
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
         //This makes it work on server side.
         if(!world.isRemote){
             LogicTileEntity tileEntity = getTE(world, pos);

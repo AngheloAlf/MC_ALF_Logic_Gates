@@ -18,15 +18,12 @@ import java.util.List;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public final class Config{
-    // Define your configuration object
-    private static Configuration config = null;
-
+    public static final String CATEGORY_NAME_GENERAL = "category_general";
+    public static final List<String> CATEGORIES_NAMES = Arrays.asList(CATEGORY_NAME_GENERAL); //, CATEGORY_NAME_OTHER);
     // Declare all configuration fields used by the mod here
     public static boolean repeatSignal;
-
-    public static final String CATEGORY_NAME_GENERAL = "category_general";
-
-    public static final List<String> CATEGORIES_NAMES = Arrays.asList(CATEGORY_NAME_GENERAL); //, CATEGORY_NAME_OTHER);
+    // Define your configuration object
+    private static Configuration config = null;
 
     public static void preInit(){
         File configFile = new File(Loader.instance().getConfigDir(), Mod_ALF_Logic_Gates.MODNAME + ".cfg");
@@ -42,28 +39,28 @@ public final class Config{
         MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
     }
 
-    public static Configuration getConfig() {
+    public static Configuration getConfig(){
         return config;
     }
 
     /**
      * load the configuration values from the configuration file
      */
-    public static void syncFromFile() {
+    public static void syncFromFile(){
         syncConfig(true, true);
     }
 
     /**
      * save the GUI-altered values to disk
      */
-    public static void syncFromGUI() {
+    public static void syncFromGUI(){
         syncConfig(false, true);
     }
 
     /**
      * save the MBEConfiguration variables (fields) to disk
      */
-    public static void syncFromFields() {
+    public static void syncFromFields(){
         syncConfig(false, false);
     }
 
@@ -73,11 +70,11 @@ public final class Config{
      * 2) !loadConfigFromFile && readFieldsFromConfig --> copy everything from the config file (altered by GUI).
      * 3) !loadConfigFromFile && !readFieldsFromConfig --> copy everything from the native fields.
      *
-     * @param loadConfigFromFile if true, load the config field from the configuration file on disk.
+     * @param loadConfigFromFile   if true, load the config field from the configuration file on disk.
      * @param readFieldsFromConfig if true, reload the member variables from the config field.
      */
     private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig){
-        if (loadConfigFromFile) {
+        if(loadConfigFromFile){
             config.load();
         }
 
@@ -100,13 +97,13 @@ public final class Config{
         propOrderGeneral.add(propRepeatSignal.getName());
         config.setCategoryPropertyOrder(CATEGORY_NAME_GENERAL, propOrderGeneral);
 
-        if (readFieldsFromConfig){
+        if(readFieldsFromConfig){
             repeatSignal = propRepeatSignal.getBoolean(repeatSignalDefault);
         }
 
         propRepeatSignal.set(repeatSignal);
 
-        if (config.hasChanged()) {
+        if(config.hasChanged()){
             config.save();
         }
     }
@@ -118,7 +115,7 @@ public final class Config{
          */
         @SubscribeEvent(priority = EventPriority.NORMAL)
         public void onEvent(ConfigChangedEvent.OnConfigChangedEvent event){
-            if (Mod_ALF_Logic_Gates.MODID.equals(event.getModID()) && !event.isWorldRunning()){
+            if(Mod_ALF_Logic_Gates.MODID.equals(event.getModID()) && !event.isWorldRunning()){
                 if(event.getConfigID() != null){
                     if(CATEGORIES_NAMES.contains(event.getConfigID())){
                         syncFromGUI();

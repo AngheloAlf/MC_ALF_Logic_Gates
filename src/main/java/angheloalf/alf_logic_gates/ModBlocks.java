@@ -1,8 +1,8 @@
 package angheloalf.alf_logic_gates;
 
 import angheloalf.alf_logic_gates.blocks.*;
-
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class ModBlocks{

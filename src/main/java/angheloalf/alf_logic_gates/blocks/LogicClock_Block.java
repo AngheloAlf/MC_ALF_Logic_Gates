@@ -32,14 +32,13 @@ public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutpu
     public LogicClock_Block(){
         super(Material.CIRCUITS, "logic_clock", ModCreativeTabs.logicGatesTab);
 
-        setDefaultState(getDefaultBaseState()
-                .withProperty(POWERING, false).withProperty(POWER, 0));
+        setDefaultState(getDefaultBaseState().withProperty(POWERING, false).withProperty(POWER, 0));
     }
 
     /* Block state */
     @Override
     public IBlockState getStateFromMeta(int meta){
-        boolean powering = (meta&8)>0;
+        boolean powering = (meta & 8) > 0;
         int power = powering ? 15 : 0;
         return super.getStateFromMeta(meta).withProperty(POWERING, powering).withProperty(POWER, power);
     }
@@ -66,7 +65,7 @@ public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutpu
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess blockAccess, BlockPos pos) {
+    public IBlockState getActualState(IBlockState state, IBlockAccess blockAccess, BlockPos pos){
         state = super.getActualState(state, blockAccess, pos);
         ClockEntity logicTileEntity = getTE(blockAccess, pos);
         if(logicTileEntity != null){
@@ -87,28 +86,8 @@ public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutpu
     }
     /* END Tile Entity */
 
-
-    /*// Called just after the player places a block.
     @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
-        super.onBlockPlacedBy(world, pos, state, placer, stack);*/
-
-        /*boolean powered = false;
-        int power = 0;
-
-        ClockEntity clockEntity = getTE(world, pos);
-        if(clockEntity != null){
-            powered = clockEntity.isAlternatePowering();
-            power = clockEntity.getPower();
-        }*/
-
-        // IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERING, powered).withProperty(POWER, power);
-        /*IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing());
-        world.setBlockState(pos, newState, 2);
-    }*/
-
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
         //This makes it work on server side.
         if(!world.isRemote){
             ClockEntity tileEntity = getTE(world, pos);

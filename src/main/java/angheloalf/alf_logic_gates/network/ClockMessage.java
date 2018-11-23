@@ -10,15 +10,16 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class ClockMessage implements IMessage{
-    public ClockMessage(){
-
-    }
-
     private int maxCount;
     private int step;
     private int xBlock;
     private int yBlock;
     private int zBlock;
+
+    public ClockMessage(){
+
+    }
+
     public ClockMessage(int xBlock, int yBlock, int zBlock, int maxCount, int step){
         this.maxCount = maxCount;
         this.step = step;
@@ -55,7 +56,8 @@ public class ClockMessage implements IMessage{
 
         }
 
-        @Override public IMessage onMessage(ClockMessage message, MessageContext ctx) {
+        @Override
+        public IMessage onMessage(ClockMessage message, MessageContext ctx){
             int xBlock = message.xBlock;
             int yBlock = message.yBlock;
             int zBlock = message.zBlock;

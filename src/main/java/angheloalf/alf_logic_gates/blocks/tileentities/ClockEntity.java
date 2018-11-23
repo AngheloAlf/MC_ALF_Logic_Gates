@@ -1,9 +1,9 @@
 package angheloalf.alf_logic_gates.blocks.tileentities;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -18,14 +18,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ClockEntity extends TileEntity implements ITickable{
+    private final int defaultMaxCont = 20; // 20 equals 1 second
     private boolean disabled = false;
     private boolean fullRestarting = false;
-
     private boolean lit = false;
     private int power = 0;
-
-    private final int defaultMaxCont = 20; // 20 equals 1 second
-
     private int counter = 0;
     private int step = 1;
     private int maxCount = defaultMaxCont;
@@ -48,11 +45,11 @@ public class ClockEntity extends TileEntity implements ITickable{
     }
 
     public int getMaxCount(){
-        return maxCount/2;
+        return maxCount / 2;
     }
 
     public void setMaxCount(int newMaxCount){
-        maxCount = newMaxCount*2;
+        maxCount = newMaxCount * 2;
     }
 
     public int getStep(){
@@ -96,8 +93,10 @@ public class ClockEntity extends TileEntity implements ITickable{
         }
     }
 
-    public boolean isUsableByPlayer(EntityPlayer player) {
-        if (this.world.getTileEntity(this.pos) != this) return false;
+    public boolean isUsableByPlayer(EntityPlayer player){
+        if(this.world.getTileEntity(this.pos) != this){
+            return false;
+        }
         final double X_CENTRE_OFFSET = 0.5;
         final double Y_CENTRE_OFFSET = 0.5;
         final double Z_CENTRE_OFFSET = 0.5;
@@ -111,7 +110,7 @@ public class ClockEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(NBTTagCompound compound){
         super.readFromNBT(compound);
         disabled = compound.getBoolean("disabled");
         fullRestarting = compound.getBoolean("fullRestarting");
@@ -125,7 +124,7 @@ public class ClockEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound){
         compound = super.writeToNBT(compound);
 
         compound.setBoolean("disabled", disabled);
@@ -142,7 +141,7 @@ public class ClockEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public NBTTagCompound getUpdateTag() {
+    public NBTTagCompound getUpdateTag(){
         // getUpdateTag() is called whenever the chunkdata is sent to the
         // client. In contrast getUpdatePacket() is called when the tile entity
         // itself wants to sync to the client. In many cases you want to send
@@ -156,7 +155,7 @@ public class ClockEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
+    public SPacketUpdateTileEntity getUpdatePacket(){
         // Prepare a packet for syncing our TE to the client. Since we only have to sync the stack
         // and that's all we have we just write our entire NBT here. If you have a complex
         // tile entity that doesn't need to have all information on the client you can write
@@ -167,7 +166,7 @@ public class ClockEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet){
         // Here we get the packet from the server and read it into our client side tile entity
         super.onDataPacket(net, packet);
         this.readFromNBT(packet.getNbtCompound());

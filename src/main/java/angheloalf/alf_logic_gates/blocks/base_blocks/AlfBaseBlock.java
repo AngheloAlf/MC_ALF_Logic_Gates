@@ -17,7 +17,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -27,8 +26,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public abstract class AlfBaseBlock extends Block{
-    private final String blockName;
     protected static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+    private final String blockName;
 
     public AlfBaseBlock(Material material, String blockName){
         super(material);
@@ -38,25 +37,82 @@ public abstract class AlfBaseBlock extends Block{
         setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + blockName);
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
     }
+
     public AlfBaseBlock(Material material, String blockName, CreativeTabs tab){
         this(material, blockName);
 
         setCreativeTab(tab);
     }
 
+    public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity){
+        return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
+    }
+
+    /* Logic */
+    protected static int repeatSignalOrPower(int power){
+        if(power <= 0){
+            return 0;
+        }
+        return Config.repeatSignal ? 15: power;
+    }
+
+    public static int buffer(int a){
+        return repeatSignalOrPower(a);
+    }
+
+    protected static int negate(int power){
+        return power == 0 ? 15: 0;
+    }
+
+    public static int and(int a, int b){
+        int value = a < b ? a: b;
+        return repeatSignalOrPower(value);
+    }
+
+    public static int or(int a, int b){
+        int value = a > b ? a: b;
+        return repeatSignalOrPower(value);
+    }
+
+    public static int xor(int a, int b){
+        int value = 0;
+        if(b == 0){
+            value = a;
+        }
+        else if(a == 0){
+            value = b;
+        }
+        return repeatSignalOrPower(value);
+    }
+    /* END Logic */
+
+    public static void notifyStrongPowerToNeighbors(World world, Block block, BlockPos pos){
+        world.notifyNeighborsOfStateChange(pos, block, true);
+
+        world.notifyNeighborsOfStateChange(pos.west(), block, true);
+        world.notifyNeighborsOfStateChange(pos.east(), block, true);
+        world.notifyNeighborsOfStateChange(pos.down(), block, true);
+        world.notifyNeighborsOfStateChange(pos.up(), block, true);
+        world.notifyNeighborsOfStateChange(pos.north(), block, true);
+        world.notifyNeighborsOfStateChange(pos.south(), block, true);
+    }
+
+    public void notifyStrongPowerToNeighbors(World world, BlockPos pos){
+        notifyStrongPowerToNeighbors(world, this, pos);
+    }
+
     public String getBlockName(){
         return blockName;
     }
 
-
     /* Block state */
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public IBlockState getStateFromMeta(int meta){
         return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(IBlockState state){
         return state.getValue(FACING).getIndex();
     }
 
@@ -92,17 +148,9 @@ public abstract class AlfBaseBlock extends Block{
 
     // Create the appropriate state for the block being placed - in this case, figure out which way the target is facing
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos thisBlockPos, EnumFacing faceOfNeighbour,
-                                            float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-        EnumFacing directionTargetIsPointing = (placer == null) ? EnumFacing.NORTH : EnumFacing.fromAngle(placer.rotationYaw);
+    public IBlockState getStateForPlacement(World worldIn, BlockPos thisBlockPos, EnumFacing faceOfNeighbour, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+        EnumFacing directionTargetIsPointing = (placer == null) ? EnumFacing.NORTH: EnumFacing.fromAngle(placer.rotationYaw);
         return this.getDefaultState().withProperty(FACING, directionTargetIsPointing);
-    }
-
-    public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity) {
-        return EnumFacing.getFacingFromVector(
-                (float) (entity.posX - clickedBlock.getX()),
-                (float) (entity.posY - clickedBlock.getY()),
-                (float) (entity.posZ - clickedBlock.getZ()));
     }
 
     /* Redstone */
@@ -115,7 +163,7 @@ public abstract class AlfBaseBlock extends Block{
         BlockPos blockpos = pos.offset(side);
         int i = world.getRedstonePower(blockpos, side);
 
-        if (i >= 15){
+        if(i >= 15){
             return 15;
         }
         else{
@@ -147,12 +195,12 @@ public abstract class AlfBaseBlock extends Block{
                 return getOutputPower(state, world, pos);
             }
 
-            if(this instanceof IAlternativesOutputs)
+            if(this instanceof IAlternativesOutputs){
                 return ((IAlternativesOutputs) this).getAlternativePower(state, world, pos, side);
             }
+        }
         return 0;
     }
-
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
@@ -164,61 +212,5 @@ public abstract class AlfBaseBlock extends Block{
     public int getStrongPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
         return getSidedPower(state, blockAccess, pos, side);
     }
-
-
     /* END Redstone */
-
-    public void notifyStrongPowerToNeighbors(World world, BlockPos pos){
-        notifyStrongPowerToNeighbors(world, this, pos);
-    }
-
-    public static void notifyStrongPowerToNeighbors(World world, Block block, BlockPos pos){
-        world.notifyNeighborsOfStateChange(pos, block, true);
-
-        world.notifyNeighborsOfStateChange(pos.west(), block, true);
-        world.notifyNeighborsOfStateChange(pos.east(), block, true);
-        world.notifyNeighborsOfStateChange(pos.down(), block, true);
-        world.notifyNeighborsOfStateChange(pos.up(), block, true);
-        world.notifyNeighborsOfStateChange(pos.north(), block, true);
-        world.notifyNeighborsOfStateChange(pos.south(), block, true);
-    }
-
-    /* Logic */
-    protected static int repeatSignalOrPower(int power){
-        if(power <= 0){
-            return 0;
-        }
-        return Config.repeatSignal ? 15: power;
-    }
-
-    public static int buffer(int a){
-        return repeatSignalOrPower(a);
-    }
-
-    protected static int negate(int power){
-        return power == 0 ? 15 : 0;
-    }
-
-    public static int and(int a, int b){
-        int value = a < b ? a : b;
-        return repeatSignalOrPower(value);
-    }
-
-    public static int or(int a, int b){
-        int value = a > b ? a : b;
-        return repeatSignalOrPower(value);
-    }
-
-    public static int xor(int a, int b){
-        int value = 0;
-        if(b == 0){
-            value = a;
-        }
-        else if(a == 0){
-            value = b;
-        }
-        return repeatSignalOrPower(value);
-    }
-    /* END Logic */
-
 }

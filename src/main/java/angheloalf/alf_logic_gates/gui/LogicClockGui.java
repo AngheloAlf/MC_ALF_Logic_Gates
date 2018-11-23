@@ -14,8 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 import java.awt.*;
-import java.io.IOException;
-
 
 public class LogicClockGui extends GuiContainer{
     private static final ResourceLocation texture = new ResourceLocation(Mod_ALF_Logic_Gates.MODID, "textures/gui/basic_gui.png");
@@ -35,11 +33,11 @@ public class LogicClockGui extends GuiContainer{
     @Override
     public void initGui(){
         super.initGui();
-        buttonList.add(new GuiButton(1, guiLeft+41, guiTop+40+1, 40, 20, "reset"));
+        buttonList.add(new GuiButton(1, guiLeft + 41, guiTop + 40 + 1, 40, 20, "reset"));
 
-        buttonList.add(new GuiButton(2, guiLeft+20, guiTop+20, 20, 20, "-"));
-        maxCountField = new GuiTextField(4, this.fontRenderer, 20+20+1, 20, 40, 20);
-        buttonList.add(new GuiButton(3, guiLeft+20+20+40+2, guiTop+20, 20, 20, "+"));
+        buttonList.add(new GuiButton(2, guiLeft + 20, guiTop + 20, 20, 20, "-"));
+        maxCountField = new GuiTextField(4, this.fontRenderer, 20 + 20 + 1, 20, 40, 20);
+        buttonList.add(new GuiButton(3, guiLeft + 20 + 20 + 40 + 2, guiTop + 20, 20, 20, "+"));
     }
 
     @Override

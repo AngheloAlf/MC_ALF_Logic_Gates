@@ -75,7 +75,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(NBTTagCompound compound){
         super.readFromNBT(compound);
         clicked = compound.getInteger("clickedCount");
         clicksMax = compound.getInteger("clicksMax");
@@ -84,7 +84,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound){
         compound = super.writeToNBT(compound);
         compound.setInteger("clickedCount", clicked);
         compound.setInteger("clicksMax", clicksMax);
@@ -94,7 +94,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public NBTTagCompound getUpdateTag() {
+    public NBTTagCompound getUpdateTag(){
         // getUpdateTag() is called whenever the chunkdata is sent to the
         // client. In contrast getUpdatePacket() is called when the tile entity
         // itself wants to sync to the client. In many cases you want to send
@@ -108,7 +108,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
+    public SPacketUpdateTileEntity getUpdatePacket(){
         // Prepare a packet for syncing our TE to the client. Since we only have to sync the stack
         // and that's all we have we just write our entire NBT here. If you have a complex
         // tile entity that doesn't need to have all information on the client you can write
@@ -119,7 +119,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet){
         // Here we get the packet from the server and read it into our client side tile entity
         super.onDataPacket(net, packet);
         this.readFromNBT(packet.getNbtCompound());

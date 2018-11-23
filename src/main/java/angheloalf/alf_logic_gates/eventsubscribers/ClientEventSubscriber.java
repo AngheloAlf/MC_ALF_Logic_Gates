@@ -53,7 +53,7 @@ public final class ClientEventSubscriber{
         }
     }
 
-    private static void registerItemModel(final Item item) {
+    private static void registerItemModel(final Item item){
         ResourceLocation registryName = item.getRegistryName();
         if(registryName != null){
             ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(registryName, DEFAULT_VARIANT));

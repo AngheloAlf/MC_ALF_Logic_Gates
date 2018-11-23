@@ -1,8 +1,8 @@
 package angheloalf.alf_logic_gates;
 
-import angheloalf.alf_logic_gates.items.*;
-
+import angheloalf.alf_logic_gates.items.LogicCircuitItem;
 import angheloalf.alf_logic_gates.items.base_items.AlfBaseItem;
+
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class ModItems{

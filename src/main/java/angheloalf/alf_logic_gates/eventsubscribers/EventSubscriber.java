@@ -21,7 +21,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber(modid = Mod_ALF_Logic_Gates.MODID)
 public final class EventSubscriber{
     @SubscribeEvent
-    public static void onRegisterBlocksEvent(final RegistryEvent.Register<Block> event) {
+    public static void onRegisterBlocksEvent(final RegistryEvent.Register<Block> event){
         final IForgeRegistry<Block> registry = event.getRegistry();
 
         registry.registerAll(ModBlocks.allBlocks);
@@ -47,21 +47,22 @@ public final class EventSubscriber{
 
     /* register items */
     @SubscribeEvent
-    public static void onRegisterItemsEvent(final RegistryEvent.Register<Item> event) {
+    public static void onRegisterItemsEvent(final RegistryEvent.Register<Item> event){
         final IForgeRegistry<Item> registry = event.getRegistry();
 
         // item blocks
-        for(AlfBaseBlock block: ModBlocks.allBlocks){
+        for(AlfBaseBlock block : ModBlocks.allBlocks){
             registry.register(getItemForRegistry(block));
         }
 
-        for(AlfBaseItem item: ModItems.allItems){
+        for(AlfBaseItem item : ModItems.allItems){
             registry.register(item);
         }
 
         Mod_ALF_Logic_Gates.info("Registered items");
 
     }
+
     private static Item getItemForRegistry(AlfBaseBlock block){
         return new ItemBlock(block).setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + block.getBlockName());
     }

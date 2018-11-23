@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class ClockContainer extends Container{
     private final ClockEntity tileEntity;
 
-    public ClockContainer(ClockEntity tileEntity) {
+    public ClockContainer(ClockEntity tileEntity){
         this.tileEntity = tileEntity;
     }
 
