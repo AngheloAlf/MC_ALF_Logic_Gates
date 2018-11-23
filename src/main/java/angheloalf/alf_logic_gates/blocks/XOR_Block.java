@@ -1,6 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoThreeInputLogicBlock;
+import angheloalf.alf_logic_gates.util.Logic;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,13 +21,13 @@ public class XOR_Block extends TwoThreeInputLogicBlock{
         int cPower = getCPower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return xor(aPower, bPower);
+                return Logic.xor(aPower, bPower);
             case 1:
-                return xor(aPower, cPower);
+                return Logic.xor(aPower, cPower);
             case 2:
-                return xor(bPower, cPower);
+                return Logic.xor(bPower, cPower);
             case 3:
-                return xor(xor(aPower, bPower), cPower);
+                return Logic.xor(Logic.xor(aPower, bPower), cPower);
         }
         return 0;
     }

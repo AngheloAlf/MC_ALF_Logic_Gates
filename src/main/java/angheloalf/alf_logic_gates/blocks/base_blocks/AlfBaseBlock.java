@@ -48,44 +48,6 @@ public abstract class AlfBaseBlock extends Block{
         return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
     }
 
-    /* Logic */
-    protected static int repeatSignalOrPower(int power){
-        if(power <= 0){
-            return 0;
-        }
-        return Config.repeatSignal ? 15: power;
-    }
-
-    public static int buffer(int a){
-        return repeatSignalOrPower(a);
-    }
-
-    protected static int negate(int power){
-        return power == 0 ? 15: 0;
-    }
-
-    public static int and(int a, int b){
-        int value = a < b ? a: b;
-        return repeatSignalOrPower(value);
-    }
-
-    public static int or(int a, int b){
-        int value = a > b ? a: b;
-        return repeatSignalOrPower(value);
-    }
-
-    public static int xor(int a, int b){
-        int value = 0;
-        if(b == 0){
-            value = a;
-        }
-        else if(a == 0){
-            value = b;
-        }
-        return repeatSignalOrPower(value);
-    }
-    /* END Logic */
-
     public static void notifyStrongPowerToNeighbors(World world, Block block, BlockPos pos){
         world.notifyNeighborsOfStateChange(pos, block, true);
 

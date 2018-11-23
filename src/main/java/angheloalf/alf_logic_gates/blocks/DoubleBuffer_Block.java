@@ -1,6 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoInputTwoOutputLogicBlock;
+import angheloalf.alf_logic_gates.util.Logic;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +26,7 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
 
     @Override
     protected int getOutputPower(IBlockState state, World world, BlockPos pos){
-        return buffer(getFirstInput(state, world, pos));
+        return Logic.buffer(getFirstInput(state, world, pos));
     }
 
     @Override
@@ -46,7 +47,7 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
 
     @Override
     protected int getSecondOutput(IBlockState state, World world, BlockPos pos){
-        return buffer(getSecondInput(state, world, pos));
+        return Logic.buffer(getSecondInput(state, world, pos));
     }
 
     @Override

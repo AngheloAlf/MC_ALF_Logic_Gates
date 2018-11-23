@@ -1,6 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoThreeInputLogicBlock;
+import angheloalf.alf_logic_gates.util.Logic;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,13 +21,13 @@ public class NAND_Block extends TwoThreeInputLogicBlock{
         int cPower = getCPower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return negate(and(aPower, bPower));
+                return Logic.negate(Logic.and(aPower, bPower));
             case 1:
-                return negate(and(aPower, cPower));
+                return Logic.negate(Logic.and(aPower, cPower));
             case 2:
-                return negate(and(bPower, cPower));
+                return Logic.negate(Logic.and(bPower, cPower));
             case 3:
-                return negate(and(and(bPower, cPower), cPower));
+                return Logic.negate(Logic.and(Logic.and(bPower, cPower), cPower));
         }
         return 0;
     }

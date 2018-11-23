@@ -3,6 +3,7 @@ package angheloalf.alf_logic_gates.blocks;
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoDiffInputLogicBlock;
 import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
 
+import angheloalf.alf_logic_gates.util.Logic;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +26,7 @@ public class DLatch_Block extends TwoDiffInputLogicBlock{
         }
 
         if(getCLKPower(state, world, pos) > 0){
-            return repeatSignalOrPower(getDPower(state, world, pos));
+            return Logic.repeatSignalOrPower(getDPower(state, world, pos));
         }
 
         return tileEntity.getPower();

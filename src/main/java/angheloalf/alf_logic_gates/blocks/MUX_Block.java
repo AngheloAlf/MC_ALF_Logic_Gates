@@ -1,6 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.ThreeDiffInputLogicBlock;
+import angheloalf.alf_logic_gates.util.Logic;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +21,6 @@ public class MUX_Block extends ThreeDiffInputLogicBlock{
         int special = getSpecialInput(state, world, pos);
         int first = getFirstInput(state, world, pos);
         int second = getSecondInput(state, world, pos);
-        return special > 0 ? first : second;
+        return special > 0 ? Logic.repeatSignalOrPower(first) : Logic.repeatSignalOrPower(second);
     }
 }

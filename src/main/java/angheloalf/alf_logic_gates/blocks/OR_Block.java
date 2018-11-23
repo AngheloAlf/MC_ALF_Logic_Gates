@@ -1,6 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoThreeInputLogicBlock;
+import angheloalf.alf_logic_gates.util.Logic;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,6 +20,6 @@ public class OR_Block extends TwoThreeInputLogicBlock{
         int bPower = getBPower(state, world, pos);
         int cPower = getCPower(state, world, pos);
 
-        return or(or(aPower, bPower), cPower);
+        return Logic.or(Logic.or(aPower, bPower), cPower);
     }
 }
