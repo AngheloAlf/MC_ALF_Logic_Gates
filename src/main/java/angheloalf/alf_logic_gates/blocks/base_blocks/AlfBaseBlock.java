@@ -2,6 +2,7 @@ package angheloalf.alf_logic_gates.blocks.base_blocks;
 
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import angheloalf.alf_logic_gates.util.BlockUtil;
+import angheloalf.alf_logic_gates.util.GenericUtil;
 
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.BlockDirectional;
@@ -127,7 +128,9 @@ public abstract class AlfBaseBlock extends BlockDirectional{
         }
 
         if(this instanceof IAlternativesOutputs){
-            return ((IAlternativesOutputs) this).getAlternativePower(state, world, pos, side);
+            if(GenericUtil.arrayContains(((IAlternativesOutputs) this).getAlternativesOutputs(state), side)){
+                return ((IAlternativesOutputs) this).getAlternativePower(state, world, pos, side);
+            }
         }
         return 0;
     }

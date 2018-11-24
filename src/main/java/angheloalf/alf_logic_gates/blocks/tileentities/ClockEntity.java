@@ -1,6 +1,9 @@
 package angheloalf.alf_logic_gates.blocks.tileentities;
 
+import angheloalf.alf_logic_gates.network.ClockMessage;
+import angheloalf.alf_logic_gates.network.LogicGatesPacketHandler;
 import angheloalf.alf_logic_gates.util.BlockUtil;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,17 +15,22 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ClockEntity extends TileEntity implements ITickable{
     private final int defaultMaxCont = 20; // 20 equals 1 second
+    private final int defaultCounter = 0;
+
     private boolean disabled = false;
     private boolean fullRestarting = false;
     private boolean lit = false;
     private int power = 0;
-    private int counter = 0;
+    private int counter = defaultCounter;
     private int step = 1;
     private int maxCount = defaultMaxCont;
 
@@ -38,9 +46,17 @@ public class ClockEntity extends TileEntity implements ITickable{
         return power;
     }
 
-    public void disable(boolean disable){
+    public void disable(boolean disable, boolean fullRestart){
         this.disabled = disable;
-        fullRestarting = true;
+        this.fullRestarting = fullRestart;
+    }
+
+    public boolean isDisabled(){
+        return disabled;
+    }
+
+    public boolean isFullRestarting(){
+        return fullRestarting;
     }
 
     public int getMaxCount(){
@@ -66,29 +82,48 @@ public class ClockEntity extends TileEntity implements ITickable{
 
     public void fullRestart(){
         reset();
+        turnOff();
 
-        counter = 0;
-        lit = false;
         disabled = false;
         fullRestarting = false;
     }
 
+    private void turnOff(){
+        lit = false;
+        power = 0;
+        counter = defaultCounter;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void updateStateInServer(){
+        ClockMessage clkMessage = new ClockMessage(pos, world.isRemote, getMaxCount(), getStep(), disabled, fullRestarting);
+        LogicGatesPacketHandler.INSTANCE.sendToServer(clkMessage);
+    }
+
+    @SideOnly(Side.SERVER)
+    public void updateStateToClients(World world){
+        ClockMessage clkMessage = new ClockMessage(pos, world.isRemote, getMaxCount(), getStep(), disabled, fullRestarting);
+        LogicGatesPacketHandler.INSTANCE.sendToDimension(clkMessage, world.provider.getDimension());
+    }
+
     @Override
     public void update(){
-        if(!disabled){
-            if(fullRestarting){
-                fullRestart();
-            }
-            counter -= step;
-            if(counter <= 0){
-                lit = !lit;
-                power = lit ? 15 : 0;
-                counter = maxCount;
-                markDirty();
-                world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+        if(disabled){
+            turnOff();
+            return;
+        }
+        if(fullRestarting){
+            fullRestart();
+        }
+        counter -= step;
+        if(counter <= 0){
+            lit = !lit;
+            power = lit ? 15 : 0;
+            counter = maxCount;
+            markDirty();
+            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
 
-                BlockUtil.notifyStrongPowerToNeighbors(world, blockType, pos);
-            }
+            BlockUtil.notifyStrongPowerToNeighbors(world, blockType, pos);
         }
     }
 

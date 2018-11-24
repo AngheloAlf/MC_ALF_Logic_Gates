@@ -6,7 +6,10 @@ import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
 import angheloalf.alf_logic_gates.blocks.base_blocks.IAlternativesOutputs;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
+import angheloalf.alf_logic_gates.util.BlockUtil;
+
 import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -66,7 +69,6 @@ public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutpu
 
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess blockAccess, BlockPos pos){
-        state = super.getActualState(state, blockAccess, pos);
         ClockEntity logicTileEntity = getTE(blockAccess, pos);
         if(logicTileEntity != null){
             state = state.withProperty(POWERING, logicTileEntity.isAlternatePowering());
@@ -95,9 +97,28 @@ public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutpu
                 return false;
             }
             player.openGui(Mod_ALF_Logic_Gates.instance, GuiHandler.getGuiID(), world, pos.getX(), pos.getY(), pos.getZ());
-            notifyStrongPowerToNeighbors(world, pos);
         }
         return true;
+    }
+
+    @Override
+    public void neighborChanged(@Nullable IBlockState state, @Nullable World world, @Nullable BlockPos pos, @Nullable Block neighborBlock, @Nullable BlockPos neighborPos){
+        if(state == null || world == null || pos == null){
+            return;
+        }
+
+        if(!world.isRemote){
+            IBlockState actualState = getActualState(state, world, pos);
+            ClockEntity tileEntity = getTE(world, pos);
+            if(tileEntity != null){
+                int up = BlockUtil.getUpSidePower(actualState, world, pos);
+                int down = BlockUtil.getDownSidePower(actualState, world, pos);
+                boolean disable = up + down > 0;
+                tileEntity.disable(disable, false);
+
+                tileEntity.updateStateToClients(world);
+            }
+        }
     }
 
     /* Redstone */
@@ -118,7 +139,7 @@ public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutpu
         EnumFacing left = front.rotateYCCW();
         EnumFacing back = left.rotateYCCW();
         EnumFacing right = back.rotateYCCW();
-        return new EnumFacing[]{left, back, right, EnumFacing.UP, EnumFacing.DOWN};
+        return new EnumFacing[]{left, back, right};
     }
 
     @Override
