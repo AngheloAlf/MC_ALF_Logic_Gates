@@ -42,6 +42,7 @@ public abstract class LogicBlock extends AlfBaseBlock{
     /* Tile Entity */
     protected abstract int getMaxStates();
 
+    @Override
     public boolean hasTileEntity(IBlockState state){
         return true;
     }
@@ -50,9 +51,6 @@ public abstract class LogicBlock extends AlfBaseBlock{
     public TileEntity createTileEntity(@Nullable World world, @Nullable IBlockState state){
         LogicTileEntity tileEntity = new LogicTileEntity();
         tileEntity.setDefaultMax(getMaxStates());
-        /*if(state != null){
-            tileEntity.setCounter(state.getValue(BLOCK_STATE));
-        }*/
         return tileEntity;
     }
 
@@ -111,22 +109,4 @@ public abstract class LogicBlock extends AlfBaseBlock{
             }
         }
     }
-
-
-    /* Redstone */
-    protected int getLeftSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(FACING).rotateYCCW();
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
-    }
-
-    protected int getBackSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(FACING).rotateYCCW().rotateYCCW();
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
-    }
-
-    protected int getRightSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(FACING).rotateYCCW().rotateYCCW().rotateYCCW();
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
-    }
-    /* END Redstone */
 }

@@ -1,7 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.tileentities;
 
-import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
-
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -88,7 +87,7 @@ public class ClockEntity extends TileEntity implements ITickable{
                 markDirty();
                 world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
 
-                AlfBaseBlock.notifyStrongPowerToNeighbors(world, blockType, pos);
+                BlockUtil.notifyStrongPowerToNeighbors(world, blockType, pos);
             }
         }
     }

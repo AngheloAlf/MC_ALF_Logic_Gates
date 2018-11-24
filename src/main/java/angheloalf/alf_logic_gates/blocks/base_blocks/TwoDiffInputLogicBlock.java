@@ -1,5 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -47,9 +48,9 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
     }
 
     protected int getCLKPower(IBlockState state, World world, BlockPos pos){
-        int aPower = getLeftSidePower(state, world, pos);
-        int bPower = getBackSidePower(state, world, pos);
-        int cPower = getRightSidePower(state, world, pos);
+        int aPower = BlockUtil.getLeftSidePower(state, world, pos);
+        int bPower = BlockUtil.getBackSidePower(state, world, pos);
+        int cPower = BlockUtil.getRightSidePower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
@@ -65,9 +66,9 @@ public abstract class TwoDiffInputLogicBlock extends LogicBlock{
     }
 
     protected int getDPower(IBlockState state, World world, BlockPos pos){
-        int aPower = getLeftSidePower(state, world, pos);
-        int bPower = getBackSidePower(state, world, pos);
-        int cPower = getRightSidePower(state, world, pos);
+        int aPower = BlockUtil.getLeftSidePower(state, world, pos);
+        int bPower = BlockUtil.getBackSidePower(state, world, pos);
+        int cPower = BlockUtil.getRightSidePower(state, world, pos);
         switch(state.getValue(BLOCK_STATE)){
             case 3:
             case 4:

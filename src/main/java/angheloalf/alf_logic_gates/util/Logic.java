@@ -1,7 +1,12 @@
 package angheloalf.alf_logic_gates.util;
 
 import angheloalf.alf_logic_gates.Config;
+import mcp.MethodsReturnNonnullByDefault;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public final class Logic{
     public static int repeatSignalOrPower(int power){
         if(power <= 0){

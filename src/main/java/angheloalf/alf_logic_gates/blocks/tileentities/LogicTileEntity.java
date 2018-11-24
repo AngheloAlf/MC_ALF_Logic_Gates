@@ -1,6 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.tileentities;
 
-import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,7 +29,7 @@ public class LogicTileEntity extends TileEntity implements ITickable{
 
     @Override
     public void update(){
-        AlfBaseBlock.notifyStrongPowerToNeighbors(world, blockType, pos);
+        BlockUtil.notifyStrongPowerToNeighbors(world, blockType, pos);
     }
 
     public void setDefaultMax(int max){

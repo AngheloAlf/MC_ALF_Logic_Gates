@@ -1,6 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.blocks.base_blocks.TwoInputTwoOutputLogicBlock;
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import angheloalf.alf_logic_gates.util.Logic;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
@@ -56,9 +57,9 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
             case 2:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
         }
         return 0;
     }
@@ -66,11 +67,11 @@ public class HalfAdder_Block extends TwoInputTwoOutputLogicBlock{
     public int getSecondInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getBackSidePower(state, world, pos);
+                return BlockUtil.getBackSidePower(state, world, pos);
             case 1:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
             case 2:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
         }
         return 0;
     }

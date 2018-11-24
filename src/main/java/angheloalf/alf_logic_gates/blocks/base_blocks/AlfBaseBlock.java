@@ -1,19 +1,16 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
-import angheloalf.alf_logic_gates.Config;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.util.BlockUtil;
 
 import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRedstoneWire;
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -25,8 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class AlfBaseBlock extends Block{
-    protected static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+public abstract class AlfBaseBlock extends BlockDirectional{
     private final String blockName;
 
     public AlfBaseBlock(Material material, String blockName){
@@ -44,23 +40,8 @@ public abstract class AlfBaseBlock extends Block{
         setCreativeTab(tab);
     }
 
-    public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity){
-        return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
-    }
-
-    public static void notifyStrongPowerToNeighbors(World world, Block block, BlockPos pos){
-        world.notifyNeighborsOfStateChange(pos, block, true);
-
-        world.notifyNeighborsOfStateChange(pos.west(), block, true);
-        world.notifyNeighborsOfStateChange(pos.east(), block, true);
-        world.notifyNeighborsOfStateChange(pos.down(), block, true);
-        world.notifyNeighborsOfStateChange(pos.up(), block, true);
-        world.notifyNeighborsOfStateChange(pos.north(), block, true);
-        world.notifyNeighborsOfStateChange(pos.south(), block, true);
-    }
-
     public void notifyStrongPowerToNeighbors(World world, BlockPos pos){
-        notifyStrongPowerToNeighbors(world, this, pos);
+        BlockUtil.notifyStrongPowerToNeighbors(world, this, pos);
     }
 
     public String getBlockName(){
@@ -111,7 +92,10 @@ public abstract class AlfBaseBlock extends Block{
     // Create the appropriate state for the block being placed - in this case, figure out which way the target is facing
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos thisBlockPos, EnumFacing faceOfNeighbour, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-        EnumFacing directionTargetIsPointing = (placer == null) ? EnumFacing.NORTH: EnumFacing.fromAngle(placer.rotationYaw);
+        EnumFacing directionTargetIsPointing = EnumFacing.NORTH;
+        if(placer != null){
+            directionTargetIsPointing = EnumFacing.fromAngle(placer.rotationYaw);
+        }
         return this.getDefaultState().withProperty(FACING, directionTargetIsPointing);
     }
 
@@ -119,19 +103,6 @@ public abstract class AlfBaseBlock extends Block{
     @Override
     public boolean canProvidePower(IBlockState state){
         return true;
-    }
-
-    protected int calculateInputStrengthFromFace(World world, BlockPos pos, EnumFacing side){
-        BlockPos blockpos = pos.offset(side);
-        int i = world.getRedstonePower(blockpos, side);
-
-        if(i >= 15){
-            return 15;
-        }
-        else{
-            IBlockState iblockstate = world.getBlockState(blockpos);
-            return Math.max(i, iblockstate.getBlock() == Blocks.REDSTONE_WIRE ? iblockstate.getValue(BlockRedstoneWire.POWER): 0);
-        }
     }
 
     abstract protected boolean isSideEnabled(IBlockState state, EnumFacing side);
@@ -148,31 +119,33 @@ public abstract class AlfBaseBlock extends Block{
 
     protected abstract int getOutputPower(IBlockState state, World world, BlockPos pos);
 
-    public int getSidedPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        if(blockAccess instanceof World){
-            World world = (World) blockAccess;
-            state = getActualState(state, blockAccess, pos);
+    public int getSidedPower(IBlockState state, World world, BlockPos pos, EnumFacing side){
+        state = getActualState(state, world, pos);
 
-            if(side == state.getValue(FACING).getOpposite()){
-                return getOutputPower(state, world, pos);
-            }
+        if(side == state.getValue(FACING).getOpposite()){
+            return getOutputPower(state, world, pos);
+        }
 
-            if(this instanceof IAlternativesOutputs){
-                return ((IAlternativesOutputs) this).getAlternativePower(state, world, pos, side);
-            }
+        if(this instanceof IAlternativesOutputs){
+            return ((IAlternativesOutputs) this).getAlternativePower(state, world, pos, side);
         }
         return 0;
     }
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        return getSidedPower(state, blockAccess, pos, side);
-        // return 0;
+        if(blockAccess instanceof World){
+            return getSidedPower(state, (World) blockAccess, pos, side);
+        }
+        return 0;
     }
 
     @Override
     public int getStrongPower(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing side){
-        return getSidedPower(state, blockAccess, pos, side);
+        if(blockAccess instanceof World){
+            return getSidedPower(state, (World) blockAccess, pos, side);
+        }
+        return 0;
     }
     /* END Redstone */
 }

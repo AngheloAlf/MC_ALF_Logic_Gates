@@ -1,5 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -82,14 +83,14 @@ public abstract class TwoThreeInputLogicBlock extends LogicBlock{
     }
 
     protected int getAPower(IBlockState state, World world, BlockPos pos){
-        return isAEnabled(state) ? getLeftSidePower(state, world, pos): 0;
+        return isAEnabled(state) ? BlockUtil.getLeftSidePower(state, world, pos) : 0;
     }
 
     protected int getBPower(IBlockState state, World world, BlockPos pos){
-        return isBEnabled(state) ? getBackSidePower(state, world, pos): 0;
+        return isBEnabled(state) ? BlockUtil.getBackSidePower(state, world, pos) : 0;
     }
 
     protected int getCPower(IBlockState state, World world, BlockPos pos){
-        return isCEnabled(state) ? getRightSidePower(state, world, pos): 0;
+        return isCEnabled(state) ? BlockUtil.getRightSidePower(state, world, pos) : 0;
     }
 }

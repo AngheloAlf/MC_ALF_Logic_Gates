@@ -1,5 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -29,13 +30,13 @@ public abstract class ThreeDiffInputLogicBlock extends LogicBlock{
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
             case 2:
             case 3:
-                return getBackSidePower(state, world, pos);
+                return BlockUtil.getBackSidePower(state, world, pos);
             case 4:
             case 6:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
         }
         return 0;
     }
@@ -43,17 +44,17 @@ public abstract class ThreeDiffInputLogicBlock extends LogicBlock{
     protected int getFirstInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getBackSidePower(state, world, pos);
+                return BlockUtil.getBackSidePower(state, world, pos);
             case 1:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
             case 2:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
             case 3:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
             case 4:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
             case 5:
-                return getBackSidePower(state, world, pos);
+                return BlockUtil.getBackSidePower(state, world, pos);
         }
         return 0;
     }
@@ -61,17 +62,17 @@ public abstract class ThreeDiffInputLogicBlock extends LogicBlock{
     protected int getSecondInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
             case 1:
-                return getBackSidePower(state, world, pos);
+                return BlockUtil.getBackSidePower(state, world, pos);
             case 2:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
             case 3:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
             case 4:
-                return getBackSidePower(state, world, pos);
+                return BlockUtil.getBackSidePower(state, world, pos);
             case 5:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
         }
         return 0;
     }

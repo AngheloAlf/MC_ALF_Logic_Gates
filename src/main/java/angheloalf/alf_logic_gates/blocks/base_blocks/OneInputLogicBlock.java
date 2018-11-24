@@ -1,5 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -48,11 +49,11 @@ public abstract class OneInputLogicBlock extends LogicBlock{
     protected int getOnlyInput(IBlockState state, World world, BlockPos pos){
         switch(state.getValue(BLOCK_STATE)){
             case 0:
-                return getLeftSidePower(state, world, pos);
+                return BlockUtil.getLeftSidePower(state, world, pos);
             case 1:
-                return getBackSidePower(state, world, pos);
+                return BlockUtil.getBackSidePower(state, world, pos);
             case 2:
-                return getRightSidePower(state, world, pos);
+                return BlockUtil.getRightSidePower(state, world, pos);
         }
         return 0;
     }
