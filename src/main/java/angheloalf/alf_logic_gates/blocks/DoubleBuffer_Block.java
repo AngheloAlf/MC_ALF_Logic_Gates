@@ -32,16 +32,13 @@ public class DoubleBuffer_Block extends TwoInputTwoOutputLogicBlock{
 
     @Override
     public EnumFacing[] getAlternativesOutputs(IBlockState state){
-        EnumFacing left = state.getValue(FACING).getOpposite().rotateYCCW();
-        EnumFacing back = left.rotateYCCW();
-        EnumFacing right = back.rotateYCCW();
         switch(state.getValue(BLOCK_STATE)){
             case 0:
             case 1:
-                return new EnumFacing[]{right};
+                return new EnumFacing[]{BlockUtil.getRightSide(state)};
             case 2:
             case 3:
-                return new EnumFacing[]{back};
+                return new EnumFacing[]{BlockUtil.getBackSide(state)};
         }
         return new EnumFacing[0];
     }

@@ -21,13 +21,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class ClockEntity extends TileEntity implements ITickable{
     private final int defaultMaxCont = 20; // 20 equals 1 second
-    private final int defaultCounter = 0;
 
     private boolean disabled = false;
     private boolean fullRestarting = false;
     private boolean lit = false;
     private int power = 0;
-    private int counter = defaultCounter;
+    private int counter = defaultMaxCont;
     private int step = 1;
     private int maxCount = defaultMaxCont;
 
@@ -46,6 +45,8 @@ public class ClockEntity extends TileEntity implements ITickable{
     public void disable(boolean disable, boolean fullRestart){
         this.disabled = disable;
         this.fullRestarting = fullRestart;
+
+        markAndNotify();
     }
 
     public boolean isDisabled(){
@@ -88,7 +89,7 @@ public class ClockEntity extends TileEntity implements ITickable{
     private void turnOff(){
         lit = false;
         power = 0;
-        counter = defaultCounter;
+        counter = defaultMaxCont;
     }
 
     public void updateStateInServer(){
@@ -101,10 +102,18 @@ public class ClockEntity extends TileEntity implements ITickable{
         LogicGatesPacketHandler.INSTANCE.sendToDimension(clkMessage, world.provider.getDimension());
     }
 
+    private void markAndNotify(){
+        markDirty();
+
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+        BlockUtil.notifyStrongPowerToNeighbors(world, blockType, pos);
+    }
+
     @Override
     public void update(){
         if(disabled){
             turnOff();
+            markAndNotify();
             return;
         }
         if(fullRestarting){
@@ -115,10 +124,8 @@ public class ClockEntity extends TileEntity implements ITickable{
             lit = !lit;
             power = lit ? 15 : 0;
             counter = maxCount;
-            markDirty();
-            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
 
-            BlockUtil.notifyStrongPowerToNeighbors(world, blockType, pos);
+            markAndNotify();
         }
     }
 

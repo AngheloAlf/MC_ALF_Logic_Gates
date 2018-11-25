@@ -114,10 +114,12 @@ public class LogicClock_Block extends RedstoneBlock implements IAlternativesOutp
                 int up = BlockUtil.getUpSidePower(actualState, world, pos);
                 int down = BlockUtil.getDownSidePower(actualState, world, pos);
                 boolean disable = up + down > 0;
-                tileEntity.disable(disable, false);
+                boolean wasDisabled = tileEntity.isDisabled();
 
+                if(wasDisabled != disable){
+                    tileEntity.disable(disable, false);
+                }
                 tileEntity.updateStateToClients(world);
-                notifyStrongPowerToNeighbors(world, pos);
             }
         }
     }
@@ -125,6 +127,9 @@ public class LogicClock_Block extends RedstoneBlock implements IAlternativesOutp
     /* Redstone */
     @Override
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
+        if(side == BlockUtil.getUpSide(state) || side == BlockUtil.getDownSide(state)){
+            return true;
+        }
         return state.getValue(POWERING);
     }
 
@@ -136,10 +141,9 @@ public class LogicClock_Block extends RedstoneBlock implements IAlternativesOutp
 
     @Override
     public EnumFacing[] getAlternativesOutputs(IBlockState state){
-        EnumFacing front = state.getValue(FACING).getOpposite();
-        EnumFacing left = front.rotateYCCW();
-        EnumFacing back = left.rotateYCCW();
-        EnumFacing right = back.rotateYCCW();
+        EnumFacing left = BlockUtil.getLeftSide(state);
+        EnumFacing back = BlockUtil.getBackSide(state);
+        EnumFacing right = BlockUtil.getRightSide(state);
         return new EnumFacing[]{left, back, right};
     }
 

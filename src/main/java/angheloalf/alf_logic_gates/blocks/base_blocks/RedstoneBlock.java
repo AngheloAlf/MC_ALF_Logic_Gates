@@ -87,17 +87,8 @@ public abstract class RedstoneBlock extends BlockDirectional{
         super.onBlockPlacedBy(world, pos, state, placer, stack);
 
         IBlockState newState = state.withProperty(FACING, placer.getHorizontalFacing());
+        //IBlockState newState = state.withProperty(FACING, BlockUtil.getFacingFromEntity(pos, placer));
         world.setBlockState(pos, newState, 2);
-    }
-
-    // Create the appropriate state for the block being placed - in this case, figure out which way the target is facing
-    @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos thisBlockPos, EnumFacing faceOfNeighbour, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-        EnumFacing directionTargetIsPointing = EnumFacing.NORTH;
-        if(placer != null){
-            directionTargetIsPointing = EnumFacing.fromAngle(placer.rotationYaw);
-        }
-        return this.getDefaultState().withProperty(FACING, directionTargetIsPointing);
     }
 
     /* Redstone */
@@ -123,7 +114,7 @@ public abstract class RedstoneBlock extends BlockDirectional{
     public int getSidedPower(IBlockState state, World world, BlockPos pos, EnumFacing side){
         state = getActualState(state, world, pos);
 
-        if(side == state.getValue(FACING).getOpposite()){
+        if(side == BlockUtil.getFrontSide(state)){
             return getOutputPower(state, world, pos);
         }
 

@@ -23,7 +23,7 @@ public abstract class ThreeDiffInputLogicBlock extends LogicBlock{
 
     @Override
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
-        return side != EnumFacing.UP && side != EnumFacing.DOWN;
+        return side != BlockUtil.getUpSide(state) && side != BlockUtil.getDownSide(state);
     }
 
     protected int getSpecialInput(IBlockState state, World world, BlockPos pos){

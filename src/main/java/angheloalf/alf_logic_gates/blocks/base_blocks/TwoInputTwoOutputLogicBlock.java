@@ -1,5 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
+import angheloalf.alf_logic_gates.util.BlockUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +16,7 @@ public abstract class TwoInputTwoOutputLogicBlock extends LogicBlock implements 
 
     @Override
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
-        return side != EnumFacing.UP && side != EnumFacing.DOWN;
+        return side != BlockUtil.getUpSide(state) && side != BlockUtil.getDownSide(state);
     }
 
     @Override

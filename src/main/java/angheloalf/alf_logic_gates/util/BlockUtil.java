@@ -41,33 +41,102 @@ public final class BlockUtil{
         }
     }
 
+    public static EnumFacing getFrontSide(IBlockState state){
+        return state.getValue(BlockDirectional.FACING).getOpposite();
+    }
+
+    public static EnumFacing getLeftSide(IBlockState state){
+        EnumFacing front = state.getValue(BlockDirectional.FACING).getOpposite();
+        EnumFacing left;
+        if(front == EnumFacing.UP){
+            left = front.rotateAround(EnumFacing.Axis.Z);
+        }
+        else if(front == EnumFacing.DOWN){
+            left = front.rotateAround(EnumFacing.Axis.Z).getOpposite();
+        }
+        else{
+            left = front.rotateYCCW();
+        }
+        return left;
+    }
+
+    public static EnumFacing getBackSide(IBlockState state){
+        EnumFacing front = state.getValue(BlockDirectional.FACING).getOpposite();
+        return front.getOpposite();
+    }
+
+    public static EnumFacing getRightSide(IBlockState state){
+        EnumFacing front = state.getValue(BlockDirectional.FACING).getOpposite();
+        EnumFacing right;
+        if(front == EnumFacing.UP){
+            right = front.rotateAround(EnumFacing.Axis.Z).getOpposite();
+        }
+        else if(front == EnumFacing.DOWN){
+            right = front.rotateAround(EnumFacing.Axis.Z);
+        }
+        else{
+            right = front.rotateY();
+        }
+        return right;
+    }
+
+    public static EnumFacing getUpSide(IBlockState state){
+        EnumFacing front = state.getValue(BlockDirectional.FACING).getOpposite();
+        EnumFacing up;
+        if(front == EnumFacing.EAST || front == EnumFacing.WEST){
+            up = front.rotateAround(EnumFacing.Axis.Z).getOpposite();
+        }
+        else{
+            up = front.rotateAround(EnumFacing.Axis.X).getOpposite();
+        }
+        return up;
+    }
+
+    public static EnumFacing getDownSide(IBlockState state){
+        EnumFacing front = state.getValue(BlockDirectional.FACING).getOpposite();
+        EnumFacing down;
+        if(front == EnumFacing.EAST || front == EnumFacing.WEST){
+            down = front.rotateAround(EnumFacing.Axis.Z);
+        }
+        else{
+            down = front.rotateAround(EnumFacing.Axis.X);
+        }
+        return down;
+    }
+
+    public static int getFrontSidePower(IBlockState state, World world, BlockPos pos){
+        EnumFacing front = getFrontSide(state).getOpposite();
+        return calculateInputStrengthFromFace(world, pos, front);
+    }
+
     public static int getLeftSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(BlockDirectional.FACING).rotateYCCW();
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
+        EnumFacing left = getLeftSide(state).getOpposite();
+        return calculateInputStrengthFromFace(world, pos, left);
     }
 
     public static int getBackSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(BlockDirectional.FACING).getOpposite();
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
+        EnumFacing back = getBackSide(state).getOpposite();
+        return calculateInputStrengthFromFace(world, pos, back);
     }
 
     public static int getRightSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(BlockDirectional.FACING).rotateY();
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
+        EnumFacing right = getRightSide(state).getOpposite();
+        return calculateInputStrengthFromFace(world, pos, right);
     }
 
     public static int getUpSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(BlockDirectional.FACING).rotateAround(EnumFacing.Axis.X);
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
+        EnumFacing up = getUpSide(state).getOpposite();
+        return calculateInputStrengthFromFace(world, pos, up);
     }
 
     public static int getDownSidePower(IBlockState state, World world, BlockPos pos){
-        EnumFacing enumFacing = state.getValue(BlockDirectional.FACING).rotateAround(EnumFacing.Axis.X).getOpposite();
-        return calculateInputStrengthFromFace(world, pos, enumFacing);
+        EnumFacing down = getDownSide(state).getOpposite();
+        return calculateInputStrengthFromFace(world, pos, down);
     }
     /* END Redstone */
 
     public static EnumFacing getFacingFromEntity(BlockPos clickedBlock, EntityLivingBase entity){
+        // return EnumFacing.getDirectionFromEntityLiving(clickedBlock, entity).getOpposite();
         return EnumFacing.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
     }
 }

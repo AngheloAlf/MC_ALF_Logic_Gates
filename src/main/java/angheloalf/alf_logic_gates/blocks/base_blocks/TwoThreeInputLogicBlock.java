@@ -26,13 +26,13 @@ public abstract class TwoThreeInputLogicBlock extends LogicBlock{
     @Override
     protected boolean isSideEnabled(IBlockState state, EnumFacing side){
         int block_state = state.getValue(BLOCK_STATE);
-        EnumFacing front = state.getValue(FACING).getOpposite();
+        EnumFacing front = BlockUtil.getFrontSide(state);
         if(side == front){
             return true;
         }
-        EnumFacing left = front.rotateYCCW();
-        EnumFacing back = left.rotateYCCW();
-        EnumFacing right = back.rotateYCCW();
+        EnumFacing left = BlockUtil.getLeftSide(state);
+        EnumFacing back = BlockUtil.getBackSide(state);
+        EnumFacing right = BlockUtil.getRightSide(state);
         switch(block_state){
             case 0:
                 return side == left || side == back;
