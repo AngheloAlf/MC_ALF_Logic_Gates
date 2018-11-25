@@ -26,7 +26,7 @@ public final class Config{
     private static Configuration config = null;
 
     public static void preInit(){
-        File configFile = new File(Loader.instance().getConfigDir(), Mod_ALF_Logic_Gates.MODNAME + ".cfg");
+        File configFile = new File(Loader.instance().getConfigDir(), ModMain.MODNAME + ".cfg");
 
         // initialize your configuration object with your configuration file values.
         config = new Configuration(configFile);
@@ -115,7 +115,7 @@ public final class Config{
          */
         @SubscribeEvent(priority = EventPriority.NORMAL)
         public void onEvent(ConfigChangedEvent.OnConfigChangedEvent event){
-            if(Mod_ALF_Logic_Gates.MODID.equals(event.getModID()) && !event.isWorldRunning()){
+            if(ModMain.MODID.equals(event.getModID()) && !event.isWorldRunning()){
                 if(event.getConfigID() != null){
                     if(CATEGORIES_NAMES.contains(event.getConfigID())){
                         syncFromGUI();

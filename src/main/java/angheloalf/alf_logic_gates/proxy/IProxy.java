@@ -1,6 +1,6 @@
 package angheloalf.alf_logic_gates.proxy;
 
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.ModMain;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -16,7 +16,7 @@ public interface IProxy{
     void postInit(FMLPostInitializationEvent e);
 
     default void logPhysicalSide(){
-        Mod_ALF_Logic_Gates.info("Physical Side: " + getPhysicalSide());
+        ModMain.info("Physical Side: " + getPhysicalSide());
     }
 
     @Nonnull

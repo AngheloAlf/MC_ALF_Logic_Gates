@@ -1,7 +1,7 @@
 package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.ModCreativeTabs;
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.ModMain;
 import angheloalf.alf_logic_gates.blocks.base_blocks.RedstoneBlock;
 import angheloalf.alf_logic_gates.blocks.base_blocks.IAlternativesOutputs;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
@@ -96,7 +96,7 @@ public class LogicClock_Block extends RedstoneBlock implements IAlternativesOutp
             if(tileEntity == null){
                 return false;
             }
-            player.openGui(Mod_ALF_Logic_Gates.instance, GuiHandler.getGuiID(), world, pos.getX(), pos.getY(), pos.getZ());
+            player.openGui(ModMain.instance, GuiHandler.getGuiID(), world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
     }

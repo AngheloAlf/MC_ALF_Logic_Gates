@@ -2,7 +2,7 @@ package angheloalf.alf_logic_gates.eventsubscribers;
 
 import angheloalf.alf_logic_gates.ModBlocks;
 import angheloalf.alf_logic_gates.ModItems;
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.ModMain;
 import angheloalf.alf_logic_gates.blocks.base_blocks.RedstoneBlock;
 import angheloalf.alf_logic_gates.items.base_items.RedstoneItem;
 import mcp.MethodsReturnNonnullByDefault;
@@ -20,13 +20,13 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-@Mod.EventBusSubscriber(modid = Mod_ALF_Logic_Gates.MODID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = ModMain.MODID, value = Side.CLIENT)
 public final class ClientEventSubscriber{
     private static final String DEFAULT_VARIANT = "normal";
 
     @SubscribeEvent
     public static void onRegisterModelsEvent(final ModelRegistryEvent event){
-        Mod_ALF_Logic_Gates.info("Registering models");
+        ModMain.info("Registering models");
 
         /* item blocks */
         for(RedstoneBlock block: ModBlocks.allBlocks){
@@ -38,7 +38,7 @@ public final class ClientEventSubscriber{
             registerItemModel(item);
         }
 
-        Mod_ALF_Logic_Gates.info("Models registered");
+        ModMain.info("Models registered");
     }
 
     private static void registerItemBlockModel(final Block block){
@@ -48,7 +48,7 @@ public final class ClientEventSubscriber{
         }
         else{
             String errorMessage = "The block <" + block.getUnlocalizedName() + "> has not registry name.";
-            Mod_ALF_Logic_Gates.error(errorMessage);
+            ModMain.error(errorMessage);
             throw new NullPointerException(errorMessage);
         }
     }
@@ -60,7 +60,7 @@ public final class ClientEventSubscriber{
         }
         else{
             String errorMessage = "The item <" + item.getUnlocalizedName() + "> has not registry name.";
-            Mod_ALF_Logic_Gates.error(errorMessage);
+            ModMain.error(errorMessage);
             throw new NullPointerException(errorMessage);
         }
     }

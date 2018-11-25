@@ -2,7 +2,7 @@ package angheloalf.alf_logic_gates.eventsubscribers;
 
 import angheloalf.alf_logic_gates.ModBlocks;
 import angheloalf.alf_logic_gates.ModItems;
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.ModMain;
 import angheloalf.alf_logic_gates.blocks.base_blocks.RedstoneBlock;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
@@ -18,21 +18,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@Mod.EventBusSubscriber(modid = Mod_ALF_Logic_Gates.MODID)
+@Mod.EventBusSubscriber(modid = ModMain.MODID)
 public final class EventSubscriber{
     @SubscribeEvent
     public static void onRegisterBlocksEvent(final RegistryEvent.Register<Block> event){
         final IForgeRegistry<Block> registry = event.getRegistry();
 
+        ModMain.info("Registering blocks");
         registry.registerAll(ModBlocks.allBlocks);
+        ModMain.info("Blocks registered");
 
-        // registry.register(new BlockModOre("example_ore"));
-
-        Mod_ALF_Logic_Gates.info("Registered blocks");
-
+        ModMain.debug("Registering tile entities");
         registerTileEntities();
-
-        Mod_ALF_Logic_Gates.debug("Registered tile entities");
+        ModMain.debug("tile entities registered");
 
     }
 
@@ -42,7 +40,7 @@ public final class EventSubscriber{
     }
 
     private static void registerTileEntity(final Class<? extends TileEntity> clazz, String name){
-        GameRegistry.registerTileEntity(clazz, new ResourceLocation(Mod_ALF_Logic_Gates.MODID, name));
+        GameRegistry.registerTileEntity(clazz, new ResourceLocation(ModMain.MODID, name));
     }
 
     /* register items */
@@ -50,20 +48,24 @@ public final class EventSubscriber{
     public static void onRegisterItemsEvent(final RegistryEvent.Register<Item> event){
         final IForgeRegistry<Item> registry = event.getRegistry();
 
+        ModMain.info("Registering items");
         // item blocks
         for(RedstoneBlock block : ModBlocks.allBlocks){
             registry.register(getItemForRegistry(block));
         }
+        ModMain.info("Items-blocks registered");
 
+        // Normal items
         for(RedstoneItem item : ModItems.allItems){
             registry.register(item);
         }
+        ModMain.info("Normal items registered");
 
-        Mod_ALF_Logic_Gates.info("Registered items");
+        ModMain.info("Items registered");
 
     }
 
     private static Item getItemForRegistry(RedstoneBlock block){
-        return new ItemBlock(block).setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + block.getBlockName());
+        return new ItemBlock(block).setRegistryName(ModMain.MODID + ":" + block.getBlockName());
     }
 }

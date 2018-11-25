@@ -1,6 +1,6 @@
 package angheloalf.alf_logic_gates.blocks.base_blocks;
 
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.ModMain;
 import angheloalf.alf_logic_gates.util.BlockUtil;
 import angheloalf.alf_logic_gates.util.GenericUtil;
 
@@ -31,8 +31,8 @@ public abstract class RedstoneBlock extends BlockDirectional{
         setTickRandomly(false);
 
         this.blockName = blockName;
-        setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + blockName);
-        setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
+        setRegistryName(ModMain.MODID + ":" + blockName);
+        setUnlocalizedName(ModMain.MODID + "." + blockName);
     }
 
     public RedstoneBlock(Material material, String blockName, CreativeTabs tab){

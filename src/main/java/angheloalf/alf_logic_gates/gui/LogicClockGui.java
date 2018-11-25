@@ -1,6 +1,6 @@
 package angheloalf.alf_logic_gates.gui;
 
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.ModMain;
 import angheloalf.alf_logic_gates.blocks.containers.ClockContainer;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import java.awt.*;
 
 public class LogicClockGui extends GuiContainer{
-    private static final ResourceLocation texture = new ResourceLocation(Mod_ALF_Logic_Gates.MODID, "textures/gui/basic_gui.png");
+    private static final ResourceLocation texture = new ResourceLocation(ModMain.MODID, "textures/gui/basic_gui.png");
     private final ClockEntity clockEntity;
     private final BlockPos position;
 

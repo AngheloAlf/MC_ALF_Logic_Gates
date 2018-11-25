@@ -47,7 +47,7 @@ public class GuiFactory implements IModGuiFactory{
     public static class ConfigGui extends GuiConfig{
         public ConfigGui(GuiScreen parentScreen){
             //I18n function basically "translates" or localizes the given key using the appropriate .lang file
-            super(parentScreen, getConfigElements(), Mod_ALF_Logic_Gates.MODID, false, false, I18n.format("gui.config.mainTitle"));
+            super(parentScreen, getConfigElements(), ModMain.MODID, false, false, I18n.format("gui.config.mainTitle"));
         }
 
         private static List<IConfigElement> getConfigElements(){

@@ -16,8 +16,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
 
-@Mod(modid = Mod_ALF_Logic_Gates.MODID, name = Mod_ALF_Logic_Gates.MODNAME, version = Mod_ALF_Logic_Gates.MODVERSION, useMetadata = true, guiFactory = Mod_ALF_Logic_Gates.GUIFACTORY)
-public class Mod_ALF_Logic_Gates{
+@Mod(modid = ModMain.MODID, name = ModMain.MODNAME, version = ModMain.MODVERSION, useMetadata = true, guiFactory = ModMain.GUIFACTORY)
+public class ModMain{
     public static final String MODID = "alf_logic_gates";
     public static final String MODNAME = "ALF_Logic_Gates";
     public static final String MODVERSION = "1.0.0";
@@ -25,13 +25,13 @@ public class Mod_ALF_Logic_Gates{
     @SidedProxy(clientSide = "angheloalf.alf_logic_gates.proxy.ClientProxy", serverSide = "angheloalf.alf_logic_gates.proxy.ServerProxy")
     public static IProxy proxy;
     @Mod.Instance(MODID)
-    public static Mod_ALF_Logic_Gates instance;
+    public static ModMain instance;
     public static Logger logger;
 
     private static Logger getLogger(){
         if(logger == null){
             final Logger tempLogger = LogManager.getLogger();
-            tempLogger.error("[" + Mod_ALF_Logic_Gates.class.getSimpleName() + "]: getLogger called before logger has been initalised! Providing default logger");
+            tempLogger.error("[" + ModMain.class.getSimpleName() + "]: getLogger called before logger has been initalised! Providing default logger");
             return tempLogger;
         }
         return logger;
@@ -126,7 +126,7 @@ public class Mod_ALF_Logic_Gates{
 
         Config.preInit();
 
-        NetworkRegistry.INSTANCE.registerGuiHandler(Mod_ALF_Logic_Gates.instance, GuiHandler.getInstance());
+        NetworkRegistry.INSTANCE.registerGuiHandler(ModMain.instance, GuiHandler.getInstance());
         LogicGatesPacketHandler.init();
 
         proxy.preInit(event);

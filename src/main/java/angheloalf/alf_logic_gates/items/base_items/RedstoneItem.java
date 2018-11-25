@@ -1,6 +1,6 @@
 package angheloalf.alf_logic_gates.items.base_items;
 
-import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
+import angheloalf.alf_logic_gates.ModMain;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -12,8 +12,8 @@ public abstract class RedstoneItem extends Item{
         super();
 
         this.itemName = itemName;
-        setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + itemName);
-        setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + itemName);
+        setRegistryName(ModMain.MODID + ":" + itemName);
+        setUnlocalizedName(ModMain.MODID + "." + itemName);
     }
 
     public RedstoneItem(String itemName, CreativeTabs tab){
