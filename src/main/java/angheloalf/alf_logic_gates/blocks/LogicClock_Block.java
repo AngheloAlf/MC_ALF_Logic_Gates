@@ -2,7 +2,7 @@ package angheloalf.alf_logic_gates.blocks;
 
 import angheloalf.alf_logic_gates.ModCreativeTabs;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
-import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+import angheloalf.alf_logic_gates.blocks.base_blocks.RedstoneBlock;
 import angheloalf.alf_logic_gates.blocks.base_blocks.IAlternativesOutputs;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import angheloalf.alf_logic_gates.gui.GuiHandler;
@@ -28,7 +28,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutputs{
+public class LogicClock_Block extends RedstoneBlock implements IAlternativesOutputs{
     protected static final PropertyBool POWERING = PropertyBool.create("powering");
     protected static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
 

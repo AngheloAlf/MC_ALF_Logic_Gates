@@ -5,10 +5,10 @@ import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public abstract class AlfBaseItem extends Item{
+public abstract class RedstoneItem extends Item{
     private final String itemName;
 
-    public AlfBaseItem(String itemName){
+    public RedstoneItem(String itemName){
         super();
 
         this.itemName = itemName;
@@ -16,7 +16,7 @@ public abstract class AlfBaseItem extends Item{
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + itemName);
     }
 
-    public AlfBaseItem(String itemName, CreativeTabs tab){
+    public RedstoneItem(String itemName, CreativeTabs tab){
         this(itemName);
         setCreativeTab(tab);
     }

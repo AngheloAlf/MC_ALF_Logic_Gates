@@ -1,7 +1,7 @@
 package angheloalf.alf_logic_gates;
 
 import angheloalf.alf_logic_gates.blocks.*;
-import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+import angheloalf.alf_logic_gates.blocks.base_blocks.RedstoneBlock;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -49,11 +49,11 @@ public final class ModBlocks{
     @GameRegistry.ObjectHolder(Mod_ALF_Logic_Gates.MODID + ":halfadder_block")
     public static final HalfAdder_Block halfaAdder_block = new HalfAdder_Block();
 
-    public static final AlfBaseBlock allBlocks[] = {or_block, and_block, xor_block,
-                                              nor_block, nand_block, xnor_block,
-                                              not_block, buffer_block, double_buffer_block,
-                                              logicClock_block,
-                                              dLatch_block, dFlipFlop_block,
-                                              mux_block,
-                                              halfaAdder_block};
+    public static final RedstoneBlock allBlocks[] = {or_block, and_block, xor_block,
+                                                     nor_block, nand_block, xnor_block,
+                                                     not_block, buffer_block, double_buffer_block,
+                                                     logicClock_block,
+                                                     dLatch_block, dFlipFlop_block,
+                                                     mux_block,
+                                                     halfaAdder_block};
 }

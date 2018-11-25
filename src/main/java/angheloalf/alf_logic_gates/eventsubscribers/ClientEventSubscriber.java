@@ -3,8 +3,8 @@ package angheloalf.alf_logic_gates.eventsubscribers;
 import angheloalf.alf_logic_gates.ModBlocks;
 import angheloalf.alf_logic_gates.ModItems;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
-import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
-import angheloalf.alf_logic_gates.items.base_items.AlfBaseItem;
+import angheloalf.alf_logic_gates.blocks.base_blocks.RedstoneBlock;
+import angheloalf.alf_logic_gates.items.base_items.RedstoneItem;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -29,12 +29,12 @@ public final class ClientEventSubscriber{
         Mod_ALF_Logic_Gates.info("Registering models");
 
         /* item blocks */
-        for(AlfBaseBlock block: ModBlocks.allBlocks){
+        for(RedstoneBlock block: ModBlocks.allBlocks){
             registerItemBlockModel(block);
         }
 
         /* items */
-        for(AlfBaseItem item: ModItems.allItems){
+        for(RedstoneItem item: ModItems.allItems){
             registerItemModel(item);
         }
 

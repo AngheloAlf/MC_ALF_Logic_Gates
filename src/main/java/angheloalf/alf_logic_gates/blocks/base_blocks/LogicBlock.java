@@ -22,7 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class LogicBlock extends AlfBaseBlock{
+public abstract class LogicBlock extends RedstoneBlock{
     protected static final PropertyInteger BLOCK_STATE = PropertyInteger.create("block_state", 0, 5);
 
     public LogicBlock(String blockName){

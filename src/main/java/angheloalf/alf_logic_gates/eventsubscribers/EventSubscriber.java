@@ -3,10 +3,10 @@ package angheloalf.alf_logic_gates.eventsubscribers;
 import angheloalf.alf_logic_gates.ModBlocks;
 import angheloalf.alf_logic_gates.ModItems;
 import angheloalf.alf_logic_gates.Mod_ALF_Logic_Gates;
-import angheloalf.alf_logic_gates.blocks.base_blocks.AlfBaseBlock;
+import angheloalf.alf_logic_gates.blocks.base_blocks.RedstoneBlock;
 import angheloalf.alf_logic_gates.blocks.tileentities.ClockEntity;
 import angheloalf.alf_logic_gates.blocks.tileentities.LogicTileEntity;
-import angheloalf.alf_logic_gates.items.base_items.AlfBaseItem;
+import angheloalf.alf_logic_gates.items.base_items.RedstoneItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -51,11 +51,11 @@ public final class EventSubscriber{
         final IForgeRegistry<Item> registry = event.getRegistry();
 
         // item blocks
-        for(AlfBaseBlock block : ModBlocks.allBlocks){
+        for(RedstoneBlock block : ModBlocks.allBlocks){
             registry.register(getItemForRegistry(block));
         }
 
-        for(AlfBaseItem item : ModItems.allItems){
+        for(RedstoneItem item : ModItems.allItems){
             registry.register(item);
         }
 
@@ -63,7 +63,7 @@ public final class EventSubscriber{
 
     }
 
-    private static Item getItemForRegistry(AlfBaseBlock block){
+    private static Item getItemForRegistry(RedstoneBlock block){
         return new ItemBlock(block).setRegistryName(Mod_ALF_Logic_Gates.MODID + ":" + block.getBlockName());
     }
 }

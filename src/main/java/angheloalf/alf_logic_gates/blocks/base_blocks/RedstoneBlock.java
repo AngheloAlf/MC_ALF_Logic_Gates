@@ -23,10 +23,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class AlfBaseBlock extends BlockDirectional{
+public abstract class RedstoneBlock extends BlockDirectional{
     private final String blockName;
 
-    public AlfBaseBlock(Material material, String blockName){
+    public RedstoneBlock(Material material, String blockName){
         super(material);
         setTickRandomly(false);
 
@@ -35,7 +35,7 @@ public abstract class AlfBaseBlock extends BlockDirectional{
         setUnlocalizedName(Mod_ALF_Logic_Gates.MODID + "." + blockName);
     }
 
-    public AlfBaseBlock(Material material, String blockName, CreativeTabs tab){
+    public RedstoneBlock(Material material, String blockName, CreativeTabs tab){
         this(material, blockName);
 
         setCreativeTab(tab);
