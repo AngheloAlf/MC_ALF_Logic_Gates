@@ -15,9 +15,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -94,13 +91,11 @@ public class ClockEntity extends TileEntity implements ITickable{
         counter = defaultCounter;
     }
 
-    @SideOnly(Side.CLIENT)
     public void updateStateInServer(){
         ClockMessage clkMessage = new ClockMessage(pos, world.isRemote, getMaxCount(), getStep(), disabled, fullRestarting);
         LogicGatesPacketHandler.INSTANCE.sendToServer(clkMessage);
     }
 
-    @SideOnly(Side.SERVER)
     public void updateStateToClients(World world){
         ClockMessage clkMessage = new ClockMessage(pos, world.isRemote, getMaxCount(), getStep(), disabled, fullRestarting);
         LogicGatesPacketHandler.INSTANCE.sendToDimension(clkMessage, world.provider.getDimension());

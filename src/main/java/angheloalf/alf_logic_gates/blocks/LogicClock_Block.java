@@ -117,6 +117,7 @@ public class LogicClock_Block extends AlfBaseBlock implements IAlternativesOutpu
                 tileEntity.disable(disable, false);
 
                 tileEntity.updateStateToClients(world);
+                notifyStrongPowerToNeighbors(world, pos);
             }
         }
     }

@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
@@ -81,6 +82,7 @@ public class ClockMessage implements IMessage{
         }
 
         @Override
+        @Nullable
         public IMessage onMessage(ClockMessage message, MessageContext ctx){
             if(!message.isRemote){
                 return parseFromServerMessage(message, ctx);
@@ -90,6 +92,7 @@ public class ClockMessage implements IMessage{
             }
         }
 
+        @Nullable
         private IMessage parseFromServerMessage(ClockMessage message, MessageContext ctx){
             World world = Minecraft.getMinecraft().player.world;
             TileEntity tileEntity = world.getTileEntity(message.pos);
@@ -106,6 +109,8 @@ public class ClockMessage implements IMessage{
             }
             return null; // No response packet
         }
+
+        @Nullable
         private IMessage parseFromClientMessage(ClockMessage message, MessageContext ctx){
             EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
             TileEntity tileEntity = serverPlayer.world.getTileEntity(message.pos);
