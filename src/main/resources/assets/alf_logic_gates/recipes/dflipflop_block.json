@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "#+D",
+    " # "
+  ],
+  "key": {
+    "+": {
+      "item": "alf_logic_gates:logic_circuit",
+      "data": 0
+    },
+    "D": {
+      "item": "alf_logic_gates:dlatch_block",
+      "data": 0
+    },
+    "#": {
+      "item": "minecraft:redstone",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "alf_logic_gates:dflipflop_block",
+    "data": 0,
+    "count": 4
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#R#",
+    "R+R",
+    "#R#"
+  ],
+  "key": {
+    "+": {
+      "item": "alf_logic_gates:logic_circuit",
+      "data": 0
+    },
+    "#": {
+      "item": "minecraft:redstone",
+      "data": 0
+    },
+    "R": {
+      "item": "minecraft:repeater",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "alf_logic_gates:logic_clock",
+    "data": 0,
+    "count": 4
+  }
+}
